@@ -1,0 +1,22 @@
+package cards.utilities;
+
+//
+//  LoadableXMLI.java
+//  Game_18XX
+//
+//  Created by Mark Smith on 11/28/07.
+//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//
+
+import cards.utilities.ParsingRoutineI;
+import cards.utilities.XMLDocument;
+
+import java.io.*;
+
+public interface LoadableXMLI extends ParsingRoutineI {
+	/* Returns the name of the Loadable Object for Error Messages */
+	public String getTypeName ();
+	
+	/* Loads from a XML Document the object, throws one IOException */
+	public void loadXML (XMLDocument aXMLDocument) throws IOException;
+}
