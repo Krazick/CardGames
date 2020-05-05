@@ -141,6 +141,14 @@ public class Card {
 		return faceUp;
 	}
 	
+	public boolean isRed () {
+		return ("Red".equals (suit.getColor ()));
+	}
+	
+	public boolean isBlack () {
+		return ("Black".equals (suit.getColor ()));
+	}
+	
 	public String getFullName () {
 		return rank.getName () + " of " + suit;
 	}
