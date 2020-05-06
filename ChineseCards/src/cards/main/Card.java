@@ -1,19 +1,25 @@
 package cards.main;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+
+import javax.swing.ImageIcon;
+
 public class Card {
 	public static int MIN_RANK_INDEX = 1;
 	public static int MAX_RANK_INDEX = 13;
 	public Card NO_CARD = null;
 	
-	public enum Suit { 
-		NO_SUIT  ("INVALID",  "NO COLOR", "SYMBOL"),
+	public enum Suits { 
 		HEARTS   ("Hearts",   "Red",      "H"),
 		DIAMONDS ("Diamonds", "Red",      "D"),
 		CLUBS    ("Clubs",    "Black",    "C"),
 		SPADES   ("Spades",   "Black",    "B");
 		
 		String name, color, symbol;
-		Suit (String aName, String aColor, String aSymbol) {
+		Suits (String aName, String aColor, String aSymbol) {
 			name = aName;
 			color = aColor;
 			symbol = aSymbol;
@@ -36,7 +42,7 @@ public class Card {
 		}
 	}
 	
-	public enum Rank { NO_CARD ("INVALID", 0),
+	public enum Ranks { 
 		ACE  ("Ace", 1),   TWO ("2",   2),      THREE ("3", 3), FOUR  ("4", 4), 
 		FIVE ("5",   5),   SIX ("6",   6),      SEVEN ("7", 7), EIGHT ("8", 8), 
 		NINE ("9",   9),   TEN ("10", 10), 
@@ -45,7 +51,7 @@ public class Card {
 		String name;
 		int value;
 		
-		Rank (String aName, int aValue) {
+		Ranks (String aName, int aValue) {
 			name = aName;
 			value = aValue;
 		}
@@ -64,52 +70,78 @@ public class Card {
 		}
 		
 		public String getShortName () {
-			return name.substring (0, 1);
+			String tShortName;
+			
+			if (value == 10) {
+				tShortName = name;
+			} else {
+				tShortName = name.substring (0, 1);
+			}
+			
+			return tShortName;
 		}
 	}
 	
-	private Rank rank;
-	private Suit suit;
+	private Ranks rank;
+	private Suits suit;
 	private boolean faceUp;
-	public Rank [] allRanks = { 
-			Rank.ACE,  Rank.TWO,   Rank.THREE,  Rank.FOUR, Rank.FIVE, 
-			Rank.SIX,  Rank.SEVEN, Rank.EIGHT,  Rank.NINE, Rank.TEN, 
-			Rank.JACK, Rank.QUEEN, Rank.KING };
+	ImageIcon image;
+	public Ranks [] allRanks = { 
+			Ranks.ACE,  Ranks.TWO,   Ranks.THREE,  Ranks.FOUR, Ranks.FIVE, 
+			Ranks.SIX,  Ranks.SEVEN, Ranks.EIGHT,  Ranks.NINE, Ranks.TEN, 
+			Ranks.JACK, Ranks.QUEEN, Ranks.KING };
 	
-	public Card (Rank aRank, String aSuit) {
+	public Card (Ranks aRank, String aSuit) {
 		setRank (aRank);
 		setSuit (aSuit);
 		faceUp = true;
+		setImage ();
 	}
 
 	public Card (int aRank, String aSuit) {
-		Rank tRank = getMatchingRank (aRank);
-		setRank (tRank);
+		setRank (getMatchingRank (aRank));
 		setSuit (aSuit);
 		faceUp = true;
+		setImage ();
 	}
 	
-	public Suit getMatchingSuit (String aSuit) {
-		Suit tSuit = Suit.NO_SUIT;
+	public Card (int aRank, Suits aSuit) {
+		setRank (getMatchingRank (aRank));
+		setSuit (aSuit);
+		faceUp = true;
+		setImage ();
+	}
+	
+	public Card (Ranks aRank, Suits aSuit) {
+		setRank (aRank);
+		setSuit (aSuit);
+		faceUp = true;
+		setImage ();
+	}
+
+	public Suits getMatchingSuit (String aSuit) {
+		Suits tSuit;
 		
-		if (Suit.CLUBS.getName ().equals (aSuit)) {
-			tSuit = Suit.CLUBS;
-		} else if (Suit.DIAMONDS.getName ().equals (aSuit)) {
-			tSuit = Suit.DIAMONDS;
-		} else if (Suit.HEARTS.getName ().equals (aSuit)) {
-			tSuit = Suit.HEARTS;
-		} else if (Suit.SPADES.getName ().equals (aSuit)) {
-			tSuit = Suit.SPADES;
+		if (Suits.CLUBS.getName ().equals (aSuit)) {
+			tSuit = Suits.CLUBS;
+		} else if (Suits.DIAMONDS.getName ().equals (aSuit)) {
+			tSuit = Suits.DIAMONDS;
+		} else if (Suits.HEARTS.getName ().equals (aSuit)) {
+			tSuit = Suits.HEARTS;
+		} else if (Suits.SPADES.getName ().equals (aSuit)) {
+			tSuit = Suits.SPADES;
+		} else {
+			throw new IllegalArgumentException ("Invalid Suit");
 		}
 		
 		return tSuit;
 	}
 	
-	public Rank getMatchingRank (int aRankIndex) {
-		Rank tRank;
+	public Ranks getMatchingRank (int aRankIndex) {
+		Ranks tRank;
 		
 		if ((aRankIndex < MIN_RANK_INDEX) || (aRankIndex > MAX_RANK_INDEX)) {
-			tRank = Rank.NO_CARD;
+			throw new IllegalArgumentException ("Invalid Rank");
 		} else {
 			tRank = allRanks [aRankIndex - 1];
 		}
@@ -117,11 +149,11 @@ public class Card {
 		return tRank;
 	}
 
-	private void setRank (Rank aRank) {
+	private void setRank (Ranks aRank) {
 		rank = aRank;
 	}
 	
-	private void setSuit (Suit aSuit) {
+	private void setSuit (Suits aSuit) {
 		suit = aSuit;
 	}
 	
@@ -129,7 +161,7 @@ public class Card {
 		setSuit (getMatchingSuit (aSuit));
 	}
 	
-	public Rank getRank () {
+	public Ranks getRank () {
 		return rank;
 	}
 	
@@ -155,5 +187,49 @@ public class Card {
 	
 	public String getShortName () {
 		return rank.getShortName () + suit;
+	}
+	
+	public String getAbbrev () {
+		return rank.getShortName () + suit.toString ().substring (0, 1);
+	}
+	
+	public ImageIcon getImage () throws Exception {
+		if (image != null) {
+			return image;
+		} else {
+			throw (new Exception ("Missing Image"));
+		}
+	}
+	
+	private void setImage () {
+		
+		try {
+			image = loadAndScaleImage ();
+		} catch (Exception tException) {
+			System.err.println ("Missing Image File " + getFullName ());
+		}
+	}
+	
+	private ImageIcon loadAndScaleImage () {
+		ImageIcon tImage;
+		Image tScaledImage;
+		
+		tImage = new ImageIcon ("Images/" + getAbbrev () + ".jpg");
+		System.out.println ("Found and Loaded Image for " + getFullName ());
+		tScaledImage = getScaledImage (tImage.getImage (), 110, 170);
+		tImage.setImage (tScaledImage);
+		
+		return tImage;
+	}
+	
+	private Image getScaledImage (Image srcImg, int w, int h){
+	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g2 = resizedImg.createGraphics();
+
+	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+	    g2.drawImage(srcImg, 0, 0, w, h, null);
+	    g2.dispose();
+
+	    return resizedImg;
 	}
 }

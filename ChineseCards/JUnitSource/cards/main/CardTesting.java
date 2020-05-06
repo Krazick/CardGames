@@ -2,10 +2,9 @@ package cards.main;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import cards.main.Card.Rank;
 
 @DisplayName ("Card Class Testing")
 class CardTesting {
@@ -14,15 +13,14 @@ class CardTesting {
 	@DisplayName ("Verify Card Constructors")
 	void test () {
 		Card singleCard, anotherCard, thirdCard;
-		Card invalidCard;
 		
-		singleCard = new Card (Card.Rank.ACE, "Hearts");
+		singleCard = new Card (Card.Ranks.ACE, "Hearts");
 		assertEquals ("Ace of Hearts", singleCard.getFullName ());
 		assertEquals ("AHearts", singleCard.getShortName ());
 		assertTrue (singleCard.isRed ());
 		assertFalse (singleCard.isBlack ());
 		
-		anotherCard = new Card (Card.Rank.SEVEN, "Clubs");
+		anotherCard = new Card (Card.Ranks.SEVEN, "Clubs");
 		assertEquals ("7 of Clubs", anotherCard.getFullName ());
 		assertEquals ("7Clubs", anotherCard.getShortName ());
 		assertTrue (anotherCard.isBlack ());
@@ -34,17 +32,30 @@ class CardTesting {
 		assertTrue (singleCard.isRed ());
 		assertFalse (singleCard.isBlack ());
 		
-		anotherCard = new Card (Card.Rank.KING, "Spades");
+		anotherCard = new Card (Card.Ranks.KING, "Spades");
 		assertEquals ("King of Spades", anotherCard.getFullName ());
 		assertEquals ("KSpades", anotherCard.getShortName ());
 		assertTrue (anotherCard.isBlack ());
 		assertFalse (anotherCard.isRed ());
 		
-		invalidCard = new Card (0, "NOT ACE");
-		assertEquals (Rank.NO_CARD, invalidCard.getRank ());
+		anotherCard = new Card (Card.Ranks.QUEEN, Card.Suits.HEARTS);
+		assertEquals ("Queen of Hearts", anotherCard.getFullName ());
+		assertEquals ("QHearts", anotherCard.getShortName ());
+		assertTrue (anotherCard.isRed ());
+		assertFalse (anotherCard.isBlack ());
+
+		thirdCard = new Card (7, Card.Suits.DIAMONDS);
+		assertEquals ("7 of Diamonds", thirdCard.getFullName ());
+		assertEquals ("7Diamonds", thirdCard.getShortName ());
+		assertTrue (singleCard.isRed ());
+		assertFalse (singleCard.isBlack ());
+
+		Assertions.assertThrows (IllegalArgumentException.class, () -> {
+			new Card (0, "NOT ACE"); });
 		
-		invalidCard = new Card (53, "NOT GOOD");
-		assertEquals (Rank.NO_CARD, invalidCard.getRank ());
+		Assertions.assertThrows (IllegalArgumentException.class, () -> {
+			new Card (53, "NOT GOOD"); });
+
 	}
 
 }
