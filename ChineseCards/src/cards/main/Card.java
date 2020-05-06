@@ -16,7 +16,9 @@ public class Card {
 		HEARTS   ("Hearts",   "Red",      "H"),
 		DIAMONDS ("Diamonds", "Red",      "D"),
 		CLUBS    ("Clubs",    "Black",    "C"),
-		SPADES   ("Spades",   "Black",    "B");
+		SPADES   ("Spades",   "Black",    "B"),
+		JOKER_RED   ("Joker Red",   "Red",   "JR"),
+		JOKER_BLACK ("Joker Black", "Black", "JB");
 		
 		String name, color, symbol;
 		Suits (String aName, String aColor, String aSymbol) {
@@ -46,7 +48,7 @@ public class Card {
 		ACE  ("Ace", 1),   TWO ("2",   2),      THREE ("3", 3), FOUR  ("4", 4), 
 		FIVE ("5",   5),   SIX ("6",   6),      SEVEN ("7", 7), EIGHT ("8", 8), 
 		NINE ("9",   9),   TEN ("10", 10), 
-		JACK ("Jack", 11), QUEEN ("Queen", 12), KING ("King", 13); 
+		JACK ("Jack", 11), QUEEN ("Queen", 12), KING ("King", 13), JOKER ("Joker", 0); 
 		
 		String name;
 		int value;
@@ -173,6 +175,14 @@ public class Card {
 		return faceUp;
 	}
 	
+	public boolean isRank (Ranks aRank) {
+		return rank.equals (aRank);
+	}
+	
+	public boolean isSuit (Suits aSuit) {
+		return suit.equals (aSuit);
+	}
+	
 	public boolean isRed () {
 		return ("Red".equals (suit.getColor ()));
 	}
@@ -215,7 +225,6 @@ public class Card {
 		Image tScaledImage;
 		
 		tImage = new ImageIcon ("Images/" + getAbbrev () + ".jpg");
-		System.out.println ("Found and Loaded Image for " + getFullName ());
 		tScaledImage = getScaledImage (tImage.getImage (), 110, 170);
 		tImage.setImage (tScaledImage);
 		

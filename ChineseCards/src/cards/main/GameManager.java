@@ -3,6 +3,7 @@ package cards.main;
 import java.awt.Component;
 
 import cards.config.GameFrameConfig;
+import cards.main.Deck.Types;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
 
@@ -23,7 +24,7 @@ public class GameManager extends Component implements NetworkGameSupport {
 		Deck gameDeck;
 		Deck playerHand;
 		
-		gameDeck = new Deck ("Standard");
+		gameDeck = new Deck (Types.STANDARD);
 		gameDeck.printCards ();
 		System.out.println ("\n\n---------SHUFFLE----------\n\n");
 		gameDeck.shuffle ();
