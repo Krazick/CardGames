@@ -22,7 +22,7 @@ public class GameManager extends Component implements NetworkGameSupport {
 	public static void main (String[] args) {
 		System.out.println ("Card Game Manager");
 		Deck gameDeck;
-		Deck playerHand;
+		CardSet playerHand;
 		
 		gameDeck = new Deck (Types.STANDARD);
 		gameDeck.printCards ();

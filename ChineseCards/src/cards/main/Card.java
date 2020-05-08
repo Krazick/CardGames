@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 public class Card {
 	public static int MIN_RANK_INDEX = 1;
 	public static int MAX_RANK_INDEX = 13;
-	public Card NO_CARD = null;
 	
 	public enum Suits { 
 		HEARTS   ("Hearts",   "Red",      "H"),
@@ -212,7 +211,6 @@ public class Card {
 	}
 	
 	private void setImage () {
-		
 		try {
 			image = loadAndScaleImage ();
 		} catch (Exception tException) {

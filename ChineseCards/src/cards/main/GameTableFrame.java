@@ -14,7 +14,7 @@ public class GameTableFrame extends XMLFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	Container playArea;
-	Deck cardsForPlayer;
+	CardSet cardsForPlayer;
 	
 	public GameTableFrame (String aFrameName) {
 		super (aFrameName);
@@ -50,7 +50,7 @@ public class GameTableFrame extends XMLFrame {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setCardsForPlayer (Deck aDeck) {
+	public void setCardsForPlayer (CardSet aDeck) {
 		cardsForPlayer = aDeck;
 	}
 	

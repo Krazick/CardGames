@@ -6,18 +6,17 @@ import java.util.Collections;
 import cards.main.Card.Ranks;
 import cards.main.Card.Suits;
 
-public class Deck {
-	ArrayList<Card> cards;
-	public enum Types { STANDARD, STANDARD_JOKERS };
+public class Deck extends CardSet {
+	public enum Types { STANDARD, STANDARD_JOKERS, UNKNOWN };
 	
 	public Deck () {
-		buildEmptyDeck ();		
+		buildEmptyCardSet ();		
 	}
 	
 	public Deck (Types aType) {
 		Card tCard;
 		
-		buildEmptyDeck ();
+		buildEmptyCardSet ();
 		
 		if (aType.equals (Types.STANDARD)) {
 			fillStandardDeck ();
@@ -46,31 +45,22 @@ public class Deck {
 		}
 	}
 
-	public void buildEmptyDeck () {
-		cards = new ArrayList<Card> ();
-	}
-	
 	public void shuffle () {
 		Collections.shuffle (cards);
 	}
 	
-	public void printCards () {
-		int tIndex = 1;
+	public boolean duplicate (CardSet aDuplicateDeck) {
+		boolean tDuplicated = false;
 		
-		for (Card tCard : cards) {
-			System.out.println (tIndex + ": " + tCard.getFullName ());
-			tIndex++;
-		}
-	}
-	
-	public boolean duplicate (Deck aDuplicateDeck) {
-		boolean tDuplicated;
-		
-		if (aDuplicateDeck.isEmpty ()) {
-			for (Card tCard : cards) {
-				aDuplicateDeck.add (tCard);
+		if ((aDuplicateDeck != null) && (aDuplicateDeck.isEmpty ())) {
+			if (isEmpty ()) {
+				tDuplicated = true;
+			} else {
+				for (Card tCard : cards) {
+					aDuplicateDeck.add (tCard);
+				}
+				tDuplicated = true;
 			}
-			tDuplicated = true;
 		} else {
 			tDuplicated = false;
 		}
@@ -80,41 +70,27 @@ public class Deck {
 	
 	// Add the entire Deck/Hand being passed in to the current Deck
 	// Equivalent to a "MergeDecks" type of function.
-	public void add (Deck aDeck) {
+	public boolean add (CardSet aCardSet) {
 		Card tCard;
+		boolean tGoodMerge = false;
 		
-		while (! aDeck.isEmpty ()) {
-			tCard = aDeck.pullTopCard ();
-			add (tCard);
+		if (aCardSet != null) {
+			while (! aCardSet.isEmpty ()) {
+				tCard = aCardSet.pullFirstCard ();
+				add (tCard);
+			}
+			tGoodMerge = true;
 		}
-	}
-	
-	public void add (Card aCard) {
-		cards.add (aCard);
+		
+		return tGoodMerge;
 	}
 	
 	public Card getTopCard () {
 		return get (0);
 	}
 	
-	public Card get (int aIndex) {
-		return cards.get (aIndex);
-	}
-	
 	public void removeTopCard () {
 		remove (0);
-	}
-	
-	public void remove (int aIndex) {
-		cards.remove (aIndex);
-	}
-	
-	public boolean isEmpty () {
-		return cards.isEmpty ();
-	}
-	
-	public int getCount () {
-		return cards.size ();
 	}
 	
 	public Card pullTopCard () {
@@ -126,64 +102,82 @@ public class Deck {
 		return tCard ;
 	}
 	
-	public void dealACard (Deck aToDeck) {
-		if (! isEmpty ()) {
-			Card tThisCard;
-			
-			tThisCard = pullTopCard ();
-			aToDeck.add (tThisCard);
+	public boolean dealACard (CardSet aToCardSet) {
+		boolean tGoodDeal = false;
+		
+		if (aToCardSet != null) {
+			if (! isEmpty ()) {
+				Card tThisCard;
+				
+				tThisCard = pullTopCard ();
+				aToCardSet.add (tThisCard);
+				tGoodDeal = true;
+			}
 		}
+		
+		return tGoodDeal;
 	}
 	
-	public void dealAllCards (ArrayList<Deck> aPlayerHands) {
+	private boolean goodPlayerHands (ArrayList<Hand> aPlayerHands) {
+		boolean tGoodPlayerHands = false;
+		int tPlayerCount, tPlayerIndex;
+		
+		if (aPlayerHands != null) {
+			tPlayerCount = aPlayerHands.size ();
+			if (tPlayerCount > 0) {
+				tGoodPlayerHands = true;
+				for (tPlayerIndex = 0; tPlayerIndex < tPlayerCount; tPlayerIndex++) {
+					if (aPlayerHands.get (tPlayerIndex) == null) {
+						tGoodPlayerHands = false;
+					}
+				}
+			}
+		}
+		
+		return tGoodPlayerHands;
+	}
+	
+	public boolean dealAllCards (ArrayList<Hand> aPlayerHands) {
 		int tPlayerIndex, tPlayerCount;
+		boolean tGoodPlayerHands;
+		boolean tGoodDeal = false;
 		
-		tPlayerCount = aPlayerHands.size ();
-		tPlayerIndex = 0;
-		while (! isEmpty ()) {
-			dealACard (aPlayerHands.get (tPlayerIndex));
-			tPlayerIndex = (tPlayerIndex + 1) % tPlayerCount;
+		tGoodPlayerHands = goodPlayerHands (aPlayerHands);
+		if (tGoodPlayerHands) {
+			tPlayerCount = aPlayerHands.size ();
+			tPlayerIndex = 0;
+			while (! isEmpty ()) {
+				dealACard (aPlayerHands.get (tPlayerIndex));
+				tPlayerIndex = (tPlayerIndex + 1) % tPlayerCount;
+			}
+			tGoodDeal = true;
 		}
+		
+		return tGoodDeal;
 	}
-	
-	public void dealXCards (ArrayList<Deck> aPlayerHands, int aDealCount) {
+
+	public boolean dealXCards (ArrayList<Hand> aPlayerHands, int aDealCount) {
 		int tPlayerIndex, tPlayerCount, tCardCount;
+		boolean tGoodDeal = false;
+		boolean tGoodPlayerHands;
 		
-		tPlayerCount = aPlayerHands.size ();
-		tPlayerIndex = 0;
-		tCardCount = 0;
-		while (tCardCount < (tPlayerCount * aDealCount)) {
-			dealACard (aPlayerHands.get (tPlayerIndex));
-			tPlayerIndex = (tPlayerIndex + 1) % tPlayerCount;
-			tCardCount++;
-		}
-	}
-	
-	public int getCountOfSuit (Suits aSuitToCount) {
-		int tCountOfSuit = 0;
-		
-		if (! isEmpty()) {
-			for (Card tCard : cards) {
-				if (tCard.isSuit (aSuitToCount)) {
-					tCountOfSuit++;
+		tGoodPlayerHands = goodPlayerHands (aPlayerHands);
+		if (tGoodPlayerHands) {
+			tPlayerCount = aPlayerHands.size ();
+			if (aDealCount > 0) {
+				if ((tPlayerCount * aDealCount) <= getCount ()) {
+					tPlayerIndex = 0;
+					tCardCount = 0;
+					while (tCardCount < (tPlayerCount * aDealCount)) {
+						dealACard (aPlayerHands.get (tPlayerIndex));
+						tPlayerIndex = (tPlayerIndex + 1) % tPlayerCount;
+						tCardCount++;
+					}
+					tGoodDeal = true;
 				}
 			}
 		}
 		
-		return tCountOfSuit;
-	}
-	
-	public int getCountOfRank (Ranks aRankToCount) {
-		int tCountOfRank = 0;
-		
-		if (! isEmpty()) {
-			for (Card tCard : cards) {
-				if (tCard.isRank (aRankToCount)) {
-					tCountOfRank++;
-				}
-			}
-		}
-		
-		return tCountOfRank;
+		return tGoodDeal;
 	}
 }
