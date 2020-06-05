@@ -1,8 +1,6 @@
 package cards.main;
 
-import java.util.ArrayList;
 import java.util.Collections;
-
 import cards.main.Card.Ranks;
 import cards.main.Card.Suits;
 
@@ -118,7 +116,7 @@ public class Deck extends CardSet {
 		return tGoodDeal;
 	}
 	
-	private boolean goodPlayerHands (ArrayList<Hand> aPlayerHands) {
+	private boolean goodPlayerHands (PlayerHands aPlayerHands) {
 		boolean tGoodPlayerHands = false;
 		int tPlayerCount, tPlayerIndex;
 		
@@ -137,7 +135,7 @@ public class Deck extends CardSet {
 		return tGoodPlayerHands;
 	}
 	
-	public boolean dealAllCards (ArrayList<Hand> aPlayerHands) {
+	public boolean dealAllCards (PlayerHands aPlayerHands) {
 		int tPlayerIndex, tPlayerCount;
 		boolean tGoodPlayerHands;
 		boolean tGoodDeal = false;
@@ -155,8 +153,8 @@ public class Deck extends CardSet {
 		
 		return tGoodDeal;
 	}
-
-	public boolean dealXCards (ArrayList<Hand> aPlayerHands, int aDealCount) {
+	
+	public boolean dealXCards (PlayerHands aPlayerHands, int aDealCount) {
 		int tPlayerIndex, tPlayerCount, tCardCount;
 		boolean tGoodDeal = false;
 		boolean tGoodPlayerHands;

@@ -1,9 +1,6 @@
 package cards.main;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,7 +52,7 @@ class DeckTesting {
 	@DisplayName ("Test Dealing Cards to 4 Players") 
 	void DealingCardsTest () {
 		Deck tMainDeck;
-		ArrayList<Hand> tPlayerHands;
+		PlayerHands tPlayerHands;
 		int tPlayerIndex, tPlayerCount = 4;
 		
 		tMainDeck = standardDeck;
@@ -90,17 +87,15 @@ class DeckTesting {
 		}
 	}
 
-	private ArrayList<Hand> buildPlayerHands (int aPlayerCount) {
-		Hand tPlayerHand;
-		ArrayList<Hand> tPlayerHands;
+	private PlayerHands buildPlayerHands (int aPlayerCount) {
+		PlayerHands tPlayerHands;
 		int tPlayerIndex;
 		
-		tPlayerHands = new ArrayList<Hand> ();
+		tPlayerHands = new PlayerHands ();
 		
 		for (tPlayerIndex = 0; tPlayerIndex < aPlayerCount; tPlayerIndex++) {
-			tPlayerHand = new Hand ("DeckTester_" + tPlayerIndex);
-			assertEquals ("DeckTester_" + tPlayerIndex, tPlayerHand.getPlayerName ());
-			tPlayerHands.add (tPlayerHand);
+			tPlayerHands.add ("DeckTester_" + tPlayerIndex);
+			assertEquals ("DeckTester_" + tPlayerIndex, tPlayerHands.getPlayerName (tPlayerIndex));
 		}
 		
 		return tPlayerHands;
@@ -112,7 +107,7 @@ class DeckTesting {
 		Deck tMainDeck;
 		Hand tPlayerHand;
 		boolean tGoodDeal, tDuplicateSuccess;
-		ArrayList<Hand> tPlayerHands;
+		PlayerHands tPlayerHands;
 		int tPlayerCount = 4, tDealCount;
 		
 		tMainDeck = emptyDeck;
@@ -221,8 +216,8 @@ class DeckTesting {
 	void dealToBadPlayerHandsTest () {
 		Deck tMainDeck;
 		boolean tGoodDeal;
-		ArrayList<Hand> tPlayerHands;
-
+		PlayerHands tPlayerHands;
+		
 		tPlayerHands = null;
 		tMainDeck = standardDeck;
 		tGoodDeal = tMainDeck.dealAllCards (tPlayerHands);
@@ -230,11 +225,7 @@ class DeckTesting {
 	
 		tGoodDeal = tMainDeck.dealXCards (tPlayerHands, 3);
 		assertFalse (tGoodDeal);
-		
-		tPlayerHands = buildNullPlayerHands (4);
-		tGoodDeal = tMainDeck.dealAllCards (tPlayerHands);
-		assertFalse (tGoodDeal);
-		
+				
 		tGoodDeal = tMainDeck.dealXCards (tPlayerHands, 5);
 		assertFalse (tGoodDeal);
 
@@ -250,26 +241,6 @@ class DeckTesting {
 		assertFalse (tGoodDeal);
 	}
 	
-	private ArrayList<Hand> buildNullPlayerHands (int aPlayerCount) {
-		Hand tPlayerHand;
-		ArrayList<Hand> tPlayerHands;
-		int tPlayerIndex;
-		
-		tPlayerHands = new ArrayList<Hand> ();
-		
-		for (tPlayerIndex = 0; tPlayerIndex < aPlayerCount; tPlayerIndex++) {
-			tPlayerHand = new Hand ("DeckTester_" + tPlayerIndex);
-			assertEquals ("DeckTester_" + tPlayerIndex, tPlayerHand.getPlayerName ());
-			// Testing with one Bad Player Hand
-			if (tPlayerIndex == 1) {
-				tPlayerHand = null;
-			}
-			tPlayerHands.add (tPlayerHand);
-		}
-		
-		return tPlayerHands;
-	}
-
 	@Test
 	@DisplayName ("Test Unkown Deck Type construction")
 	void unknownDeckTypeConstructionTest () {
