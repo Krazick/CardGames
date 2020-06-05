@@ -33,6 +33,7 @@ public class GameManager extends Component implements NetworkGameSupport {
 		
 		gameTableFrame = new GameTableFrame ("Game Table");
 		gameTableFrame.setCardsForPlayer (playerHand);
+		gameTableFrame.sortCardsForPlayer ();
 		gameTableFrame.addToPlayArea ();
 	}
 

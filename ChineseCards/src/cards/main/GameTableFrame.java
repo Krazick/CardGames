@@ -60,4 +60,9 @@ public class GameTableFrame extends XMLFrame {
 			}
 		}
 	}
+
+	public void sortCardsForPlayer () {
+		cardsForPlayer.sort ();
+	}
+	
 }

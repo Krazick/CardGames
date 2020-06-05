@@ -166,6 +166,10 @@ public class Card {
 		return rank;
 	}
 	
+	public int getRankValue () {
+		return rank.getValue ();
+	}
+	
 	public String getSuit () {
 		return suit.getName ();
 	}
@@ -176,6 +180,10 @@ public class Card {
 	
 	public boolean isRank (Ranks aRank) {
 		return rank.equals (aRank);
+	}
+	
+	public boolean isSameSuit (Card aCard) {
+		return getSuit ().equals (aCard.getSuit ());
 	}
 	
 	public boolean isSuit (Suits aSuit) {
@@ -238,5 +246,25 @@ public class Card {
 	    g2.dispose();
 
 	    return resizedImg;
+	}
+	
+	public int suitCompare (Card aCard) {
+		return - (getSuit ().compareTo (aCard.getSuit ()));
+	}
+	
+	public int rankValueCompare (Card aCard) {
+		int tRankOrder;
+		int tOtherRankValue = aCard.getRankValue ();
+		int tThisRankValue = getRankValue ();
+		
+		if (tThisRankValue == tOtherRankValue) {
+			tRankOrder = 0;
+		} else if (tThisRankValue > tOtherRankValue) {
+			tRankOrder = -1;
+		} else {
+			tRankOrder = 1;
+		}
+		
+		return tRankOrder;
 	}
 }

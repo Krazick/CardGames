@@ -1,6 +1,8 @@
 package cards.main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import cards.main.Card.Ranks;
 import cards.main.Card.Suits;
@@ -81,5 +83,24 @@ public abstract class CardSet {
 		
 		return tCountOfRank;
 	}
-
+	
+	public void sort () {
+		Collections.sort (cards, new CardComparator ());
+	}
+	
+	public class CardComparator implements Comparator<Card> {
+		
+	    @Override
+	    public int compare (Card aCard1, Card aCard2) {
+	    	int tOrder;
+	    	
+	    	if (aCard1.isSameSuit (aCard2)) {
+	    		tOrder = aCard1.rankValueCompare (aCard2);
+	    	} else {
+	    		tOrder = aCard1.suitCompare (aCard2);
+	    	}
+	    	
+	        return tOrder;
+	    }
+	}
 }
