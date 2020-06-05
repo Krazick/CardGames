@@ -2,16 +2,11 @@ package cards.main;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameTableFrame extends XMLFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	Container playArea;
 	CardSet cardsForPlayer;
@@ -47,7 +42,6 @@ public class GameTableFrame extends XMLFrame {
 
 	public GameTableFrame (String aFrameName, String aGameName) {
 		super (aFrameName, aGameName);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void setCardsForPlayer (CardSet aDeck) {

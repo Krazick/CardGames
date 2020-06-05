@@ -27,7 +27,7 @@ public class Deck extends CardSet {
 			tCard = new Card (Ranks.JOKER, Suits.JOKER_BLACK);
 			cards.add (tCard);
 		} else {
-			System.err.println ("Not a know Deck Type");
+			System.err.println ("Not a known Deck Type");
 		}
 	}
 
