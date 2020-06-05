@@ -18,21 +18,22 @@ public class GameManager extends Component implements NetworkGameSupport {
 	public static void main (String[] args) {
 		System.out.println ("Card Game Manager");
 		Deck gameDeck;
-		CardSet playerHand;
+		Hand playerHand;
+		String tPlayerName = "George";
 		
 		gameDeck = new Deck (Types.STANDARD);
 		gameDeck.printCards ();
 		System.out.println ("\n\n---------SHUFFLE----------\n\n");
 		gameDeck.shuffle ();
 		gameDeck.printCards ();
-		playerHand = new Deck ();
+		playerHand = new Hand (tPlayerName);
 		
 		for (int i = 0; i < 13; i++) {
 			gameDeck.dealACard (playerHand);
 		}
 		
 		gameTableFrame = new GameTableFrame ("Game Table");
-		gameTableFrame.setCardsForPlayer (playerHand);
+		gameTableFrame.savePlayerHand (playerHand);
 		gameTableFrame.sortCardsForPlayer ();
 		gameTableFrame.addToPlayArea ();
 	}

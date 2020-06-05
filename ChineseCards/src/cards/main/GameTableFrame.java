@@ -9,16 +9,18 @@ import javax.swing.JPanel;
 public class GameTableFrame extends XMLFrame {
 	private static final long serialVersionUID = 1L;
 	Container playArea;
-	CardSet cardsForPlayer;
+	Hand playerHand;
+	JLabel playerName;
 	
 	public GameTableFrame (String aFrameName) {
 		super (aFrameName);
-		JLabel tPlayerName = new JLabel ("Player Name: " + "Fred");
+		
+		playerName = new JLabel ("Player Name: ");
 		
 		JPanel panel = new JPanel (new BorderLayout ());
 		playArea = Box.createHorizontalBox ();
 		
-		panel.add (tPlayerName,  BorderLayout.NORTH);
+		panel.add (playerName,  BorderLayout.NORTH);
 		panel.add (playArea, BorderLayout.CENTER);
 		
 		add (panel);
@@ -26,6 +28,10 @@ public class GameTableFrame extends XMLFrame {
 		setVisible (true);
 	}
 
+	public void setPlayerName (String aName) {
+		playerName.setText ("Player Name: " + aName);
+	}
+	
 	private void showACard (Card aCard) {
 		JLabel cardImage;
 		cardImage = new JLabel ();
@@ -44,25 +50,26 @@ public class GameTableFrame extends XMLFrame {
 		super (aFrameName, aGameName);
 	}
 	
-	public void setCardsForPlayer (CardSet aDeck) {
-		cardsForPlayer = aDeck;
+	public void savePlayerHand (Hand aHand) {
+		playerHand = aHand;
+		setPlayerName (playerHand.getPlayerName ());
 	}
 	
 	public void addToPlayArea () {
 		int tCardIndex, tCardCount;
 		
-		tCardCount = cardsForPlayer.getCount ();
+		tCardCount = playerHand.getCount ();
 		if (tCardCount > 0) {
 			Card tCard;
 			for (tCardIndex = 0; tCardIndex < tCardCount; tCardIndex++) {
-				tCard = cardsForPlayer.get (tCardIndex);
+				tCard = playerHand.get (tCardIndex);
 				showACard (tCard);
 			}
 		}
 	}
 
 	public void sortCardsForPlayer () {
-		cardsForPlayer.sort ();
+		playerHand.sort ();
 	}
 	
 }
