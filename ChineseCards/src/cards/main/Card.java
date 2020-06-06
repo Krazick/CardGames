@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Card {
 	public static int MIN_RANK_INDEX = 1;
@@ -44,7 +45,7 @@ public class Card {
 	}
 	
 	public enum Ranks { 
-		ACE  ("Ace", 1),   TWO ("2",   2),      THREE ("3", 3), FOUR  ("4", 4), 
+		ACE  ("Ace", 14),   TWO ("2",   2),      THREE ("3", 3), FOUR  ("4", 4), 
 		FIVE ("5",   5),   SIX ("6",   6),      SEVEN ("7", 7), EIGHT ("8", 8), 
 		NINE ("9",   9),   TEN ("10", 10), 
 		JACK ("Jack", 11), QUEEN ("Queen", 12), KING ("King", 13), JOKER ("Joker", 0); 
@@ -87,6 +88,8 @@ public class Card {
 	private Suits suit;
 	private boolean faceUp;
 	ImageIcon image;
+	JLabel cardLabel;
+	
 	public Ranks [] allRanks = { 
 			Ranks.ACE,  Ranks.TWO,   Ranks.THREE,  Ranks.FOUR, Ranks.FIVE, 
 			Ranks.SIX,  Ranks.SEVEN, Ranks.EIGHT,  Ranks.NINE, Ranks.TEN, 
@@ -221,9 +224,18 @@ public class Card {
 	private void setImage () {
 		try {
 			image = loadAndScaleImage ();
+			setCardLabel (null);
 		} catch (Exception tException) {
 			System.err.println ("Missing Image File " + getFullName ());
 		}
+	}
+	
+	public void setCardLabel (JLabel aCardLabel) {
+		cardLabel = aCardLabel;
+	}
+	
+	public JLabel getCardLabel () {
+		return cardLabel;
 	}
 	
 	private ImageIcon loadAndScaleImage () {

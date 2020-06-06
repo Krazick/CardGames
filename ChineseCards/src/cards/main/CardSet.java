@@ -7,7 +7,7 @@ import java.util.Comparator;
 import cards.main.Card.Ranks;
 import cards.main.Card.Suits;
 
-public abstract class CardSet {
+public class CardSet {
 	protected ArrayList<Card> cards;
 
 	public CardSet () {
