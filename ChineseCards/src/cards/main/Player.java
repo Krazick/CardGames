@@ -13,6 +13,7 @@ public class Player {
 	NetworkPlayer networkPlayer;
 	Players players;
 	boolean passed;
+	boolean received;
 	
 	public Player (String aName, int aMyIndex) {
 		setName (aName);
@@ -146,5 +147,17 @@ public class Player {
 	
 	public boolean isNotHoldHand () {
 		return (players.getPassIncrement () != 0);
+	}
+	
+	public void setReceived (boolean aReceived) {
+		received = aReceived;
+	}
+	
+	public boolean getReceived () {
+		return received;
+	}
+	
+	public boolean receivedPass () {
+		return received;
 	}
 }

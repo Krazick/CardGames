@@ -104,12 +104,23 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	public void passCards () {
 		CardSet tSelectedCards;
 		Player tPassToPlayer;
+		int tCardCount, tCardIndex;
+		Card tCard;
 		
 		tPassToPlayer = player.getPlayerToPassTo ();
-		System.out.println ("Pass Cards for " + nameLabel.getText () + " to " + tPassToPlayer.getName ());
 		
 		tSelectedCards = removeSelectedCards ();
-		System.out.println ("Selected Card Count is " + tSelectedCards.getCount ());
+		tCardCount = tSelectedCards.getCount ();
+		System.out.println ("Pass Cards for " + nameLabel.getText () + " to " + tPassToPlayer.getName () + " Count " + tCardCount);
+		
+		for (tCardIndex = 0; tCardIndex < tCardCount; tCardIndex++) {
+			tCard = tSelectedCards.get (tCardIndex);
+			tCard.getCardLabel ().removeMouseListener (this);
+			tPassToPlayer.add (tCard);
+			System.out.println ("Add Card " + tCard.getFullName () + " to " + tPassToPlayer.getName ());
+		}
+		tPassToPlayer.sortCards ();
+		tPassToPlayer.showAllCardsInFrame ();
 		revalidate ();
 		player.setPassed (true);
 		disablePassCardsButton ();
@@ -190,7 +201,8 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	
 	private void showACard (Card aCard) {
 		JLabel cardLabel;
-		
+		MouseListener [] allMouseListeners;
+	
 		cardLabel = aCard.getCardLabel ();
 		try {
 			cardLabel.setIcon (aCard.getImage ());
@@ -198,7 +210,10 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 			System.err.println ("oops missing Image for the Card " + aCard.getFullName ());
 			tException.printStackTrace ();
 		}
-		cardLabel.addMouseListener (this);
+		allMouseListeners = cardLabel.getMouseListeners ();
+		if (allMouseListeners.length == 0) {
+			cardLabel.addMouseListener (this);
+		}
 		cardPanel.add (cardLabel);
 		revalidate ();
 	}
