@@ -100,6 +100,16 @@ public class Deck extends CardSet {
 		return tCard ;
 	}
 	
+	public boolean dealACard (Player aPlayer) {
+		boolean tGoodDeal = false;
+		CardSet tCardSet;
+		
+		tCardSet = aPlayer.getHand ();
+		tGoodDeal = dealACard (tCardSet);
+		
+		return tGoodDeal;
+	}
+	
 	public boolean dealACard (CardSet aToCardSet) {
 		boolean tGoodDeal = false;
 		
@@ -115,7 +125,7 @@ public class Deck extends CardSet {
 		
 		return tGoodDeal;
 	}
-	
+		
 	private boolean goodPlayerHands (PlayerHands aPlayerHands) {
 		boolean tGoodPlayerHands = false;
 		int tPlayerCount, tPlayerIndex;
@@ -133,6 +143,23 @@ public class Deck extends CardSet {
 		}
 		
 		return tGoodPlayerHands;
+	}
+	
+	public boolean dealAllCards (Players aPlayers) {
+		boolean tGoodDeal = false;
+		int tPlayerIndex, tPlayerCount;
+		
+		tPlayerCount = aPlayers.getPlayerCount ();
+		if (tPlayerCount > 0) {
+			tPlayerIndex = 0;
+			while (! isEmpty ()) {
+				dealACard (aPlayers.getPlayer (tPlayerIndex));
+				tPlayerIndex = (tPlayerIndex + 1) % tPlayerCount;
+			}
+			tGoodDeal = true;
+		}
+		
+		return tGoodDeal;
 	}
 	
 	public boolean dealAllCards (PlayerHands aPlayerHands) {

@@ -10,7 +10,8 @@ import cards.network.NetworkGameSupport;
 public class GameManager extends Component implements NetworkGameSupport {
 	private static final long serialVersionUID = 1L;
 	public static final String NO_GAME_NAME = "NO-NAME";
-	public static GameTableFrame gameTableFrame;
+	public static PlayerFrame playerFrame;
+	public static Players players;
 	
 	public GameManager () {
 	}
@@ -18,27 +19,29 @@ public class GameManager extends Component implements NetworkGameSupport {
 	public static void main (String[] args) {
 		System.out.println ("Card Game Manager");
 		Deck gameDeck;
-		PlayerHands playerHands;
+		Player tPlayer;
+		int tPassIncrement;
 		
-		playerHands = new PlayerHands ();
-		playerHands.add ("Mary Kay");
-		playerHands.add ("Mark");
-		playerHands.add ("Michelle");
-		playerHands.add ("Vivian");
+		players = new Players ();
+		players.addNewPlayer ("Mary Kay");
+		players.addNewPlayer ("Mark");
+		players.addNewPlayer ("Jacob");
+		players.addNewPlayer ("Elena");
+		players.setPassCount (3);
+		players.setPlayCount (1);
 		
 		gameDeck = new Deck (Types.STANDARD);
-		gameDeck.printCards ();
-		System.out.println ("\n\n---------SHUFFLE----------\n\n");
 		gameDeck.shuffle ();
 		gameDeck.printCards ();
 		
-		gameDeck.dealAllCards (playerHands);
+		gameDeck.dealAllCards (players);
+		tPassIncrement = 1;
+		players.setPassIncrement (tPassIncrement);
 		
-		for (int tPlayerIndex = 0; tPlayerIndex < playerHands.size (); tPlayerIndex++) {
-			gameTableFrame = new GameTableFrame ("Game Table");
-			gameTableFrame.setPlayerHands (playerHands);
-			gameTableFrame.sortCardsForPlayers ();
-			gameTableFrame.addToPlayArea (tPlayerIndex);
+		for (int tPlayerIndex = 0; tPlayerIndex < players.getPlayerCount (); tPlayerIndex++) {
+			tPlayer = players.getPlayer (tPlayerIndex);
+			tPlayer.sortCards ();
+			tPlayer.showAllCardsInFrame ();
 		}
 	}
 
