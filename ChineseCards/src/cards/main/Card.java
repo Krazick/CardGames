@@ -98,31 +98,39 @@ public class Card {
 	public Card (Ranks aRank, String aSuit) {
 		setRank (aRank);
 		setSuit (aSuit);
-		faceUp = true;
+		setFaceUp (true);
 		setImage ();
 	}
 
 	public Card (int aRank, String aSuit) {
 		setRank (getMatchingRank (aRank));
 		setSuit (aSuit);
-		faceUp = true;
+		setFaceUp (true);
 		setImage ();
 	}
 	
 	public Card (int aRank, Suits aSuit) {
 		setRank (getMatchingRank (aRank));
 		setSuit (aSuit);
-		faceUp = true;
+		setFaceUp (true);
 		setImage ();
 	}
 	
 	public Card (Ranks aRank, Suits aSuit) {
 		setRank (aRank);
 		setSuit (aSuit);
-		faceUp = true;
+		setFaceUp (true);
 		setImage ();
 	}
 
+	public void setFaceUp (boolean aFaceUp) {
+		faceUp = aFaceUp;
+	}
+	
+	public boolean getFaceUp () {
+		return faceUp;
+	}
+	
 	public Suits getMatchingSuit (String aSuit) {
 		Suits tSuit;
 		

@@ -107,23 +107,39 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		int tCardCount, tCardIndex;
 		Card tCard;
 		
+		disablePassCardsButton ();
 		tPassToPlayer = player.getPlayerToPassTo ();
-		
 		tSelectedCards = removeSelectedCards ();
 		tCardCount = tSelectedCards.getCount ();
-		System.out.println ("Pass Cards for " + nameLabel.getText () + " to " + tPassToPlayer.getName () + " Count " + tCardCount);
+		System.out.println ("Pass Cards for " + player.getName () + " received Cards " + player.receivedPass () +
+				" to " + tPassToPlayer.getName () + " Count " + tCardCount);
 		
 		for (tCardIndex = 0; tCardIndex < tCardCount; tCardIndex++) {
 			tCard = tSelectedCards.get (tCardIndex);
 			tCard.getCardLabel ().removeMouseListener (this);
+			if (tPassToPlayer.hasNotPassed ()) {
+				tCard.setFaceUp (false);
+			} else {
+				tCard.setFaceUp (true);
+			}
 			tPassToPlayer.add (tCard);
-			System.out.println ("Add Card " + tCard.getFullName () + " to " + tPassToPlayer.getName ());
+			System.out.println ("Add Card " + tCard.getFullName () + " to " + 
+					tPassToPlayer.getName () + 
+					" Has Not Passed " + tPassToPlayer.hasNotPassed ());
 		}
-		tPassToPlayer.sortCards ();
-		tPassToPlayer.showAllCardsInFrame ();
-		revalidate ();
+		tPassToPlayer.setReceived (true);
+		updateCardsInFrame (tPassToPlayer);
+		
 		player.setPassed (true);
-		disablePassCardsButton ();
+		if (player.receivedPass ()) {
+			updateCardsInFrame (player);
+		}
+		revalidate ();
+	}
+
+	public void updateCardsInFrame (Player aPlayer) {
+		aPlayer.sortCards ();
+		aPlayer.showAllCardsInFrame ();
 	}
 	
 	public void playCard () {
@@ -200,22 +216,27 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	}
 	
 	private void showACard (Card aCard) {
-		JLabel cardLabel;
-		MouseListener [] allMouseListeners;
+		JLabel tCardLabel;
 	
-		cardLabel = aCard.getCardLabel ();
+		tCardLabel = aCard.getCardLabel ();
 		try {
-			cardLabel.setIcon (aCard.getImage ());
+			tCardLabel.setIcon (aCard.getImage ());
 		} catch (Exception tException) {
 			System.err.println ("oops missing Image for the Card " + aCard.getFullName ());
 			tException.printStackTrace ();
 		}
-		allMouseListeners = cardLabel.getMouseListeners ();
-		if (allMouseListeners.length == 0) {
-			cardLabel.addMouseListener (this);
-		}
-		cardPanel.add (cardLabel);
+		addMouseListener (tCardLabel);
+		cardPanel.add (tCardLabel);
 		revalidate ();
+	}
+
+	public void addMouseListener (JLabel aCardLabel) {
+		MouseListener[] allMouseListeners;
+		
+		allMouseListeners = aCardLabel.getMouseListeners ();
+		if (allMouseListeners.length == 0) {
+			aCardLabel.addMouseListener (this);
+		}
 	}
 
 	public PlayerFrame (String aFrameName, String aGameName) {
@@ -241,7 +262,14 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 			Card tCard;
 			for (tCardIndex = 0; tCardIndex < tCardCount; tCardIndex++) {
 				tCard = tPlayerHand.get (tCardIndex);
-				showACard (tCard);
+				if (player.hasNotPassed ()) {
+					if (tCard.isFaceUp ()) {
+						showACard (tCard);
+					}
+				} else {
+					tCard.setFaceUp (true);
+					showACard (tCard);
+				}
 			}
 		}
 		

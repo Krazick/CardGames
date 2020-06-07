@@ -26,7 +26,7 @@ public class GameManager extends Component implements NetworkGameSupport {
 		players.addNewPlayer ("Mary Kay");
 		players.addNewPlayer ("Mark");
 		players.addNewPlayer ("Jacob");
-		players.addNewPlayer ("Elena");
+		players.addNewPlayer ("Michelle");
 		players.setPassCount (3);
 		players.setPlayCount (1);
 		

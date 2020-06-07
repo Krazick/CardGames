@@ -28,6 +28,7 @@ public class Players {
 		setPassing (true);
 		for (Player tPlayer : players) {
 			tPlayer.setPassed (false);
+			tPlayer.setReceived (false);
 		}
 	}
 	
