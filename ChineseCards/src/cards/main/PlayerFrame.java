@@ -48,7 +48,7 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		panel.add (buttonsPanel, BorderLayout.SOUTH);
 		
 		add (panel);
-		setSize (700, 300);
+		setSize (650, 300);
 		setVisible (true);
 	}
 
@@ -111,21 +111,12 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		tPassToPlayer = player.getPlayerToPassTo ();
 		tSelectedCards = removeSelectedCards ();
 		tCardCount = tSelectedCards.getCount ();
-		System.out.println ("Pass Cards for " + player.getName () + " received Cards " + player.receivedPass () +
-				" to " + tPassToPlayer.getName () + " Count " + tCardCount);
 		
 		for (tCardIndex = 0; tCardIndex < tCardCount; tCardIndex++) {
 			tCard = tSelectedCards.get (tCardIndex);
 			tCard.getCardLabel ().removeMouseListener (this);
-			if (tPassToPlayer.hasNotPassed ()) {
-				tCard.setFaceUp (false);
-			} else {
-				tCard.setFaceUp (true);
-			}
+			tCard.setFaceUp (false);
 			tPassToPlayer.add (tCard);
-			System.out.println ("Add Card " + tCard.getFullName () + " to " + 
-					tPassToPlayer.getName () + 
-					" Has Not Passed " + tPassToPlayer.hasNotPassed ());
 		}
 		tPassToPlayer.setReceived (true);
 		updateCardsInFrame (tPassToPlayer);
@@ -215,34 +206,6 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		scoreLabel.setText ("Score: " + aScore);
 	}
 	
-	private void showACard (Card aCard) {
-		JLabel tCardLabel;
-	
-		tCardLabel = aCard.getCardLabel ();
-		try {
-			tCardLabel.setIcon (aCard.getImage ());
-		} catch (Exception tException) {
-			System.err.println ("oops missing Image for the Card " + aCard.getFullName ());
-			tException.printStackTrace ();
-		}
-		addMouseListener (tCardLabel);
-		cardPanel.add (tCardLabel);
-		revalidate ();
-	}
-
-	public void addMouseListener (JLabel aCardLabel) {
-		MouseListener[] allMouseListeners;
-		
-		allMouseListeners = aCardLabel.getMouseListeners ();
-		if (allMouseListeners.length == 0) {
-			aCardLabel.addMouseListener (this);
-		}
-	}
-
-	public PlayerFrame (String aFrameName, String aGameName) {
-		super (aFrameName, aGameName);
-	}
-	
 	public void setPlayerIndex (int aPlayerIndex) {
 		playerIndex = aPlayerIndex;
 	}
@@ -254,6 +217,7 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	public void showAllCardsInFrame () {
 		int tCardIndex, tCardCount;
 		Hand tPlayerHand;
+		boolean tWasFaceDown;
 		
 		tPlayerHand = player.getHand ();
 		setPlayerName (tPlayerHand.getPlayerName ());
@@ -267,8 +231,12 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 						showACard (tCard);
 					}
 				} else {
+					tWasFaceDown = ! tCard.isFaceUp ();
 					tCard.setFaceUp (true);
 					showACard (tCard);
+					if (tWasFaceDown) {
+						pushUp (tCard.getCardLabel ());
+					}
 				}
 			}
 		}
@@ -276,6 +244,24 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		disablePassCardsButton ();
 		disablePlayCardButton ();
 		updatePassButtonText ();
+	}
+	
+	private void showACard (Card aCard) {
+		JLabel tCardLabel;
+	
+		tCardLabel = aCard.getCardLabel ();
+		addMouseListener (tCardLabel);
+		cardPanel.add (tCardLabel);
+		revalidate ();
+	}
+
+	public void addMouseListener (JLabel aCardLabel) {
+		MouseListener[] allMouseListeners;
+		
+		allMouseListeners = aCardLabel.getMouseListeners ();
+		if (allMouseListeners.length == 0) {
+			aCardLabel.addMouseListener (this);
+		}
 	}
 
 	private void disablePlayCardButton () {
@@ -305,15 +291,17 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		tPassIncrement = player.players.getPassIncrement ();
 		tPassLabel = "Pass " + player.getPassCount () + " Cards ";
 		if (tPassIncrement > 0) {
+			tPassLabel += "Left ";
 			if (tPassIncrement > 1) {
 				tPassLabel += tPassIncrement + " ";
 			}
-			tPassLabel += "Left to " + tPlayerName;
+			tPassLabel += "to " + tPlayerName;
 		} else if (tPassIncrement < 0) {
+			tPassLabel += "Right ";
 			if (tPassIncrement > 1) {
 				tPassLabel += tPassIncrement + " ";
 			}
-			tPassLabel += "Right to " + tPlayerName;
+			tPassLabel += "to " + tPlayerName;
 		} else {
 			tPassLabel = "HOLD";
 		}
@@ -398,5 +386,4 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	@Override
 	public void mouseExited (MouseEvent e) {
 	}
-
 }

@@ -233,6 +233,7 @@ public class Card {
 		try {
 			image = loadAndScaleImage ();
 			JLabel tCardLabel = new JLabel ("");
+			tCardLabel.setIcon (image);
 			setCardLabel (tCardLabel);
 		} catch (Exception tException) {
 			System.err.println ("Missing Image File " + getFullName ());
