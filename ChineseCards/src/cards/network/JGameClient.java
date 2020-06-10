@@ -122,7 +122,7 @@ public class JGameClient extends XMLFrame {
 		setServerPort (aServerPort);
 		if (gameManager != null) {
 			gameManager.addNewFrame (this);
-			setVisible (true);
+			setVisible (false);
 		}
 	}
 	
