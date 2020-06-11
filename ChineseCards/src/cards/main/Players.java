@@ -4,16 +4,26 @@ import java.util.ArrayList;
 
 public class Players {
 	ArrayList<Player> players;
+	public static final Player NO_PLAYER = null;
 	private int passIncrement;
 	private int passCount;
 	private int playCount;
 	private boolean passing;
+	GameFrame gameFrame;
 	
 	public Players () {
 		players = new ArrayList<Player> ();
 		setRoundStart ();
 	}
 
+	public void setGameFrame (GameFrame aGameFrame) {
+		gameFrame = aGameFrame;
+	}
+	
+	public GameFrame getGameFrame () {
+		return gameFrame;
+	}
+	
 	public void addNewPlayer (String aName) {
 		Player tPlayer;
 		int tPlayerIndex;
@@ -21,6 +31,7 @@ public class Players {
 		tPlayerIndex = players.size ();
 		tPlayer = new Player (aName, tPlayerIndex);
 		tPlayer.setPlayers (this);
+		tPlayer.setGameFrame (gameFrame);
 		players.add (tPlayer);
 	}
 	
@@ -42,6 +53,19 @@ public class Players {
 	
 	public int getPlayerCount () {
 		return players.size ();
+	}
+	
+	public Player getPlayer (String aPlayerName) {
+		Player tFoundPlayer;
+		
+		tFoundPlayer = NO_PLAYER;
+		for (Player tPlayer : players) {
+			if (tPlayer.getName ().equals (aPlayerName)) {
+				tFoundPlayer = tPlayer;
+			}
+		}
+			
+		return tFoundPlayer;
 	}
 	
 	public Player getPlayer (int aPlayerIndex) {

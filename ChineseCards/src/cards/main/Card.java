@@ -55,9 +55,12 @@ public class Card {
 		
 		Ranks (String aName, int aValue) {
 			name = aName;
-			value = aValue;
+			setValue (aValue);
 		}
 		
+		public void setValue (int aValue) {
+			value = aValue;
+		}
 		
 		public String getName () {
 			return name;

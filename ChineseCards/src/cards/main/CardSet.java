@@ -39,6 +39,24 @@ public class CardSet {
 		cards.remove (aIndex);
 	}
 
+	public void removeAll () {
+		cards.removeAll (cards);
+	}
+	
+	public void remove (Card aCard) {
+		int tCardIndex;
+		Card tCard;
+		boolean tCardRemoved = false;
+		
+		for (tCardIndex = 0; tCardIndex < cards.size () && !tCardRemoved; tCardIndex++) {
+			tCard = get (tCardIndex);
+			if (tCard == aCard) {
+				remove (tCardIndex);
+				tCardRemoved = true;
+			}
+		}
+	}
+	
 	public boolean isEmpty () {
 		return cards.isEmpty ();
 	}

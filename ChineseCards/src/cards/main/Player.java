@@ -14,6 +14,8 @@ public class Player {
 	Players players;
 	boolean passed;
 	boolean received;
+	boolean willLead;
+	GameFrame gameFrame;
 	
 	public Player (String aName, int aMyIndex) {
 		setName (aName);
@@ -23,6 +25,23 @@ public class Player {
 		setNetworkPlayer (name);
 		setNewHand (name);
 		setMyIndex (aMyIndex);
+		setWillLead (false);
+	}
+
+	public void setWillLead (boolean aWillLead) {
+		willLead = aWillLead;
+	}
+	
+	public boolean willLead () {
+		return willLead;
+	}
+	
+	public void setGameFrame (GameFrame aGameFrame) {
+		gameFrame = aGameFrame;
+	}
+	
+	public GameFrame getGameFrame () {
+		return gameFrame;
 	}
 
 	public void setPlayers (Players aPlayers) {
@@ -159,5 +178,10 @@ public class Player {
 	
 	public boolean receivedPass () {
 		return received;
+	}
+	
+	public void playCard (Card aCard) {
+		hand.remove (aCard);
+		gameFrame.playCard (aCard, this);
 	}
 }

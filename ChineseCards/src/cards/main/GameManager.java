@@ -200,9 +200,14 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 	
 	public void newGame () {
-		jGameClient.addLocalPlayer  (getClientUserName (), false);
+		String tPlayerName;
+		
+		tPlayerName = getClientUserName ();
+		players = new Players ();
+		players.addNewPlayer (tPlayerName);
+		jGameClient.addLocalPlayer  (tPlayerName, false);
 		jGameClient.setVisible (true);
-		gameFrame = new GameFrame ("Game Frame for " + clientUserName, this);
+		gameFrame = new GameFrame ("Game Frame for " + getClientUserName (), this);
 	}
 
 	public Players getPlayers () {
@@ -219,6 +224,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	@Override
 	public void addNetworkPlayer (String aPlayerName) {
+		players.addNewPlayer (aPlayerName);
 	}
 
 	@Override

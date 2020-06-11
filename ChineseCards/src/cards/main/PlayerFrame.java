@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 import cards.utilities.OverlapLayout;
 
-public class PlayerFrame extends XMLFrame implements MouseListener{
+public class PlayerFrame extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	Component strutHoriz20 = Box.createHorizontalStrut (20);
 	JPanel playerInfoPanel;
@@ -33,7 +33,7 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	Player player;
 	
 	public PlayerFrame (String aFrameName, Player aPlayer) {
-		super (aFrameName);
+		super ();
 		
 		setPlayer (aPlayer);
 		setupPlayerInfoPanel ();
@@ -44,6 +44,7 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		
 		panel.add (playerInfoPanel,  BorderLayout.NORTH);
 		panel.add (strutHoriz20, BorderLayout.WEST);
+		panel.add (strutHoriz20, BorderLayout.EAST);
 		panel.add (cardPanel, BorderLayout.CENTER);
 		panel.add (buttonsPanel, BorderLayout.SOUTH);
 		
@@ -71,7 +72,7 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	
 	public void setupCardPanel () {
 		layout = new OverlapLayout (new Point (40, 0));
-		layout.setPopupInsets (new Insets (20, 0, 0, 0));
+		layout.setPopupInsets (new Insets (15, 0, 0, 0));
 		cardPanel = new JPanel (layout);
 	}
 
@@ -134,7 +135,13 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 	}
 	
 	public void playCard () {
+		Card tCard;
+		
 		System.out.println ("Play Card");
+		if (getSelectedCount () == 1) {
+			tCard = getSelectedCard ();
+			player.playCard (tCard);
+		}
 	}
 	
 	public int getSelectedCount () {
@@ -143,6 +150,16 @@ public class PlayerFrame extends XMLFrame implements MouseListener{
 		tSelectedCards = getSelectedCards ();
 		
 		return tSelectedCards.getCount ();
+	}
+	
+	public Card getSelectedCard () {
+		CardSet tCardSet;
+		Card tCard;
+		
+		tCardSet = getSelectedCards ();
+		tCard = tCardSet.get (0);
+		
+		return tCard;
 	}
 	
 	public CardSet getSelectedCards () {
