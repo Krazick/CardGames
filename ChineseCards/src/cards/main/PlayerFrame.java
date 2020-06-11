@@ -3,6 +3,7 @@ package cards.main;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -23,11 +24,13 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	JPanel playerInfoPanel;
 	JPanel cardPanel;
 	JPanel buttonsPanel;
+	JButton pushCardsDown;
 	JButton passCards;
 	JButton playCard;
 	Container playArea;
 	JLabel nameLabel;
 	JLabel scoreLabel;
+	JLabel leadLabel;
 	int playerIndex;
 	OverlapLayout layout;
 	Player player;
@@ -44,8 +47,8 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		
 		panel.add (playerInfoPanel,  BorderLayout.NORTH);
 		panel.add (strutHoriz20, BorderLayout.WEST);
-		panel.add (strutHoriz20, BorderLayout.EAST);
 		panel.add (cardPanel, BorderLayout.CENTER);
+		panel.add (strutHoriz20, BorderLayout.EAST);
 		panel.add (buttonsPanel, BorderLayout.SOUTH);
 		
 		add (panel);
@@ -62,12 +65,26 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	}
 	
 	public void setupPlayerInfoPanel () {
+		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 20, 10);
+		
 		playerInfoPanel = new JPanel ();
+		playerInfoPanel.setLayout (layout);
+		
 		nameLabel = new JLabel ("Name: " + player.getName ());
 		playerInfoPanel.add (nameLabel);
 		playerInfoPanel.add (strutHoriz20);
 		scoreLabel = new JLabel ("Score: " + player.getScore ());
 		playerInfoPanel.add (scoreLabel);
+		leadLabel = new JLabel ("Must Lead");
+		playerInfoPanel.add (leadLabel);
+	}
+	
+	public void updateLeadLabel () {
+		if (player.willLead ()) {
+			leadLabel.setVisible (true);
+		} else {
+			leadLabel.setVisible (false);
+		}
 	}
 	
 	public void setupCardPanel () {
@@ -77,18 +94,26 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	}
 
 	public void setupButtonsPanel () {
-		buttonsPanel = new JPanel ();
+		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 20, 10);
 		
-		passCards = new JButton ("PassCards");
-		playCard = new JButton ("PlayCard");
-		buttonsPanel.add (strutHoriz20);
+		buttonsPanel = new JPanel ();
+		buttonsPanel.setLayout (layout);
+		pushCardsDown = new JButton ("Push All Cards Down");
+		passCards = new JButton ("Pass Cards");
+		playCard = new JButton ("Play Card");
+		buttonsPanel.add (pushCardsDown, BorderLayout.SOUTH);
 		buttonsPanel.add (passCards, BorderLayout.SOUTH);
-		buttonsPanel.add (strutHoriz20);
 		buttonsPanel.add (playCard, BorderLayout.SOUTH);
-		buttonsPanel.add (strutHoriz20);
+		pushCardsDown.setEnabled (false);
 	}
 	
 	private void setupActionListeners () {
+		pushCardsDown.addActionListener (new ActionListener() {
+			public void actionPerformed (ActionEvent aEvent) {
+				pushAllCardsDown ();
+			}
+		});
+		
 		passCards.addActionListener (new ActionListener() {
 			public void actionPerformed (ActionEvent aEvent) {
 				passCards ();
@@ -100,6 +125,27 @@ public class PlayerFrame extends JPanel implements MouseListener{
 				playCard ();
 			}
 		});
+	}
+	
+	public void pushAllCardsDown () {
+		int tCardIndex, tCardCount;
+		Card tCard;
+		
+		tCardCount = player.getCardCount ();
+		for (tCardIndex = 0; tCardIndex < tCardCount; tCardIndex++) {
+			tCard = player.get (tCardIndex);
+			pushDown (tCard);
+		}
+		updateButtons ();
+		revalidate ();
+	}
+	
+	public void updatePushDownButton () {
+		if (anyCardIsUp ()) {
+			pushCardsDown.setEnabled (true);
+		} else {
+			pushCardsDown.setEnabled (false);
+		}
 	}
 	
 	public void passCards () {
@@ -126,6 +172,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		if (player.receivedPass ()) {
 			updateCardsInFrame (player);
 		}
+		updateButtons ();
 		revalidate ();
 	}
 
@@ -261,6 +308,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		disablePassCardsButton ();
 		disablePlayCardButton ();
 		updatePassButtonText ();
+    	updatePushDownButton ();
 	}
 	
 	private void showACard (Card aCard) {
@@ -330,6 +378,24 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		player.sortCards ();
 	}
 	
+	public boolean anyCardIsUp () {
+		boolean tAnyCardIsUp = false;
+		Card tCard;
+		
+		for (int tCardIndex = 0; ((tCardIndex < player.getCardCount ()) && ! tAnyCardIsUp); tCardIndex++) {
+			tCard = player.get (tCardIndex);
+			if (! cardDown (tCard)) {
+				tAnyCardIsUp = true;
+			}
+		}
+		
+		return tAnyCardIsUp;
+	}
+	
+	public boolean cardDown (Card aCard) {
+		return cardDown (aCard.getCardLabel ());
+	}
+	
 	public boolean cardDown (Component aCardComponent) {
 		boolean tCardDown = false;
 	    Boolean constraint = layout.getConstraints (aCardComponent);
@@ -339,6 +405,16 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	    }
 	    
 	    return tCardDown;
+	}
+	
+	public void pushUp (Card aCard) {
+		pushUp (aCard.getCardLabel ());
+		updateFrame (aCard.getCardLabel ());
+	}
+	
+	public void pushDown (Card aCard) {
+		pushDown (aCard.getCardLabel ());
+		updateFrame (aCard.getCardLabel ());
 	}
 	
 	public void pushUp (Component aCardComponent) {
@@ -375,6 +451,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		tSelectedCount = getSelectedCount ();
 	    disablePassCardsButton ();
 	    disablePlayCardButton ();
+    	updatePushDownButton ();
 	    if (player.isNotHoldHand ()) {
 		    if (player.hasNotPassed ()) {
 			    if (tSelectedCount == player.getPassCount ()) {

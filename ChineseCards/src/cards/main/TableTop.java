@@ -76,6 +76,7 @@ public class TableTop extends JPanel {
 	
 	public void removeCardsFromTable () {
 		cardsOnTable.removeAll ();
+		removeAll ();
 	}
 	
 	private void showACard (Card aCard) {

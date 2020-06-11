@@ -30,6 +30,7 @@ public class Player {
 
 	public void setWillLead (boolean aWillLead) {
 		willLead = aWillLead;
+		frame.updateLeadLabel ();
 	}
 	
 	public boolean willLead () {
@@ -102,6 +103,10 @@ public class Player {
 	
 	public void add (Card aCard) {
 		hand.add (aCard);
+	}
+	
+	public int getCardCount () {
+		return hand.getCount ();
 	}
 	
 	public Card get (int aCardIndex) {
