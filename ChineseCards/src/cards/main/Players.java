@@ -113,4 +113,57 @@ public class Players {
 	public int getPlayCount () {
 		return playCount;
 	}
+	
+	public boolean allCardsPassed () {
+		boolean tAllCardsPassed = true;
+		int tPlayerIndex;
+		
+		if (passIncrement != 0) {
+			for (tPlayerIndex = 0; tPlayerIndex < getPlayerCount (); tPlayerIndex++) {
+				tAllCardsPassed = tAllCardsPassed && players.get (tPlayerIndex).hasPassed ();
+			}
+		}
+		
+		return tAllCardsPassed;
+	}
+
+	public Player findLeadingPlayer () {
+		Player tLeadingPlayer, tPlayer;
+		int tPlayerIndex;
+		Card tLowestClub, tCard;
+		
+		tLeadingPlayer = NO_PLAYER;
+		tLowestClub = Card.NO_CARD;
+		
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			tCard = tPlayer.getLowestInSuit (Card.Suits.CLUBS);
+			if (tLowestClub == Card.NO_CARD) {
+				tLowestClub = tCard;
+				tLeadingPlayer = tPlayer;
+			} else {
+				if (tCard != Card.NO_CARD) { 
+					if (tCard.getRankValue () < tLowestClub.getRankValue ()) {
+						tLowestClub = tCard;
+						tLeadingPlayer = tPlayer;				
+					}
+				}
+			}
+		}
+		
+		if (tLeadingPlayer != NO_PLAYER) {
+			tLeadingPlayer.setWillLead (true);
+		}
+		
+		return tLeadingPlayer;
+	}
+
+	public void setStartingLead () {
+		Player tPlayer;
+
+		if (allCardsPassed ()) {
+			tPlayer = findLeadingPlayer ();
+			tPlayer.setWillLead (true);
+		}
+	}
 }

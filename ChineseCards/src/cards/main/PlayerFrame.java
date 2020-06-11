@@ -174,8 +174,19 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		}
 		updateButtons ();
 		revalidate ();
+		
+		if (player.allCardsPassed ()) {
+			setStartingLead ();
+		}
 	}
 
+	public void setStartingLead () {
+		Player tPlayer;
+		
+		tPlayer = player.findLeadingPlayer ();
+		tPlayer.setWillLead (true);
+	}
+	
 	public void updateCardsInFrame (Player aPlayer) {
 		aPlayer.sortCards ();
 		aPlayer.showAllCardsInFrame ();

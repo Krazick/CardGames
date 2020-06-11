@@ -24,7 +24,7 @@ public class GameFrame extends XMLFrame {
 		
 		setGameFrameToPlayers ();
 		
-		tPassIncrement = -1;
+		tPassIncrement = 1;
 		players.setPassIncrement (tPassIncrement);
 		players.setPassCount (3);
 		players.setPlayCount (1);
@@ -35,6 +35,7 @@ public class GameFrame extends XMLFrame {
 		
 		shuffleAndDeal ();
 		showHands ();
+		players.setStartingLead ();
 	}
 
 	public void setGameFrameToPlayers () {

@@ -121,4 +121,24 @@ public class CardSet {
 	        return tOrder;
 	    }
 	}
+	
+	public Card getLowestInSuit (Suits aCardSuit) {
+		Card tCard;
+		
+		tCard = Card.NO_CARD;
+		for (Card tACard : cards) {
+			if (tACard.isSuit (aCardSuit)) {
+				if (tCard == Card.NO_CARD) {
+					tCard = tACard;
+				} else {
+					if (tACard.getRankValue () < tCard.getRankValue ()) {
+						tCard = tACard;
+					}
+				}
+			}
+		}
+		
+		return tCard;
+	}
+
 }

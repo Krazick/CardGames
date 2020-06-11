@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 public class Card {
 	public static int MIN_RANK_INDEX = 1;
 	public static int MAX_RANK_INDEX = 13;
+	public static Card NO_CARD = null;
 	
 	public enum Suits { 
 		HEARTS   ("Hearts",   "Red",      "H"),

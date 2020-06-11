@@ -1,6 +1,8 @@
 package cards.main;
 
 import java.util.ArrayList;
+
+import cards.main.Card.Suits;
 import cards.network.NetworkPlayer;
 
 public class Player {
@@ -160,9 +162,13 @@ public class Player {
 	public boolean hasNotPassed () {
 		return ( ! passed );
 	}
-	
-	public boolean getPassed () {
+
+	public boolean hasPassed () {
 		return passed;
+	}
+	
+	public boolean allCardsPassed () {
+		return players.allCardsPassed ();
 	}
 	
 	public void setPassed (boolean aPassed) {
@@ -188,5 +194,13 @@ public class Player {
 	public void playCard (Card aCard) {
 		hand.remove (aCard);
 		gameFrame.playCard (aCard, this);
+	}
+
+	public Player findLeadingPlayer () {
+		return players.findLeadingPlayer ();
+	}
+
+	public Card getLowestInSuit (Suits aCardSuit) {
+		return hand.getLowestInSuit (aCardSuit);
 	}
 }
