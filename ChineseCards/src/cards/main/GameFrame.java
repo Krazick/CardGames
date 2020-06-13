@@ -65,8 +65,7 @@ public class GameFrame extends XMLFrame {
 			add (tPlayerFrame, tBorderLayout);
 			tBorderLayout = cycleBorderLayout (tBorderLayout);
 		}
-		setSize (1550, 850);
-		setSize (1024, 500);
+		setSize (1024, 775);
 		setVisible (true);
 	}
 	

@@ -23,6 +23,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	Component strutHoriz20 = Box.createHorizontalStrut (20);
 	JPanel playerInfoPanel;
 	JPanel cardPanel;
+	JPanel cardInfoPanel;
 	JPanel buttonsPanel;
 	JButton pushCardsDown;
 	JButton passCards;
@@ -41,14 +42,14 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		
 		setPlayer (aPlayer);
 		setupPlayerInfoPanel ();
-		setupCardPanel ();
+		setupCardInfoPanel ();
 		setupButtonsPanel ();
 		setupActionListeners ();
 		JPanel panel = new JPanel (new BorderLayout ());
 		
 		panel.add (playerInfoPanel,  BorderLayout.NORTH);
 		panel.add (strutHoriz20, BorderLayout.WEST);
-		panel.add (cardPanel, BorderLayout.CENTER);
+		panel.add (cardInfoPanel, BorderLayout.CENTER);
 		panel.add (strutHoriz20, BorderLayout.EAST);
 		panel.add (buttonsPanel, BorderLayout.SOUTH);
 		
@@ -78,8 +79,17 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		playerInfoPanel.add (scoreLabel);
 		leadLabel = new JLabel ("Must Lead");
 		playerInfoPanel.add (leadLabel);
+	}
+	
+	public void setupCardInfoPanel () {
+		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 10, 10);
+
+		cardInfoPanel = new JPanel ();
+		cardInfoPanel.setLayout (layout);
+		setupCardPanel ();
+		cardInfoPanel.add (cardPanel);
 		trickInfoLabel = new JLabel ();
-		playerInfoPanel.add (trickInfoLabel);
+		cardInfoPanel.add (trickInfoLabel);
 		updateTrickInfoLabel ();
 	}
 	
@@ -94,7 +104,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 			tTrickInfo = "Trick Count: " + tTrickCount + "<br>";
 		} 
 		if (player.willLead ()) {
-			tTrickInfo += "Last Trick:<br>" + player.getLastTrickInfo ();
+			tTrickInfo += "Trick:<br>" + player.getLastTrickInfo ();
 		}
 		
 		tTrickInfo = "<html>" + tTrickInfo + "</html>";
@@ -122,7 +132,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		
 		buttonsPanel = new JPanel ();
 		buttonsPanel.setLayout (layout);
-		pushCardsDown = new JButton ("Push All Cards Down");
+		pushCardsDown = new JButton ("All Down");
 		passCards = new JButton ("Pass Cards");
 		playCard = new JButton ("Play Card");
 		buttonsPanel.add (pushCardsDown, BorderLayout.SOUTH);
