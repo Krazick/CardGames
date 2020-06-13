@@ -70,7 +70,6 @@ public class TableTop extends JPanel {
 	}
 	
 	public void resolveTrick () {
-		System.out.println ("Time to resolve Trick = Won by " + playerWhoWillWin.getName ());
 		playerWhoLed.setWillLead (false);
 		playerWhoWillWin.addTrick (cardsOnTable);
 		playerWhoWillWin.setWillLead (true);
@@ -83,9 +82,22 @@ public class TableTop extends JPanel {
 
 	public void removeCardsFromTable () {
 		removeAll ();
-		revalidate ();
-		gameFrame.revalidate ();
+		validate ();
+		repaint ();
 		startNewTrick ();
+		if (playerWhoWillWin.getCardCount () == 0) {
+			startNewRound ();
+		}
+	}
+	
+	public void startNewRound () {
+		Deck tGameDeck;
+		Players tPlayers;
+		
+		tGameDeck = gameFrame.getGameDeck ();
+		tPlayers = gameManager.getPlayers ();
+		tPlayers.mergeTricks (tGameDeck);
+		System.out.println ("Game Deck now has " + tGameDeck.getCount ());
 	}
 	
 	private void showACard (Card aCard) {

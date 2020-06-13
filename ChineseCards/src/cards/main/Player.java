@@ -273,4 +273,14 @@ public class Player {
 	public void updateTrickInfoLabel () {
 		frame.updateTrickInfoLabel ();
 	}
+
+	public void mergeTricks (Deck aGameDeck) {
+		int tTrickIndex;
+		Trick tTrick;
+
+		for (tTrickIndex = 0; tTrickIndex < tricks.size (); tTrickIndex++) {
+			tTrick = tricks.get (tTrickIndex);
+			aGameDeck.add (tTrick);
+		}
+	}
 }

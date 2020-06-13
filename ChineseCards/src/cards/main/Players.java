@@ -166,4 +166,14 @@ public class Players {
 			tPlayer.setWillLead (true);
 		}
 	}
+
+	public void mergeTricks (Deck aGameDeck) {
+		int tPlayerIndex;
+		Player tPlayer;
+
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			tPlayer.mergeTricks (aGameDeck);
+		}
+	}
 }

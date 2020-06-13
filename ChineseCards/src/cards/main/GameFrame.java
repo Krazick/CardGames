@@ -14,7 +14,7 @@ public class GameFrame extends XMLFrame {
 		super (aFrameName);
 		int tPassIncrement;
 
-		gameManager = aGameManager;
+		setGameManager (aGameManager);
 		players = gameManager.getPlayers ();
 		
 		// Temporary to allow for 4 players created to test basic GameFrame
@@ -29,15 +29,39 @@ public class GameFrame extends XMLFrame {
 		players.setPassCount (3);
 		players.setPlayCount (1);
 
-		gameDeck = new Deck (Types.STANDARD);
+		setGameDeck (new Deck (Types.STANDARD));
 		
 		setupGameFrame ();
 		
+		startNewRound ();
+	}
+
+	public void setGameDeck (Deck aGameDeck) {
+		gameDeck = aGameDeck;
+	}
+	
+	public Deck getGameDeck () {
+		return gameDeck;
+	}
+	
+	public void startNewRound () {
 		shuffleAndDeal ();
 		showHands ();
 		players.setStartingLead ();
 	}
 
+	public void setGameManager (GameManager aGameManager) {
+		gameManager = aGameManager;
+	}
+
+	public GameManager getGameManager () {
+		return gameManager;
+	}
+	
+	public Player getClientPlayer () {
+		return gameManager.getClientPlayer ();
+	}
+	
 	public void setGameFrameToPlayers () {
 		int tPlayerIndex;
 		Player tPlayer;

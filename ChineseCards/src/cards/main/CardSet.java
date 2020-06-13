@@ -17,7 +17,7 @@ public class CardSet {
 	public void buildEmptyCardSet () {
 		cards = new ArrayList<Card> ();
 	}
-
+	
 	public void printCards () {
 		int tIndex = 1;
 		

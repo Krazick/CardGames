@@ -282,4 +282,12 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public boolean isNetworkGame () {
 		return true;
 	}
+
+	public Player getClientPlayer () {
+		Player tPlayer;
+		
+		tPlayer = players.getPlayer (getClientUserName());
+		
+		return tPlayer;
+	}
 }
