@@ -50,4 +50,18 @@ public class Trick extends CardSet {
 
 		return tTrickPoints;
 	}
+	
+	public void printAllTrickInfo () {
+		int tTrickPoints = 0;
+		int tTrickIndex;
+		Card tCard;
+		
+		for (tTrickIndex = 0; tTrickIndex < whoPlayed.size (); tTrickIndex++) {
+			tCard = get (tTrickIndex);
+			tTrickPoints += tCard.getPoints ();
+			System.out.println (tCard.getAbbrev () + " points " + tCard.getPoints () + " Total " + tTrickPoints);
+		}
+
+	}
+
 }

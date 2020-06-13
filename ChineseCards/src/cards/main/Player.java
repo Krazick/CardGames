@@ -148,12 +148,30 @@ public class Player {
 	public int getAllTricksPoints () {
 		int tTrickPoints = 0;
 		int tTrickIndex, tTrickCount;
+		Trick tTrick;
 		
 		tTrickCount = getTrickCount ();
 		if (tTrickCount > 0) {
+			System.out.println ("Getting All Tricks Points for " + name + " Count " + tTrickCount);
 			for (tTrickIndex = 0; tTrickIndex < tTrickCount; tTrickIndex++) {
-				tTrickPoints += tricks.get (tTrickIndex).getTrickPoints ();
+				tTrick = tricks.get (tTrickIndex);
+				tTrickPoints += tTrick.getTrickPoints ();
+				tTrick.printAllTrickInfo ();
+				System.out.println ("Points up to " + tTrickPoints);
 			}
+
+		}
+		
+		return tTrickPoints;
+	}
+	
+	public int getLastTrickPoints () {
+		int tTrickPoints = 0;
+		Trick tTrick;
+		
+		if (getTrickCount () > 0) {
+			tTrick = tricks.get (getTrickCount () - 1);
+			tTrickPoints += tTrick.getTrickPoints ();
 		}
 		
 		return tTrickPoints;

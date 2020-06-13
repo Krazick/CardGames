@@ -106,7 +106,8 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		if (player.willLead ()) {
 			tTrickInfo += player.getLastTrickInfo () + "<br>";
 		}
-		tTrickInfo += "Points: " + player.getAllTricksPoints ();
+		tTrickInfo += "Trick Points: " + player.getLastTrickPoints () + "<br>";
+		tTrickInfo += "All Points: " + player.getAllTricksPoints ();
 		tTrickInfo = "<html>" + tTrickInfo + "</html>";
 		trickInfoLabel.setText (tTrickInfo);
 	}
@@ -229,7 +230,6 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	public void playCard () {
 		Card tCard;
 		
-		System.out.println ("Play Card");
 		if (getSelectedCount () == 1) {
 			tCard = getSelectedCard ();
 			player.playCard (tCard);

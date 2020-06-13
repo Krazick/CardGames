@@ -18,7 +18,7 @@ public class TableTop extends JPanel {
 		super ();
 		setGameManager (aGameManager);
 		gameFrame = aGameFrame;
-		cardsOnTable = new Trick ();
+		startNewTrick ();
 	}
 	
 	public void setGameManager (GameManager aGameManager) {
@@ -29,8 +29,8 @@ public class TableTop extends JPanel {
 		return gameManager;
 	}
 	
-	public void clearCardsOnTable () {
-		cardsOnTable.removeAll ();
+	public void startNewTrick () {
+		cardsOnTable = new Trick ();
 	}
 	
 	public boolean firstCard () {
@@ -78,13 +78,14 @@ public class TableTop extends JPanel {
 		if (playerWhoWillWin != playerWhoLed) {
 			playerWhoLed.updateTrickInfoLabel ();
 		}
-		cardsOnTable.removeAll ();
 		removeCardsFromTable ();
 	}
 
 	public void removeCardsFromTable () {
-		cardsOnTable.removeAll ();
 		removeAll ();
+		revalidate ();
+		gameFrame.revalidate ();
+		startNewTrick ();
 	}
 	
 	private void showACard (Card aCard) {
