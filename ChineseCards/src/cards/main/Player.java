@@ -145,6 +145,20 @@ public class Player {
 		return tTrickInfo;
 	}
 	
+	public int getAllTricksPoints () {
+		int tTrickPoints = 0;
+		int tTrickIndex, tTrickCount;
+		
+		tTrickCount = getTrickCount ();
+		if (tTrickCount > 0) {
+			for (tTrickIndex = 0; tTrickIndex < tTrickCount; tTrickIndex++) {
+				tTrickPoints += tricks.get (tTrickIndex).getTrickPoints ();
+			}
+		}
+		
+		return tTrickPoints;
+	}
+	
 	public String getLastTrickInfo () {
 		String tTrickInfo = "";
 		Trick tTrick;

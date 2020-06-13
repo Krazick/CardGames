@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 public class TableTop extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Trick cardsOnTable;
+	GameFrame gameFrame;
 	GameManager gameManager;
 	Player playerWhoLed;
 	Player playerWhoWillWin;
@@ -13,9 +14,10 @@ public class TableTop extends JPanel {
 	Card winningCard;
 	Player nextPlayer;
 	
-	public TableTop (GameManager aGameManager) {
+	public TableTop (GameManager aGameManager, GameFrame aGameFrame) {
 		super ();
 		setGameManager (aGameManager);
+		gameFrame = aGameFrame;
 		cardsOnTable = new Trick ();
 	}
 	
@@ -63,6 +65,7 @@ public class TableTop extends JPanel {
 		showACard (aCard);
 		if (allPlayersPlayed ()) {
 			resolveTrick ();
+			gameFrame.revalidate ();
 		}
 	}
 	

@@ -99,14 +99,14 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		
 		tTrickCount = player.getTrickCount ();
 		if (tTrickCount == 0) {
-			tTrickInfo = "Tricks: NONE";
+			tTrickInfo = "Tricks: NONE<br>";
 		} else {
 			tTrickInfo = "Trick Count: " + tTrickCount + "<br>";
 		} 
 		if (player.willLead ()) {
-			tTrickInfo += "Trick:<br>" + player.getLastTrickInfo ();
+			tTrickInfo += player.getLastTrickInfo () + "<br>";
 		}
-		
+		tTrickInfo += "Points: " + player.getAllTricksPoints ();
 		tTrickInfo = "<html>" + tTrickInfo + "</html>";
 		trickInfoLabel.setText (tTrickInfo);
 	}

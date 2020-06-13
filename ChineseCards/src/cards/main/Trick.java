@@ -37,4 +37,17 @@ public class Trick extends CardSet {
 		super.removeAll ();
 		whoPlayed.removeAll (whoPlayed);
 	}
+	
+	public int getTrickPoints () {
+		int tTrickPoints = 0;
+		int tTrickIndex;
+		Card tCard;
+		
+		for (tTrickIndex = 0; tTrickIndex < whoPlayed.size (); tTrickIndex++) {
+			tCard = get (tTrickIndex);
+			tTrickPoints += tCard.getPoints ();
+		}
+
+		return tTrickPoints;
+	}
 }

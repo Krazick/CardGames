@@ -109,6 +109,7 @@ public class Card {
 		}
 	}
 	
+	private int points;
 	private Ranks rank;
 	private Suits suit;
 	private boolean faceUp;
@@ -132,6 +133,7 @@ public class Card {
 		setSuit (aSuit);
 		setFaceUp (true);
 		setImage ();
+		setPoints ();
 	}
 	
 	public Card (int aRank, Suits aSuit) {
@@ -139,6 +141,7 @@ public class Card {
 		setSuit (aSuit);
 		setFaceUp (true);
 		setImage ();
+		setPoints ();
 	}
 	
 	public Card (Ranks aRank, Suits aSuit) {
@@ -146,8 +149,30 @@ public class Card {
 		setSuit (aSuit);
 		setFaceUp (true);
 		setImage ();
+		setPoints ();
 	}
 
+	public void setPoints () {
+		setPoints (0);
+		if (suit.equals (Suits.HEARTS)) {
+			setPoints (1);
+		} else {
+			if (suit.equals (Suits.SPADES)) {
+				if (rank.equals (Ranks.QUEEN)) {
+					setPoints (13);
+				}
+			}
+		}
+	}
+	
+	public void setPoints (int aPoints) {
+		points = aPoints;
+	}
+	
+	public int getPoints () {
+		return points;
+	}
+	
 	public void setFaceUp (boolean aFaceUp) {
 		faceUp = aFaceUp;
 	}

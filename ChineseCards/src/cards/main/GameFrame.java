@@ -18,9 +18,9 @@ public class GameFrame extends XMLFrame {
 		players = gameManager.getPlayers ();
 		
 		// Temporary to allow for 4 players created to test basic GameFrame
-		players.addNewPlayer ("Mary Kay");
-		players.addNewPlayer ("Jacob");
-		players.addNewPlayer ("Michelle");
+		players.addNewPlayer ("Fred");
+		players.addNewPlayer ("Anna");
+		players.addNewPlayer ("Harriet");
 		
 		setGameFrameToPlayers ();
 		
@@ -56,7 +56,7 @@ public class GameFrame extends XMLFrame {
 		String tBorderLayout;
 		
 		System.out.println ("Player Count " + players.getPlayerCount ());
-		tableTop = new TableTop (gameManager);
+		tableTop = new TableTop (gameManager, this);
 		add (tableTop, BorderLayout.CENTER);
 		tBorderLayout = BorderLayout.SOUTH;
 		for (int tPlayerIndex = 0; tPlayerIndex < players.getPlayerCount (); tPlayerIndex++) {
