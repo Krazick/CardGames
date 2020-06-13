@@ -24,7 +24,7 @@ public class GameFrame extends XMLFrame {
 		
 		setGameFrameToPlayers ();
 		
-		tPassIncrement = 1;
+		tPassIncrement = 0;
 		players.setPassIncrement (tPassIncrement);
 		players.setPassCount (3);
 		players.setPlayCount (1);
@@ -66,6 +66,7 @@ public class GameFrame extends XMLFrame {
 			tBorderLayout = cycleBorderLayout (tBorderLayout);
 		}
 		setSize (1550, 850);
+		setSize (1024, 500);
 		setVisible (true);
 	}
 	

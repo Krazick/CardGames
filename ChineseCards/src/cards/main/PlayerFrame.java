@@ -31,6 +31,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	JLabel nameLabel;
 	JLabel scoreLabel;
 	JLabel leadLabel;
+	JLabel trickInfoLabel;
 	int playerIndex;
 	OverlapLayout layout;
 	Player player;
@@ -77,6 +78,27 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		playerInfoPanel.add (scoreLabel);
 		leadLabel = new JLabel ("Must Lead");
 		playerInfoPanel.add (leadLabel);
+		trickInfoLabel = new JLabel ();
+		playerInfoPanel.add (trickInfoLabel);
+		updateTrickInfoLabel ();
+	}
+	
+	public void updateTrickInfoLabel () {
+		String tTrickInfo = "";
+		int tTrickCount;
+		
+		tTrickCount = player.getTrickCount ();
+		if (tTrickCount == 0) {
+			tTrickInfo = "Tricks: NONE";
+		} else {
+			tTrickInfo = "Trick Count: " + tTrickCount + "<br>";
+		} 
+		if (player.willLead ()) {
+			tTrickInfo += "Last Trick:<br>" + player.getLastTrickInfo ();
+		}
+		
+		tTrickInfo = "<html>" + tTrickInfo + "</html>";
+		trickInfoLabel.setText (tTrickInfo);
 	}
 	
 	public void updateLeadLabel () {
@@ -88,8 +110,10 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	}
 	
 	public void setupCardPanel () {
-		layout = new OverlapLayout (new Point (40, 0));
-		layout.setPopupInsets (new Insets (15, 0, 0, 0));
+		Card tCard = new Card (Card.Ranks.ACE, Card.Suits.SPADES);
+		
+		layout = new OverlapLayout (new Point (tCard.getCardOverlap (), 0));
+		layout.setPopupInsets (new Insets (tCard.getCardOverlap (), 0, 0, 0));
 		cardPanel = new JPanel (layout);
 	}
 

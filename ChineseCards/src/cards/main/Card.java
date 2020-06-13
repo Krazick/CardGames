@@ -13,6 +13,27 @@ public class Card {
 	public static int MAX_RANK_INDEX = 13;
 	public static Card NO_CARD = null;
 	
+	private int cardImageWidth = 75;
+	private int cardImageHeight = 120;
+	private int cardOverlap = 20;
+	private int cardPopUp = 10;
+	
+	public int getCardImageWidth () {
+		return cardImageWidth;
+	}
+	
+	public int getCardImageHeight () {
+		return cardImageHeight;
+	}
+	
+	public int getCardOverlap () {
+		return cardOverlap;
+	}
+	
+	public int getCardPopup () {
+		return cardPopUp;
+	}
+	
 	public enum Suits { 
 		HEARTS   ("Hearts",   "Red",      "H"),
 		DIAMONDS ("Diamonds", "Red",      "D"),
@@ -257,7 +278,7 @@ public class Card {
 		Image tScaledImage;
 		
 		tImage = new ImageIcon ("Images/" + getAbbrev () + ".jpg");
-		tScaledImage = getScaledImage (tImage.getImage (), 110, 170);
+		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth, cardImageHeight);
 		tImage.setImage (tScaledImage);
 		
 		return tImage;

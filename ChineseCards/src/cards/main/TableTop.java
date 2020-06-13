@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 public class TableTop extends JPanel {
 	private static final long serialVersionUID = 1L;
-	CardSet cardsOnTable;
+	Trick cardsOnTable;
 	GameManager gameManager;
 	Player playerWhoLed;
 	Player playerWhoWillWin;
@@ -16,7 +16,7 @@ public class TableTop extends JPanel {
 	public TableTop (GameManager aGameManager) {
 		super ();
 		setGameManager (aGameManager);
-		cardsOnTable = new CardSet ();
+		cardsOnTable = new Trick ();
 	}
 	
 	public void setGameManager (GameManager aGameManager) {
@@ -46,14 +46,14 @@ public class TableTop extends JPanel {
 	}
 	
 	public void playCard (Card aCard, Player aPlayer) {
-		
 		if (firstCard ()) {
 			playerWhoLed = aPlayer;
 			cardLed = aCard;
 			playerWhoWillWin = aPlayer;
 			winningCard = cardLed;
 		}
-		cardsOnTable.add (aCard);
+		cardsOnTable.add (aCard, aPlayer);
+		aPlayer.updateButtons ();
 		if (aCard.getSuit ().equals (cardLed.getSuit ())) {
 			if (aCard.getRankValue () > winningCard.getRankValue ()) {
 				playerWhoWillWin = aPlayer;
@@ -71,9 +71,14 @@ public class TableTop extends JPanel {
 		playerWhoLed.setWillLead (false);
 		playerWhoWillWin.addTrick (cardsOnTable);
 		playerWhoWillWin.setWillLead (true);
+		playerWhoWillWin.updateTrickInfoLabel ();
+		if (playerWhoWillWin != playerWhoLed) {
+			playerWhoLed.updateTrickInfoLabel ();
+		}
+		cardsOnTable.removeAll ();
 		removeCardsFromTable ();
 	}
-	
+
 	public void removeCardsFromTable () {
 		cardsOnTable.removeAll ();
 		removeAll ();

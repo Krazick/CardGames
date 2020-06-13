@@ -11,7 +11,7 @@ public class Player {
 	String name;
 	int score;
 	int myIndex;
-	ArrayList<CardSet> tricks;
+	ArrayList<Trick> tricks;
 	NetworkPlayer networkPlayer;
 	Players players;
 	boolean passed;
@@ -21,9 +21,9 @@ public class Player {
 	
 	public Player (String aName, int aMyIndex) {
 		setName (aName);
+		setNewTricks ();
 		frame = new PlayerFrame ("Player Frame", this);
 		setScore (0);
-		setNewTricks ();
 		setNetworkPlayer (name);
 		setNewHand (name);
 		setMyIndex (aMyIndex);
@@ -72,7 +72,7 @@ public class Player {
 	}
 	
 	public void setNewTricks () {
-		tricks = new ArrayList<CardSet> ();
+		tricks = new ArrayList<Trick> ();
 	}
 	
 	public void setNetworkPlayer (String aName) {
@@ -119,12 +119,42 @@ public class Player {
 		hand.remove (aCardIndex);
 	}
 	
-	public void addTrick (CardSet aTrick) {
+	public void addTrick (Trick aTrick) {
 		tricks.add (aTrick);
 	}
 	
 	public void removeAllTricks () {
 		tricks.removeAll (tricks);
+	}
+	
+	public int getTrickCount () {
+		return tricks.size ();
+	}
+	
+	public String getAllTricksInfo () {
+		String tTrickInfo = "";
+		int tTrickIndex, tTrickCount;
+		
+		tTrickCount = getTrickCount ();
+		if (tTrickCount > 0) {
+			for (tTrickIndex = 0; tTrickIndex < tTrickCount; tTrickIndex++) {
+				tTrickInfo += tricks.get (tTrickIndex).getTrickInfo ();
+			}
+		}
+		
+		return tTrickInfo;
+	}
+	
+	public String getLastTrickInfo () {
+		String tTrickInfo = "";
+		Trick tTrick;
+		
+		if (getTrickCount () > 0) {
+			tTrick = tricks.get (getTrickCount () - 1);
+			tTrickInfo += tTrick.getTrickInfo ();
+		}
+		
+		return tTrickInfo;
 	}
 	
 	public void sortCards () {
@@ -202,5 +232,13 @@ public class Player {
 
 	public Card getLowestInSuit (Suits aCardSuit) {
 		return hand.getLowestInSuit (aCardSuit);
+	}
+
+	public void updateButtons () {
+		frame.updateButtons ();
+	}
+	
+	public void updateTrickInfoLabel () {
+		frame.updateTrickInfoLabel ();
 	}
 }
