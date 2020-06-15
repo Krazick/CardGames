@@ -290,4 +290,21 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		
 		return tPlayer;
 	}
+
+	public void updateAllScores () {
+		players.updateAllScores ();
+	}
+
+	public void handleGameWon () {
+		System.out.println ("Game has ended, and XXX has lost");
+		
+	}
+
+	public boolean gameOver () {
+		boolean tGameWon = false;
+		
+		System.out.println ("Round Done - has anyone Exceeded 100 Points?");
+		
+		return tGameWon;
+	}
 }

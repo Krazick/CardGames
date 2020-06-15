@@ -1,9 +1,15 @@
 package cards.main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class TableTop extends JPanel {
+public class TableTop extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	Trick cardsOnTable;
 	GameFrame gameFrame;
@@ -13,11 +19,20 @@ public class TableTop extends JPanel {
 	Card cardLed;
 	Card winningCard;
 	Player nextPlayer;
-	
+	JButton startNextRound;
+
 	public TableTop (GameManager aGameManager, GameFrame aGameFrame) {
 		super ();
 		setGameManager (aGameManager);
 		gameFrame = aGameFrame;
+		startNextRound = new JButton ("Start Next Round");
+		startNextRound.addActionListener (new ActionListener() {
+			public void actionPerformed (ActionEvent aEvent) {
+				startNewRound ();
+				remove (startNextRound);
+				gameFrame.revalidateRepaint ();
+			}
+		});
 		startNewTrick ();
 	}
 	
@@ -65,8 +80,8 @@ public class TableTop extends JPanel {
 		showACard (aCard);
 		if (allPlayersPlayed ()) {
 			resolveTrick ();
-			gameFrame.revalidate ();
 		}
+		gameFrame.revalidateRepaint ();
 	}
 	
 	public void resolveTrick () {
@@ -82,12 +97,20 @@ public class TableTop extends JPanel {
 
 	public void removeCardsFromTable () {
 		removeAll ();
-		validate ();
-		repaint ();
+		gameFrame.revalidateRepaint ();
 		startNewTrick ();
 		if (playerWhoWillWin.getCardCount () == 0) {
-			startNewRound ();
+			gameManager.updateAllScores ();
+			if (gameManager.gameOver ()) {
+				gameManager.handleGameWon ();
+			} else {
+				showStartNextRound ();
+			}
 		}
+	}
+	
+	public void showStartNextRound () {
+		add (startNextRound);
 	}
 	
 	public void startNewRound () {
@@ -98,6 +121,7 @@ public class TableTop extends JPanel {
 		tPlayers = gameManager.getPlayers ();
 		tPlayers.mergeTricks (tGameDeck);
 		System.out.println ("Game Deck now has " + tGameDeck.getCount ());
+		gameFrame.startNewRound ();
 	}
 	
 	private void showACard (Card aCard) {
@@ -105,7 +129,6 @@ public class TableTop extends JPanel {
 	
 		tCardLabel = aCard.getCardLabel ();
 		add (tCardLabel);
-		revalidate ();
 	}
 
 	public boolean trickIsDone () {
@@ -116,5 +139,30 @@ public class TableTop extends JPanel {
 		}
 		
 		return tTrickIsDone;
+	}
+
+	@Override
+	public void mouseClicked (MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mousePressed (MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseReleased (MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseEntered (MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseExited (MouseEvent e) {
+		
 	}
 }

@@ -152,12 +152,9 @@ public class Player {
 		
 		tTrickCount = getTrickCount ();
 		if (tTrickCount > 0) {
-			System.out.println ("Getting All Tricks Points for " + name + " Count " + tTrickCount);
 			for (tTrickIndex = 0; tTrickIndex < tTrickCount; tTrickIndex++) {
 				tTrick = tricks.get (tTrickIndex);
 				tTrickPoints += tTrick.getTrickPoints ();
-				tTrick.printAllTrickInfo ();
-				System.out.println ("Points up to " + tTrickPoints);
 			}
 
 		}
@@ -256,6 +253,7 @@ public class Player {
 	public void playCard (Card aCard) {
 		hand.remove (aCard);
 		gameFrame.playCard (aCard, this);
+		frame.removeCardFromCardPanel (aCard);
 	}
 
 	public Player findLeadingPlayer () {
@@ -282,5 +280,22 @@ public class Player {
 			tTrick = tricks.get (tTrickIndex);
 			aGameDeck.add (tTrick);
 		}
+		tricks.removeAll (tricks);
+		updateTrickInfoLabel ();
+	}
+
+	public void updateScore () {
+		int tAllTrickPoints;
+		int tNewScore;
+		
+		tAllTrickPoints = getAllTricksPoints ();
+		if (tAllTrickPoints == 26) {
+			// Should ask if deduct from Score, to Add to Other Player's Scores
+			tNewScore = score - tAllTrickPoints;
+		} else {
+			tNewScore = score + tAllTrickPoints;
+		}
+		setScore (tNewScore);
+		frame.updateScore (score);
 	}
 }

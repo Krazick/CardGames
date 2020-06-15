@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 
 import cards.utilities.OverlapLayout;
 
-public class PlayerFrame extends JPanel implements MouseListener{
+public class PlayerFrame extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	Component strutHoriz20 = Box.createHorizontalStrut (20);
 	JPanel playerInfoPanel;
@@ -297,6 +297,13 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		return tSelectedCards;
 	}
 
+	public void removeCardFromCardPanel (Card aCard) {
+		JLabel aCardLabel;
+		
+		aCardLabel = aCard.cardLabel;
+		cardPanel.remove (aCardLabel);		
+	}
+	
 	public void removeCardFromFrame (Card aCard, Hand aHand, int aCardIndex) {
 		JLabel aCardLabel;
 		
@@ -304,7 +311,7 @@ public class PlayerFrame extends JPanel implements MouseListener{
 		aHand.remove (aCardIndex);
 		pushDown (aCardLabel);
 		updateFrame (aCardLabel);
-		cardPanel.remove (aCardLabel);
+		removeCardFromCardPanel (aCard);
 	}
 	
 	public void setPlayerName (String aName) {
@@ -366,12 +373,17 @@ public class PlayerFrame extends JPanel implements MouseListener{
 	}
 
 	public void addMouseListener (JLabel aCardLabel) {
-		MouseListener[] allMouseListeners;
+		MouseListener [] allMouseListeners;
 		
 		allMouseListeners = aCardLabel.getMouseListeners ();
-		if (allMouseListeners.length == 0) {
-			aCardLabel.addMouseListener (this);
+		
+		if (allMouseListeners.length > 0) {
+			for (MouseListener tMouseListener : allMouseListeners) {
+				aCardLabel.removeMouseListener (tMouseListener);
+			}
 		}
+		
+		aCardLabel.addMouseListener (this);
 	}
 
 	private void disablePlayCardButton () {

@@ -45,9 +45,12 @@ public class GameFrame extends XMLFrame {
 	}
 	
 	public void startNewRound () {
+		players.cyclePassIncrement ();
+		players.setRoundStart ();
 		shuffleAndDeal ();
 		showHands ();
 		players.setStartingLead ();
+		revalidateRepaint ();
 	}
 
 	public void setGameManager (GameManager aGameManager) {
@@ -128,7 +131,12 @@ public class GameFrame extends XMLFrame {
 	public void playCard (Card aCard, Player aPlayer) {
 		tableTop.playCard (aCard, aPlayer);
 		if (tableTop.trickIsDone ()) {
-			revalidate ();
+			revalidateRepaint ();
 		}
+	}
+	
+	public void revalidateRepaint () {
+		revalidate ();
+		repaint ();
 	}
 }

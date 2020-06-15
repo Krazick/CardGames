@@ -36,7 +36,11 @@ public class Players {
 	}
 	
 	public void setRoundStart () {
-		setPassing (true);
+		if (passIncrement != 0) {
+			setPassing (true); 
+		} else {
+			setPassing (false);
+		}
 		for (Player tPlayer : players) {
 			tPlayer.setPassed (false);
 			tPlayer.setReceived (false);
@@ -176,4 +180,27 @@ public class Players {
 			tPlayer.mergeTricks (aGameDeck);
 		}
 	}
+
+	public void updateAllScores () {
+		int tPlayerIndex;
+		Player tPlayer;
+
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			tPlayer.updateScore ();
+		}
+	}
+	
+	public void cyclePassIncrement () {
+		if (passIncrement == 0) {
+			passIncrement = 1;
+		} else if (passIncrement == 1) {
+			passIncrement = -1;
+		} else if (passIncrement == -1) {
+			passIncrement = 2;
+		} else {
+			passIncrement = 0;
+		}
+	}
+
 }
