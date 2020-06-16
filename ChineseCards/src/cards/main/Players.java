@@ -44,6 +44,8 @@ public class Players {
 		for (Player tPlayer : players) {
 			tPlayer.setPassed (false);
 			tPlayer.setReceived (false);
+			tPlayer.setReadyToPlay (false);
+			tPlayer.setWillLead (false);
 		}
 	}
 	
@@ -157,20 +159,44 @@ public class Players {
 		
 		if (tLeadingPlayer != NO_PLAYER) {
 			tLeadingPlayer.setWillLead (true);
+			tLeadingPlayer.setReadyToPlay (true);
 		}
 		
 		return tLeadingPlayer;
 	}
 
 	public void setStartingLead () {
+		Player tLeadingPlayer;
+		int tCurrentPlayerIndex = gameFrame.NO_CURRENT_PLAYER;
+		
+		if (allCardsPassed ()) {
+			tLeadingPlayer = findLeadingPlayer ();
+			tLeadingPlayer.setWillLead (true);
+			tCurrentPlayerIndex = getIndexFor (tLeadingPlayer);
+		}
+		setCurrentPlayer (tCurrentPlayerIndex);
+	}
+	
+	public void setCurrentPlayer (int aCurrentPlayerIndex) {
+		gameFrame.setCurrentPlayer (aCurrentPlayerIndex);		
+	}
+	
+	public int getIndexFor (Player aPlayer) {
+		int tPlayerIndex, tFoundPlayerIndex;
 		Player tPlayer;
 
-		if (allCardsPassed ()) {
-			tPlayer = findLeadingPlayer ();
-			tPlayer.setWillLead (true);
+		tFoundPlayerIndex = gameFrame.NO_CURRENT_PLAYER;
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			if (tPlayer.equals (aPlayer)) {
+				tFoundPlayerIndex = tPlayerIndex;
+			}
 		}
+		
+		return tFoundPlayerIndex;
 	}
 
+	
 	public void mergeTricks (Deck aGameDeck) {
 		int tPlayerIndex;
 		Player tPlayer;

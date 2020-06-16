@@ -17,6 +17,7 @@ public class Player {
 	boolean passed;
 	boolean received;
 	boolean willLead;
+	boolean readyToPlay;
 	GameFrame gameFrame;
 	
 	public Player (String aName, int aMyIndex) {
@@ -28,8 +29,17 @@ public class Player {
 		setNewHand (name);
 		setMyIndex (aMyIndex);
 		setWillLead (false);
+		setReadyToPlay (false);
 	}
 
+	public void setReadyToPlay (boolean aReadyToPlay) {
+		readyToPlay = aReadyToPlay;
+	}
+	
+	public boolean readyToPlay () {
+		return readyToPlay;
+	}
+	
 	public void setWillLead (boolean aWillLead) {
 		willLead = aWillLead;
 		frame.updateLeadLabel ();
@@ -297,5 +307,13 @@ public class Player {
 		}
 		setScore (tNewScore);
 		frame.updateScore (score);
+	}
+	
+	public void setCurrentPlayer (int aCurrentPlayerIndex) {
+		gameFrame.setCurrentPlayer (aCurrentPlayerIndex);		
+	}
+
+	public int getIndexFor (Player aPlayer) {
+		return players.getIndexFor (aPlayer);
 	}
 }

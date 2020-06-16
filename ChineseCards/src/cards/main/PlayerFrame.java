@@ -139,7 +139,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		buttonsPanel.add (pushCardsDown, BorderLayout.SOUTH);
 		buttonsPanel.add (passCards, BorderLayout.SOUTH);
 		buttonsPanel.add (playCard, BorderLayout.SOUTH);
-		pushCardsDown.setEnabled (false);
 	}
 	
 	private void setupActionListeners () {
@@ -178,8 +177,10 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	public void updatePushDownButton () {
 		if (anyCardIsUp ()) {
 			pushCardsDown.setEnabled (true);
+			pushCardsDown.setToolTipText ("");
 		} else {
 			pushCardsDown.setEnabled (false);
+			pushCardsDown.setToolTipText ("No Cards are up to move down");
 		}
 	}
 	
@@ -217,14 +218,20 @@ public class PlayerFrame extends JPanel implements MouseListener {
 
 	public void setStartingLead () {
 		Player tPlayer;
+		int tCurrentPlayerIndex;
 		
 		tPlayer = player.findLeadingPlayer ();
+		tPlayer.setWillLead (true);
+		tCurrentPlayerIndex = tPlayer.getIndexFor (tPlayer);
+		tPlayer.setCurrentPlayer (tCurrentPlayerIndex);
+
 		tPlayer.setWillLead (true);
 	}
 	
 	public void updateCardsInFrame (Player aPlayer) {
 		aPlayer.sortCards ();
 		aPlayer.showAllCardsInFrame ();
+		updateButtons ();
 	}
 	
 	public void playCard () {
@@ -357,10 +364,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 			}
 		}
 		
-		disablePassCardsButton ();
-		disablePlayCardButton ();
-		updatePassButtonText ();
-    	updatePushDownButton ();
+		updateButtons ();
 	}
 	
 	private void showACard (Card aCard) {
@@ -392,6 +396,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	
 	private void enablePlayCardButton () {
 		playCard.setEnabled (true);
+		playCard.setToolTipText ("");
 	}
 
 	private void disablePassCardsButton () {
@@ -400,6 +405,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	
 	private void enablePassCardsButton () {
 		passCards.setEnabled (true);
+		passCards.setToolTipText ("");
 	}
 
 	public void updatePassButtonText () {
@@ -500,26 +506,63 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	    updateButtons ();
 	}
 
-	public void updateButtons () {
+	public void updatePlayCardButton () {
 		int tSelectedCount;
 		int tPlayCount;
 		
 		tPlayCount = player.getPlayCount ();
 		tSelectedCount = getSelectedCount ();
-	    disablePassCardsButton ();
-	    disablePlayCardButton ();
-    	updatePushDownButton ();
+	    if (player.isNotHoldHand ()) {
+		    if (player.hasNotPassed ()) {
+		    	playCard.setToolTipText ("Must pass " + player.getPassCount () + " Cards first");
+		    } else if (tSelectedCount == tPlayCount) {
+		    	if (player.readyToPlay ()) {
+		    		enablePlayCardButton ();
+		    	} else {
+		    		playCard.setToolTipText ("Not your turn to play a Card");
+		    	}
+		    } else {
+		    	playCard.setToolTipText ("No Card selected to play");
+		    }
+	    } else if (tSelectedCount == tPlayCount) {
+	    	if (player.readyToPlay ()) {
+	    		enablePlayCardButton ();
+	    	} else {
+	    		playCard.setToolTipText ("Not your turn to play a Card");
+	    	}
+	    } else {
+	    	playCard.setToolTipText ("No Card selected to play");
+	    }
+
+	}
+	
+	public void updatePassCardsButton () {
+		int tSelectedCount;
+
+		updatePassButtonText ();
+		tSelectedCount = getSelectedCount ();
 	    if (player.isNotHoldHand ()) {
 		    if (player.hasNotPassed ()) {
 			    if (tSelectedCount == player.getPassCount ()) {
 			    	enablePassCardsButton ();
+			    } else {
+			    	passCards.setToolTipText ("Must select " + player.getPassCount () + " Cards to pass");
 			    }
-		    } else if (tSelectedCount == tPlayCount) {
-		    	enablePlayCardButton ();
+		    } else {
+		    	passCards.setToolTipText ("Already Passed Cards");
 		    }
-	    } else if (tSelectedCount == tPlayCount) {
-	    	enablePlayCardButton ();
+	    } else {
+	    	passCards.setToolTipText ("This is a Hold Hand - No Cards to Pass");
 	    }
+
+	}
+	
+	public void updateButtons () {
+	    disablePassCardsButton ();
+	    disablePlayCardButton ();
+	    updatePushDownButton ();
+    	updatePlayCardButton ();
+    	updatePassCardsButton ();
 	}
 
 	@Override

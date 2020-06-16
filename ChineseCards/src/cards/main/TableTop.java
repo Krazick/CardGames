@@ -63,6 +63,9 @@ public class TableTop extends JPanel implements MouseListener {
 	}
 	
 	public void playCard (Card aCard, Player aPlayer) {
+		int tNextPlayerIndex;
+		Player tNextPlayer;
+		
 		if (firstCard ()) {
 			playerWhoLed = aPlayer;
 			cardLed = aCard;
@@ -80,14 +83,31 @@ public class TableTop extends JPanel implements MouseListener {
 		showACard (aCard);
 		if (allPlayersPlayed ()) {
 			resolveTrick ();
+		} else {
+			aPlayer.setReadyToPlay (false);
+			tNextPlayerIndex = gameFrame.getNextPlayerIndex ();
+			tNextPlayer = gameFrame.getPlayer (tNextPlayerIndex);
+			gameFrame.setCurrentPlayer (tNextPlayerIndex);
+			tNextPlayer.setReadyToPlay (true);
+			System.out.println ("Next Player Index to play is " + tNextPlayerIndex);
 		}
 		gameFrame.revalidateRepaint ();
 	}
 	
 	public void resolveTrick () {
+		int tNewCurrentPlayerIndex, tLastPlayerIndex;
+		Player tLastPlayer;
+		
 		playerWhoLed.setWillLead (false);
+		tLastPlayerIndex = gameFrame.getCurrentPlayerIndex ();
+		tLastPlayer  = gameFrame.getPlayer (tLastPlayerIndex);
+		tLastPlayer.setReadyToPlay (false);
+		tNewCurrentPlayerIndex = gameFrame.getPlayerIndex (playerWhoWillWin);
+		gameFrame.setCurrentPlayer (tNewCurrentPlayerIndex);
+		
 		playerWhoWillWin.addTrick (cardsOnTable);
 		playerWhoWillWin.setWillLead (true);
+		playerWhoWillWin.setReadyToPlay (true);
 		playerWhoWillWin.updateTrickInfoLabel ();
 		if (playerWhoWillWin != playerWhoLed) {
 			playerWhoLed.updateTrickInfoLabel ();

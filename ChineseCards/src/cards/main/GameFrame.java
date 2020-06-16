@@ -5,10 +5,12 @@ import cards.main.Deck.Types;
 
 public class GameFrame extends XMLFrame {
 	private static final long serialVersionUID = 1L;
+	public final int NO_CURRENT_PLAYER = -1;
 	GameManager gameManager;
 	Players players;
 	Deck gameDeck;
 	TableTop tableTop;
+	int currentPlayer;
 	
 	public GameFrame (String aFrameName, GameManager aGameManager) {
 		super (aFrameName);
@@ -36,6 +38,31 @@ public class GameFrame extends XMLFrame {
 		startNewRound ();
 	}
 
+	public int getPlayerIndex (Player tPlayer) {
+		return players.getIndexFor (tPlayer); 
+	}
+	
+	public void setCurrentPlayer (int aCurrentPlayer) {
+		currentPlayer = aCurrentPlayer;
+	}
+	
+	public int getCurrentPlayerIndex () {
+		return currentPlayer;
+	}
+	
+	public int getNextPlayerIndex () {
+		int tNextPlayer;
+		
+		tNextPlayer = (currentPlayer + 1) % players.getPlayerCount ();
+		System.out.println ("Current Player " + currentPlayer + " player Count " + players.getPlayerCount ());
+		
+		return tNextPlayer;
+	}
+	
+	public Player getPlayer (int aPlayerIndex) {
+		return players.getPlayer (aPlayerIndex);
+	}
+	
 	public void setGameDeck (Deck aGameDeck) {
 		gameDeck = aGameDeck;
 	}
