@@ -517,7 +517,12 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		    	playCard.setToolTipText ("Must pass " + player.getPassCount () + " Cards first");
 		    } else if (tSelectedCount == tPlayCount) {
 		    	if (player.readyToPlay ()) {
-		    		enablePlayCardButton ();
+		    		if (player.validCardToPlay (getSelectedCard ())) {
+		    			enablePlayCardButton ();
+		    		} else {
+		    			disablePlayCardButton ();
+		    			playCard.setToolTipText ("Selected Card does not match Suit Led");
+		    		}
 		    	} else {
 		    		playCard.setToolTipText ("Not your turn to play a Card");
 		    	}
@@ -526,7 +531,12 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		    }
 	    } else if (tSelectedCount == tPlayCount) {
 	    	if (player.readyToPlay ()) {
-	    		enablePlayCardButton ();
+	    		if (player.validCardToPlay (getSelectedCard ())) {
+	    			enablePlayCardButton ();
+	    		} else {
+	    			disablePlayCardButton ();
+	    			playCard.setToolTipText ("Selected Card does not match Suit Led");
+	    		}
 	    	} else {
 	    		playCard.setToolTipText ("Not your turn to play a Card");
 	    	}

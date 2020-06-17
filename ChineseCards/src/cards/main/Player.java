@@ -316,4 +316,25 @@ public class Player {
 	public int getIndexFor (Player aPlayer) {
 		return players.getIndexFor (aPlayer);
 	}
+
+	public boolean validCardToPlay (Card aSelectedCard) {
+		Card aCardLed, aLowestCardInSuit;
+		boolean aValidCard = false;
+		
+		aCardLed = gameFrame.getCardLed ();
+		if (aCardLed == Card.NO_CARD) {
+			aValidCard = true;
+		} else {
+			if (aSelectedCard.isSameSuit (aCardLed)) {
+				aValidCard = true;
+			} else {
+				aLowestCardInSuit = hand.getLowestInSuit (aCardLed.getTheSuit ());
+				if (aLowestCardInSuit == Card.NO_CARD) {
+					aValidCard = true;
+				}
+			}
+		}
+		
+		return aValidCard;
+	}
 }

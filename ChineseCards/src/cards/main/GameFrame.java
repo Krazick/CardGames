@@ -38,6 +38,10 @@ public class GameFrame extends XMLFrame {
 		startNewRound ();
 	}
 
+	public Card getCardLed () {
+		return tableTop.getCardLed ();
+	}
+	
 	public int getPlayerIndex (Player tPlayer) {
 		return players.getIndexFor (tPlayer); 
 	}

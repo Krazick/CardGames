@@ -46,6 +46,7 @@ public class TableTop extends JPanel implements MouseListener {
 	
 	public void startNewTrick () {
 		cardsOnTable = new Trick ();
+		setCardLed (Card.NO_CARD);
 	}
 	
 	public boolean firstCard () {
@@ -60,6 +61,14 @@ public class TableTop extends JPanel implements MouseListener {
 		}
 		
 		return tAllPlayersPlayed;
+	}
+	
+	public void setCardLed (Card aCardLed) {
+		cardLed = aCardLed;
+	}
+	
+	public Card getCardLed () {
+		return cardLed;
 	}
 	
 	public void playCard (Card aCard, Player aPlayer) {
@@ -89,7 +98,6 @@ public class TableTop extends JPanel implements MouseListener {
 			tNextPlayer = gameFrame.getPlayer (tNextPlayerIndex);
 			gameFrame.setCurrentPlayer (tNextPlayerIndex);
 			tNextPlayer.setReadyToPlay (true);
-			System.out.println ("Next Player Index to play is " + tNextPlayerIndex);
 		}
 		gameFrame.revalidateRepaint ();
 	}

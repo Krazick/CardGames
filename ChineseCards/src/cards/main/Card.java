@@ -231,6 +231,10 @@ public class Card {
 		return rank.getValue ();
 	}
 	
+	public Suits getTheSuit () {
+		return suit;
+	}
+	
 	public String getSuit () {
 		return suit.getName ();
 	}
