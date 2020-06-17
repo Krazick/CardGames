@@ -58,7 +58,6 @@ public class GameFrame extends XMLFrame {
 		int tNextPlayer;
 		
 		tNextPlayer = (currentPlayer + 1) % players.getPlayerCount ();
-		System.out.println ("Current Player " + currentPlayer + " player Count " + players.getPlayerCount ());
 		
 		return tNextPlayer;
 	}
