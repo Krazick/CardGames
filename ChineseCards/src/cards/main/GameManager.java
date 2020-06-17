@@ -32,7 +32,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private JTextField clientUserName;
 	private JGameClient jGameClient;
 	private JButton newGameButton;
-	private JButton loadGameButton;
 	private JButton quitButton;
 	
 	public static void main (String[] args) {
@@ -74,7 +73,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		clientUserName.setEnabled (true);
 		
 		newGameButton = new JButton ("New Game");
-		loadGameButton = new JButton ("Load Game...");
 		quitButton = new JButton("Quit");
 		
 		GroupLayout groupLayout = new GroupLayout (getContentPane ());
@@ -96,8 +94,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(21)
 							.addComponent(newGameButton)
-							.addGap(21)
-							.addComponent(loadGameButton)
+							.addGap(140)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(quitButton)))
 					.addContainerGap(11, Short.MAX_VALUE))
@@ -116,7 +113,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(newGameButton)
-						.addComponent(loadGameButton)
 						.addComponent(quitButton))
 					.addContainerGap(12, Short.MAX_VALUE))
 		);
@@ -128,33 +124,16 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private void disableGameButtons () {
 		newGameButton.setEnabled (false);
 		newGameButton.setToolTipText (ENTER_USER_NAME);
-		loadGameButton.setEnabled (false);
-		loadGameButton.setToolTipText (ENTER_USER_NAME);
 	}
 	
 	public void enableGameStartItems () {
 //		enableNewMenuItem ();
-//		enableOpenMenuItem ();
 		newGameButton.setEnabled (true);
 		newGameButton.setToolTipText (NO_TOOL_TIP);
-		loadGameButton.setEnabled (true);
-		loadGameButton.setToolTipText (NO_TOOL_TIP);
 		clientUserName.setEnabled (true);
 	}
 
-	private void setupFrameActions () {
-		clientUserName.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent aEvent) {
-				Object tEventObject = aEvent.getSource ();
-				
-				if (tEventObject instanceof JTextField) {
-//					setupNewGameManager ();
-				}
-
-			}
-		});
-		
+	private void setupFrameActions () {		
 		clientUserName.addKeyListener (new KeyAdapter() {
 			@Override
 			public void keyReleased (KeyEvent e) {
@@ -176,22 +155,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 				 }
 			}
 		});
-		
-		loadGameButton.addActionListener (new ActionListener() {
-			public void actionPerformed (ActionEvent aEvent) {
-//				loadGame ();
-			}
-		});
-		
-		loadGameButton.addKeyListener (new KeyAdapter() {
-			@Override
-			public void keyReleased (KeyEvent e) {
-				if (e.getKeyCode () == KeyEvent.VK_ENTER){
-//					loadGame ();
-				 }
-			}
-		});
-		
+				
 		quitButton.addActionListener (new ActionListener() {
 			public void actionPerformed (ActionEvent aEvent) {
 				System.exit (0);
