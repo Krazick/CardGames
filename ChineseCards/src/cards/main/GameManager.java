@@ -3,11 +3,8 @@ package cards.main;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,6 +30,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private JGameClient jGameClient;
 	private JButton newGameButton;
 	private JButton quitButton;
+	private GamePanel gamePanel;
 	
 	public static void main (String[] args) {
 		new GameManager ();
@@ -52,7 +50,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		setFrameContents ();
 		setupFrameActions ();
 		setVisible (true);
-		jGameClient = new JGameClient ("Hearts Game JGameClient", this);
 	}
 
 	public void setFrameContents () {
@@ -163,16 +160,44 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		});
 	}
 	
+	public GamePanel getGamePanel () {
+		return gamePanel;
+	}
+	
+	public JGameClient getJGameClient () {
+		return jGameClient;
+	}
+	
 	public void newGame () {
 		String tPlayerName;
 		
 		tPlayerName = getClientUserName ();
 		players = new Players ();
 		players.addNewPlayer (tPlayerName);
-		jGameClient.addLocalPlayer  (tPlayerName, false);
-		jGameClient.setVisible (true);
-		gameFrame = new GameFrame ("Game Frame for " + getClientUserName (), this);
+		gamePanel = new GamePanel (this, tPlayerName);
+//		setupJGameClient (tPlayerName);
+//		gameFrame = new GameFrame ("Game Frame for " + getClientUserName (), this);
 	}
+
+//	public void setupJGameClient (String aPlayerName) {
+//		JPanel tGamePanel;
+//		JRadioButton tHeartsGameButton;
+//		JRadioButton tSpadesGameButton;
+//		ButtonGroup tGameButtonGroup;
+//		
+//		jGameClient = new JGameClient ("Hearts Game JGameClient", this);
+//		jGameClient.addLocalPlayer (aPlayerName, false);
+//		tGamePanel = new JPanel ();
+//		tGameButtonGroup = new ButtonGroup ();
+//		tHeartsGameButton = new JRadioButton ("Hearts");
+//		tSpadesGameButton = new JRadioButton ("Spades");
+//		tGameButtonGroup.add (tHeartsGameButton);
+//		tGameButtonGroup.add (tSpadesGameButton);
+//		tGamePanel.add (tHeartsGameButton);
+//		tGamePanel.add (tSpadesGameButton);
+//		jGameClient.addGamePanel (tGamePanel);
+//		jGameClient.setVisible (true);
+//	}
 
 	public Players getPlayers () {
 		return players;
@@ -270,5 +295,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		System.out.println ("Round Done - has anyone Exceeded 100 Points?");
 		
 		return tGameWon;
+	}
+
+	public void setJGameClient (JGameClient aJGameClient) {
+		jGameClient = aJGameClient;
 	}
 }
