@@ -179,26 +179,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 //		gameFrame = new GameFrame ("Game Frame for " + getClientUserName (), this);
 	}
 
-//	public void setupJGameClient (String aPlayerName) {
-//		JPanel tGamePanel;
-//		JRadioButton tHeartsGameButton;
-//		JRadioButton tSpadesGameButton;
-//		ButtonGroup tGameButtonGroup;
-//		
-//		jGameClient = new JGameClient ("Hearts Game JGameClient", this);
-//		jGameClient.addLocalPlayer (aPlayerName, false);
-//		tGamePanel = new JPanel ();
-//		tGameButtonGroup = new ButtonGroup ();
-//		tHeartsGameButton = new JRadioButton ("Hearts");
-//		tSpadesGameButton = new JRadioButton ("Spades");
-//		tGameButtonGroup.add (tHeartsGameButton);
-//		tGameButtonGroup.add (tSpadesGameButton);
-//		tGamePanel.add (tHeartsGameButton);
-//		tGamePanel.add (tSpadesGameButton);
-//		jGameClient.addGamePanel (tGamePanel);
-//		jGameClient.setVisible (true);
-//	}
-
 	public Players getPlayers () {
 		return players;
 	}
@@ -213,7 +193,10 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	@Override
 	public void addNetworkPlayer (String aPlayerName) {
-		players.addNewPlayer (aPlayerName);
+		if (! players.hasPlayer (aPlayerName)) {
+			players.addNewPlayer (aPlayerName);
+		}
+		players.printAllPlayers ();
 	}
 
 	@Override

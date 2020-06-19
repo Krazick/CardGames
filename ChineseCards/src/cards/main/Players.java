@@ -229,4 +229,30 @@ public class Players {
 		}
 	}
 
+	public boolean hasPlayer (String aPlayerName) {
+		int tPlayerIndex;
+		Player tPlayer;
+		boolean tHasPlayer = false;
+
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			if (tPlayer.getName ().equals (aPlayerName)) {
+				tHasPlayer = true;
+			}
+		}
+		
+		return tHasPlayer;
+	}
+	
+	public void printAllPlayers () {
+		int tPlayerIndex;
+		Player tPlayer;
+
+		System.out.println ("Player Count " + players.size ());
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			System.out.println ("Player " + tPlayerIndex + " is " + tPlayer.getName ());
+		}
+	}
+
 }
