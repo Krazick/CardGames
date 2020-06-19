@@ -190,13 +190,8 @@ public class JGameClient extends XMLFrame {
 				String tAction = e.getActionCommand ();
 				
 				if ("REFRESH".equals (tAction)) {
-					refreshPlayers ();
 					backFromAFK ();
-					networkPlayers.removeAllPlayers ();
-					// Add myself to the list
-					networkPlayers.addPlayer (playerName.getText ());
-					// Request from the ServerHandler to add all of the other Players
-					serverHandler.requestUserNameList ();
+					refreshPlayers ();
 				}
 			}
 		});
@@ -544,7 +539,6 @@ public class JGameClient extends XMLFrame {
 	}
 
 	private void connect (String aAction) {
-
 		String tPlayerName;
 		boolean tSuccess;
 		
@@ -567,11 +561,9 @@ public class JGameClient extends XMLFrame {
 	// Message and Chat Management ---
 	
 	public void refreshPlayers () {
-		backFromAFK ();
 		networkPlayers.removeAllPlayers ();
-		// Add myself to the list
-		networkPlayers.addPlayer (playerName.getText ());
-		// Request from the ServerHandler to add all of the other Players
+		gameManager.removeAllNetworkPlayers ();
+		// Request from the ServerHandler to add all of the Players
 		serverHandler.requestUserNameList ();
 	}
 	

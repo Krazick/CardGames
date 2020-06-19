@@ -201,10 +201,12 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	@Override
 	public void removeNetworkPlayer (String aPlayerName) {
+		players.removePlayer (aPlayerName);
 	}
 
 	@Override
 	public void removeAllNetworkPlayers () {
+		players.removeAll ();
 	}
 
 	@Override

@@ -181,6 +181,21 @@ public class Players {
 		gameFrame.setCurrentPlayer (aCurrentPlayerIndex);		
 	}
 	
+	public int getIndexFor (String aPlayerName) {
+		int tPlayerIndex, tFoundPlayerIndex;
+		Player tPlayer;
+
+		tFoundPlayerIndex = gameFrame.NO_CURRENT_PLAYER;
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			if (tPlayer.getName ().equals (aPlayerName)) {
+				tFoundPlayerIndex = tPlayerIndex;
+			}
+		}
+		
+		return tFoundPlayerIndex;
+	}
+	
 	public int getIndexFor (Player aPlayer) {
 		int tPlayerIndex, tFoundPlayerIndex;
 		Player tPlayer;
@@ -255,4 +270,16 @@ public class Players {
 		}
 	}
 
+	public void removeAll () {
+		players.removeAll (players);
+	}
+
+	public void removePlayer (String aPlayerName) {
+		int tPlayerIndex;
+		
+		tPlayerIndex = getIndexFor (aPlayerName);
+		if (tPlayerIndex != gameFrame.NO_CURRENT_PLAYER) {
+			players.remove (tPlayerIndex);
+		}
+	}
 }
