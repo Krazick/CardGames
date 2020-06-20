@@ -1,6 +1,9 @@
 package cards.main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Players {
 	ArrayList<Player> players;
@@ -10,6 +13,8 @@ public class Players {
 	private int playCount;
 	private boolean passing;
 	GameFrame gameFrame;
+	private int MAX_PLAYERS = 8;
+	private Object NO_NAME = null;
 	
 	public Players () {
 		players = new ArrayList<Player> ();
@@ -185,7 +190,7 @@ public class Players {
 		int tPlayerIndex, tFoundPlayerIndex;
 		Player tPlayer;
 
-		tFoundPlayerIndex = gameFrame.NO_CURRENT_PLAYER;
+		tFoundPlayerIndex = GameFrame.NO_CURRENT_PLAYER;
 		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
 			tPlayer = players.get (tPlayerIndex);
 			if (tPlayer.getName ().equals (aPlayerName)) {
@@ -278,8 +283,66 @@ public class Players {
 		int tPlayerIndex;
 		
 		tPlayerIndex = getIndexFor (aPlayerName);
-		if (tPlayerIndex != gameFrame.NO_CURRENT_PLAYER) {
+		if (tPlayerIndex != GameFrame.NO_CURRENT_PLAYER) {
 			players.remove (tPlayerIndex);
 		}
 	}
+
+	public String getPlayersInOrder () {
+		int tPlayerIndex;
+		Player tPlayer;
+		String tPlayerOrder = "";
+
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			if (tPlayerOrder != "") {
+				tPlayerOrder += ",";
+			}
+			tPlayer = players.get (tPlayerIndex);
+			tPlayerOrder += tPlayer.getName ();
+		}
+
+		return tPlayerOrder;
+	}
+
+	public void handleResetPlayerOrder (String aPlayerOrder) {
+		String tPlayerOrder [] = aPlayerOrder.split (",");
+		
+		System.out.println ("Players - Handle Player Reordering");
+		printAllPlayers ();
+		removeAll ();
+		for (String tPlayerName : tPlayerOrder) {
+			addNewPlayer (tPlayerName);
+		}
+		System.out.println ("After Reordering");
+		printAllPlayers ();
+	}
+
+	public void randomizePlayerOrder () {
+		List<String> tPlayerNames;
+		
+		tPlayerNames = getPlayerNames ();
+		Random tGenerator = new Random ();
+		Collections.shuffle (tPlayerNames, tGenerator);
+		
+		removeAll ();
+		for (String tPlayerName : tPlayerNames) {
+			addNewPlayer (tPlayerName);
+		}
+	}
+
+	public List<String> getPlayerNames () {
+		List<String> tPlayerNames;
+		String tName;
+	
+		tPlayerNames = new ArrayList<String> ();
+		for (Player tPlayer : players) {
+			tName = tPlayer.getName ();
+			if (! (tName.equals (NO_NAME))) {
+				tPlayerNames.add (tName);
+			}
+		}
+
+		return tPlayerNames;
+    }
+
 }
