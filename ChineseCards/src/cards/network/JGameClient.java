@@ -479,7 +479,7 @@ public class JGameClient extends XMLFrame {
 	
 	public void removeGamePanel () {
 		gameActivityPanel.remove (gamePanel);
-		gameActivityPanel.remove (gameInfoPanel);
+//		gameActivityPanel.remove (gameInfoPanel);
 		revalidate ();
 	}
 	
@@ -575,6 +575,7 @@ public class JGameClient extends XMLFrame {
 		selectedGameIndex = aGameIndex;
 		selectedGameName = aGameName;
 		updateReadyButton ("SELECT GAME", true, GAME_SELECTED);
+		System.out.println ("Selected Game is (" + aGameIndex + ") " + aGameName);
 	}
 	
 	public void sendPlayerReady () {
@@ -605,7 +606,8 @@ public class JGameClient extends XMLFrame {
 		tGameActivity = constructGameActivityXML (EN_GAME_SELECTION, AN_GAME_INDEX, selectedGameIndex + "",
 				AN_BROADCAST_MESSAGE, tBroadcastMessage);
 		sendGameActivity (tGameActivity);
-		sendPlayerOrder ();
+//		sendPlayerOrder ();
+		sendPlayerReady ();
 	}
 	
 	public void updateReadyButton (String aAction, boolean aEnabled, String aToolTip) {
