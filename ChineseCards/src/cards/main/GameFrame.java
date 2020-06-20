@@ -5,7 +5,7 @@ import cards.main.Deck.Types;
 
 public class GameFrame extends XMLFrame {
 	private static final long serialVersionUID = 1L;
-	public final int NO_CURRENT_PLAYER = -1;
+	public final static int NO_CURRENT_PLAYER = -1;
 	GameManager gameManager;
 	Players players;
 	Deck gameDeck;
