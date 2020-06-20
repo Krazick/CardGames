@@ -9,14 +9,19 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import org.w3c.dom.NodeList;
+
 import cards.config.GameFrameConfig;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
+import cards.utilities.XMLDocument;
+import cards.utilities.XMLNode;
 
 public class GameManager extends JFrame implements NetworkGameSupport {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +36,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private JButton newGameButton;
 	private JButton quitButton;
 	private GamePanel gamePanel;
+	private boolean notifyNetwork;
 	
 	public static void main (String[] args) {
 		new GameManager ();
@@ -211,11 +217,59 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	@Override
 	public void handleGameActivity (String aGameActivity) {
+		XMLDocument tXMLGameActivity;
+
+		XMLNode tXMLGameActivityNode;
+		XMLNode tActionNode;
+		NodeList tActionChildren;
+		int tActionNodeCount, tActionIndex;
+		String tANodeName;
+		int tGameIndex;
+		String tGameOptions, tBroadcast, tPlayerOrder;
+
+		tXMLGameActivity = new XMLDocument ();
+		tXMLGameActivity = tXMLGameActivity.ParseXMLString (aGameActivity);
+		tXMLGameActivityNode = tXMLGameActivity.getDocumentElement ();
+		tANodeName = tXMLGameActivityNode.getNodeName ();
+		if (JGameClient.EN_GAME_ACTIVITY.equals (tANodeName)) {
+			tActionChildren = tXMLGameActivityNode.getChildNodes ();
+			tActionNodeCount = tActionChildren.getLength ();
+			try {
+				for (tActionIndex = 0; tActionIndex < tActionNodeCount; tActionIndex++) {
+					tActionNode = new XMLNode (tActionChildren.item (tActionIndex));
+					tANodeName = tActionNode.getNodeName ();
+					if (JGameClient.EN_GAME_SELECTION.equals (tANodeName)) {
+						tGameIndex = tActionNode.getThisIntAttribute (JGameClient.AN_GAME_INDEX);
+						tGameOptions = tActionNode.getThisAttribute (JGameClient.AN_GAME_OPTIONS);
+						tBroadcast = tActionNode.getThisAttribute (JGameClient.AN_BROADCAST_MESSAGE);
+						gamePanel.handleGameSelection (tGameIndex, tGameOptions, tBroadcast);
+						jGameClient.updateReadyButton ("READY", true, "Hit when ready to play");
+					} else if (JGameClient.EN_PLAYER_ORDER.equals (tANodeName)) {
+						tPlayerOrder = tActionNode.getThisAttribute (JGameClient.AN_PLAYER_ORDER);
+						tBroadcast = tActionNode.getThisAttribute (JGameClient.AN_BROADCAST_MESSAGE);
+						handleResetPlayerOrder (tPlayerOrder, tBroadcast);
+					} else {
+						handleNetworkAction (tXMLGameActivityNode);
+					}
+				}
+			} catch (Exception tException) {
+				System.err.println (tException.getMessage ());
+				tException.printStackTrace ();
+			}
+		}
+	}
+
+	private void handleNetworkAction (XMLNode tXMLGameActivityNode) {
+		System.out.println ("GameManager - Handle Network Game Action");
+	}
+
+	private void handleResetPlayerOrder (String tPlayerOrder, String tBroadcast) {
+		players.handleResetPlayerOrder (tPlayerOrder);
 	}
 
 	@Override
 	public JGameClient getNetworkJGameClient () {
-		return null;
+		return jGameClient;
 	}
 
 	@Override
@@ -229,11 +283,12 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	@Override
 	public String getPlayersInOrder () {
-		return null;
+		return players.getPlayersInOrder ();
 	}
 
 	@Override
 	public void randomizePlayerOrder () {
+		players.randomizePlayerOrder ();
 	}
 
 	@Override
@@ -284,5 +339,33 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	public void setJGameClient (JGameClient aJGameClient) {
 		jGameClient = aJGameClient;
+	}
+
+	public int getPlayerCount () {
+		return players.getPlayerCount ();
+	}
+
+	public void initiateGame (GameInfo aGameInfo) {
+		System.out.println ("Ready to Initiate Game of " + aGameInfo.getName ());
+		
+	}
+
+	public void clearOtherPlayers (String tPlayerName) {
+		System.out.println ("Clear Other Players with " + tPlayerName + " sent");
+		
+	}
+
+	public void setNotifyNetwork (boolean aNotifyNetwork) {
+		// TODO Auto-generated method stub
+		notifyNetwork = aNotifyNetwork;
+	}
+	
+	public boolean shouldNotifyNetwork () {
+		return notifyNetwork;
+	}
+
+	public void addGameInfoPanel (JPanel gameInfoPanel) {
+		System.out.println ("Game Manager - Add Game Info Panel");
+		
 	}
 }
