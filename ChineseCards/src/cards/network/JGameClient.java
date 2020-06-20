@@ -90,7 +90,7 @@ public class JGameClient extends XMLFrame {
 	private JScrollPane spGameActivity;
 	private JPanel gameActivityPanel;
 	private JPanel gamePanel;
-	private JPanel gameInfoPanel;
+//	private JPanel gameInfoPanel;
 	private JList<NetworkPlayer> playerList;
 	
 	private Thread serverThread = null;
@@ -490,7 +490,7 @@ public class JGameClient extends XMLFrame {
 	}
 
 	public void addGameInfoPanel (JPanel aGameInfoPanel) {
-		gameInfoPanel = aGameInfoPanel;
+//		gameInfoPanel = aGameInfoPanel;
 		gameActivityPanel.add (aGameInfoPanel, BorderLayout.EAST);
 		revalidate ();
 	}
@@ -606,7 +606,6 @@ public class JGameClient extends XMLFrame {
 		tGameActivity = constructGameActivityXML (EN_GAME_SELECTION, AN_GAME_INDEX, selectedGameIndex + "",
 				AN_BROADCAST_MESSAGE, tBroadcastMessage);
 		sendGameActivity (tGameActivity);
-//		sendPlayerOrder ();
 		sendPlayerReady ();
 	}
 	
