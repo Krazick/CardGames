@@ -2,10 +2,11 @@ package cards.main;
 
 import java.util.ArrayList;
 
+import cards.actions.ActorI;
 import cards.main.Card.Suits;
 import cards.network.NetworkPlayer;
 
-public class Player {
+public class Player implements ActorI {
 	PlayerFrame frame;
 	Hand hand;
 	String name;
@@ -19,6 +20,7 @@ public class Player {
 	boolean willLead;
 	boolean readyToPlay;
 	GameFrame gameFrame;
+	ActionStates actionState;
 	
 	public Player (String aName, int aMyIndex) {
 		setName (aName);
@@ -30,10 +32,14 @@ public class Player {
 		setMyIndex (aMyIndex);
 		setWillLead (false);
 		setReadyToPlay (false);
+		resetActionState (ActorI.ActionStates.NoAction);
 	}
 
 	public void setReadyToPlay (boolean aReadyToPlay) {
 		readyToPlay = aReadyToPlay;
+		if (readyToPlay) {
+			resetActionState (ActorI.ActionStates.ReadyToPlay);
+		}
 	}
 	
 	public boolean readyToPlay () {
@@ -43,6 +49,9 @@ public class Player {
 	public void setWillLead (boolean aWillLead) {
 		willLead = aWillLead;
 		frame.updateLeadLabel ();
+		if (willLead) {
+			resetActionState (ActorI.ActionStates.WillLead);
+		}
 	}
 	
 	public boolean willLead () {
@@ -242,6 +251,9 @@ public class Player {
 	
 	public void setPassed (boolean aPassed) {
 		passed = aPassed;
+		if (passed) {
+			resetActionState (ActorI.ActionStates.Passed);
+		}
 	}
 	
 	public boolean isNotHoldHand () {
@@ -250,6 +262,9 @@ public class Player {
 	
 	public void setReceived (boolean aReceived) {
 		received = aReceived;
+		if (received) {
+			resetActionState (ActorI.ActionStates.ReceivedPass);
+		}
 	}
 	
 	public boolean getReceived () {
@@ -264,6 +279,7 @@ public class Player {
 		hand.remove (aCard);
 		gameFrame.playCard (aCard, this);
 		frame.removeCardFromCardPanel (aCard);
+		resetActionState (ActorI.ActionStates.PlayedCard);
 	}
 
 	public Player findLeadingPlayer () {
@@ -336,5 +352,20 @@ public class Player {
 		}
 		
 		return aValidCard;
+	}
+
+	@Override
+	public String getStateName () {
+		return actionState.name ();
+	}
+
+	@Override
+	public void resetActionState (ActionStates aActionState) {
+		actionState = aActionState;
+	}
+
+	@Override
+	public boolean isAPlayer () {
+		return true;
 	}
 }

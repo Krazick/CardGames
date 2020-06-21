@@ -17,6 +17,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.w3c.dom.NodeList;
 
+import cards.actions.ActorI;
 import cards.config.GameFrameConfig;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
@@ -371,5 +372,11 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public void addGameInfoPanel (JPanel gameInfoPanel) {
 		System.out.println ("Game Manager - Add Game Info Panel");
 		
+	}
+
+	public ActorI getActor (String tActorName) {
+		ActorI tActor = ActorI.NO_ACTOR;
+		
+		return tActor;
 	}
 }
