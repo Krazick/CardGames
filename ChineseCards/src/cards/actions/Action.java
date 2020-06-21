@@ -15,17 +15,13 @@ import java.util.List;
 public class Action {
 	public final static String NO_NAME = ">> NO ACTION NAME <<";
 	public final static ActorI NO_ACTOR = null;
-	public final static String NO_ROUND_ID = ">> NO ROUND ID <<";
 	public final static String REPORT_PREFIX = "-";
 	public final static ElementName EN_ACTIONS = new ElementName ("Actions");
 	public final static ElementName EN_ACTION = new ElementName ("Action");
 	public final static AttributeName AN_CLASS = new AttributeName ("class");
 	static final AttributeName AN_NAME = new AttributeName ("name");
-	static final AttributeName AN_ROUND_TYPE = new AttributeName ("roundType");
-	static final AttributeName AN_ROUND_ID = new AttributeName ("roundID");
 	static final AttributeName AN_CHAIN_PREVIOUS = new AttributeName ("chainPrevious");
 	String name;
-	String roundID;
 	ActorI actor;
 	List<Effect> effects;
 	Boolean chainToPrevious; // Chain this Action to Previous Action -- 
@@ -36,16 +32,16 @@ public class Action {
 	}
 	
 	public Action (String aName) {
-		setName (aName);
-		setActor (NO_ACTOR);
-		setChainToPrevious (false);
-		effects = new LinkedList<Effect> ();		
+		this (aName, NO_ACTOR);
 	}
 	
-	public Action (ActorI.ActionStates aRoundType, String aRoundID, ActorI aActor) {
-		setName (NO_NAME);
+	public Action (ActorI aActor) {
+		this (NO_NAME, aActor);
+	}
+	
+	public Action (String aName, ActorI aActor) {
+		setName (aName);
 		setActor (aActor);
-		setRoundID (aRoundID);
 		setChainToPrevious (false);
 		effects = new LinkedList<Effect> ();
 	}
@@ -125,7 +121,7 @@ public class Action {
 		
 		tActionElement = getActionElement (tXMLDocument);
 		tGameActivityElement = tXMLDocument.createElement (aElementName);
-		tGameActivityElement.appendChild(tActionElement);
+		tGameActivityElement.appendChild (tActionElement);
 		tXMLDocument.appendChild (tGameActivityElement);
 		tXMLFormat = tXMLDocument.toString ();
 		
@@ -142,7 +138,6 @@ public class Action {
 		tActionElement = aXMLDocument.createElement (EN_ACTION);
 		tActionElement.setAttribute (AN_CLASS, this.getClass ().getName ());
 		tActionElement.setAttribute (AN_NAME, getName ());
-		tActionElement.setAttribute (AN_ROUND_ID, getRoundID ());
 		tActionElement.setAttribute (ActorI.AN_ACTOR_NAME, tActorName);
 		tActionElement.setAttribute (AN_CHAIN_PREVIOUS, getChainToPrevious ());
 		tEffectsElement = aXMLDocument.createElement (Effect.EN_EFFECTS);
@@ -170,10 +165,6 @@ public class Action {
 
 	public String getName (String aName) {
 		return aName + " " + EN_ACTION;
-	}
-	
-	public String getRoundID () {
-		return roundID;
 	}
 	
 	public String getActionReport (GameManager aGameManager) {
@@ -226,10 +217,6 @@ public class Action {
 		return aName + " Action";
 	}
 	
-	public void setRoundID (String aRoundID) {
-		roundID = aRoundID;
-	}
-		
 	public boolean undoAction (GameManager aGameManager) {
 		boolean tActionUndone, tEffectUndone;
 		

@@ -19,7 +19,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.w3c.dom.NodeList;
 
+import cards.actions.ActionManager;
 import cards.actions.ActorI;
+import cards.actions.StartNewRoundAction;
 import cards.config.GameFrameConfig;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
@@ -34,6 +36,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public PlayerFrame playerFrame;
 	public GameFrame gameFrame;
 	public Players players;
+	public ActionManager actionManager;
 	private JTextField clientUserName;
 	private JGameClient jGameClient;
 	private JButton newGameButton;
@@ -62,6 +65,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		setFrameContents ();
 		setupFrameActions ();
 		setVisible (true);
+		actionManager = new ActionManager (this);
 		randomGenerator = new Random ();
 		tSeed = randomGenerator.nextLong ();
 		setShuffleSeed (tSeed);
@@ -235,6 +239,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		int tGameIndex;
 		String tGameOptions, tBroadcast, tPlayerOrder;
 
+		System.out.println ("-------- Game Activity [" + aGameActivity + "]");
 		tXMLGameActivity = new XMLDocument ();
 		tXMLGameActivity = tXMLGameActivity.ParseXMLString (aGameActivity);
 		tXMLGameActivityNode = tXMLGameActivity.getDocumentElement ();
@@ -302,11 +307,20 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	@Override
 	public void initiateNetworkGame () {
 		String tGameName;
+		StartNewRoundAction tStartNewRoundAction;
+		ActorI tClientActor;
 		
 		tGameName = gamePanel.getSelectedGame ();
 		System.out.println ("Initiate Game of " + tGameName);
 		gameFrame = new GameFrame (tGameName + " Game Frame for " + getClientUserName (), this);
+		tClientActor = getActor (getClientUserName ());
+		setNotifyNetwork (true);
 		gameFrame.startNewRound (shuffleSeed);
+		tStartNewRoundAction = new StartNewRoundAction (tClientActor);
+		tStartNewRoundAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);
+		System.out.println ("Start New Round Action with Shuffle Seed " + shuffleSeed);
+		actionManager.addAction (tStartNewRoundAction);
+		actionManager.actionReport ();
 	}
 	
 	@Override
@@ -395,5 +409,27 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		
 		tNewShuffleSeed = randomGenerator.nextLong ();
 		setShuffleSeed (tNewShuffleSeed);
+	}
+
+	public void appendToGameActivity (String aSimpleActionReport) {
+		jGameClient.appendToGameActivity (aSimpleActionReport);
+		
+	}
+
+	public String getGameName () {
+		String tGameName = "UNSPECIFIED";
+		if (gamePanel != null) {
+			tGameName = gamePanel.getSelectedGame ();
+		}
+		
+		return tGameName;
+	}
+
+	public String createFrameTitle (String aTitleSuffix) {
+		return getGameName () + " " + aTitleSuffix;
+	}
+
+	public void updateAllFrames () {
+		System.out.println ("Game Manager - Update all Frames");
 	}
 }
