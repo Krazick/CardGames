@@ -1,0 +1,63 @@
+package cards.actions;
+
+import cards.main.GameManager;
+import cards.utilities.XMLNode;
+import cards.actions.ActorI;
+import cards.effects.Effect;
+import cards.effects.NewShuffleSeedEffect;
+
+public class StartNewRoundAction extends Action {
+	public final static String NAME = "Start New Round";
+	
+	public StartNewRoundAction () {
+		this (NAME);
+	}
+
+	public StartNewRoundAction (String aName) {
+		this (aName, NO_ACTOR);
+		// TODO Auto-generated constructor stub
+	}
+
+	public StartNewRoundAction (ActorI aActor) {
+		this (NAME, aActor);
+	}
+	
+	public StartNewRoundAction (String aName, ActorI aActor) {
+		super (aName, aActor);
+	}
+
+	public StartNewRoundAction (XMLNode aActionNode, GameManager aGameManager) {
+		super (aActionNode, aGameManager);
+		setName (NAME);
+	}
+
+	public void addNewShuffleSeedEffect (ActorI aPlayer, Long aShuffleSeed) {
+		NewShuffleSeedEffect tNewShuffleSeedEffect;
+
+		tNewShuffleSeedEffect = new NewShuffleSeedEffect (aPlayer, aShuffleSeed);
+		addEffect (tNewShuffleSeedEffect);
+	}
+	
+	public Long getNewShuffleSeed () {
+		Long tNewShuffleSeed = (long) 0;
+		
+		for (Effect tEffect : effects) {
+			if (tEffect instanceof NewShuffleSeedEffect) {
+				tNewShuffleSeed = ((NewShuffleSeedEffect) tEffect).getNewShuffleSeed ();
+			}
+		}
+		
+		return tNewShuffleSeed;
+	}
+	@Override
+	public String getSimpleActionReport () {
+		String tSimpleActionReport = "";
+		Long tNewShuffleSeed;
+		
+		tNewShuffleSeed = getNewShuffleSeed ();
+		tSimpleActionReport = actor.getName () + " set New Shuffle Seed to " + tNewShuffleSeed + ".";
+		
+		return tSimpleActionReport;
+	}
+
+}
