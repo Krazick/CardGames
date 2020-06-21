@@ -4,6 +4,7 @@ import cards.main.GameManager;
 import cards.utilities.XMLNode;
 import cards.actions.ActorI;
 import cards.effects.Effect;
+import cards.effects.InitiateGameEffect;
 import cards.effects.NewShuffleSeedEffect;
 
 public class StartNewRoundAction extends Action {
@@ -29,6 +30,13 @@ public class StartNewRoundAction extends Action {
 	public StartNewRoundAction (XMLNode aActionNode, GameManager aGameManager) {
 		super (aActionNode, aGameManager);
 		setName (NAME);
+	}
+
+	public void addInitiateGameEffect (ActorI aPlayer, boolean aInitiateGame) {
+		InitiateGameEffect tInitiateGameEffect;
+
+		tInitiateGameEffect = new InitiateGameEffect (aPlayer, aInitiateGame);
+		addEffect (tInitiateGameEffect);
 	}
 
 	public void addNewShuffleSeedEffect (ActorI aPlayer, Long aShuffleSeed) {
