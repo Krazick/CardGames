@@ -9,7 +9,7 @@ import cards.utilities.AttributeName;
 
 public class NewShuffleSeedEffect extends Effect {
 	public final static String NAME = "New Shuffle Seed";
-	final static AttributeName AN_NEW_SHUFFLE_SEED = new AttributeName ("newShuffleSeed");
+	final static AttributeName AN_NEW_SHUFFLE_SEED = new AttributeName ("aNewShuffleSeed");
 	Long newShuffleSeed;
 	
 	public NewShuffleSeedEffect () {
@@ -48,6 +48,16 @@ public class NewShuffleSeedEffect extends Effect {
 		return tEffectElement;
 	}
 
+	@Override
+	public boolean applyEffect (GameManager aGameManager) {
+		boolean tEffectApplied = false;
+		
+		aGameManager.setShuffleSeed (newShuffleSeed);
+		tEffectApplied = true;
+		
+		return tEffectApplied;
+	}
+	
 	public void setNewShuffleSeed (Long aNewShuffleSeed) {
 		newShuffleSeed = aNewShuffleSeed;
 	}
@@ -58,7 +68,7 @@ public class NewShuffleSeedEffect extends Effect {
 	
 	@Override
 	public String getEffectReport (GameManager aGameManager) {
-		return (REPORT_PREFIX + name + " set to  " + newShuffleSeed + ".");
+		return (REPORT_PREFIX + name + " set to " + newShuffleSeed + ".");
 	}
 	
 	@Override
