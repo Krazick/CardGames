@@ -463,13 +463,14 @@ public class JGameClient extends XMLFrame {
 	private void handleStartGame () {
 		serverHandler.sendUserStart ();
 		startsGame ();
+		gameManager.setNotifyNetwork (true); 
+		gameManager.initiateNetworkGame ();
 	}
 	
 	public void startsGame () {
-		swapToGameActivity ();
-		gameManager.initiateNetworkGame ();
 		startReadyButton.setEnabled (false);
 		startReadyButton.setToolTipText ("Game already started");
+		swapToGameActivity ();
 	}
 
 	private void swapToGameActivity () {
