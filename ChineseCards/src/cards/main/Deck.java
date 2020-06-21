@@ -1,6 +1,8 @@
 package cards.main;
 
 import java.util.Collections;
+import java.util.Random;
+
 import cards.main.Card.Ranks;
 import cards.main.Card.Suits;
 
@@ -43,8 +45,8 @@ public class Deck extends CardSet {
 		}
 	}
 
-	public void shuffle () {
-		Collections.shuffle (cards);
+	public void shuffle (Long aShuffleSeed) {
+		Collections.shuffle (cards, new Random (aShuffleSeed));
 	}
 	
 	public boolean duplicate (CardSet aDuplicateDeck) {

@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Random;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,6 +40,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private JButton quitButton;
 	private GamePanel gamePanel;
 	private boolean notifyNetwork;
+	private Long shuffleSeed;
+	private Random randomGenerator;
 	
 	public static void main (String [] args) {
 		new GameManager ();
@@ -45,6 +49,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	
 	public GameManager () {
 		String tTitle;
+		Long tSeed;
 		
 		tTitle = "Cards Game Startup";
 		setTitle (tTitle);
@@ -57,6 +62,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		setFrameContents ();
 		setupFrameActions ();
 		setVisible (true);
+		randomGenerator = new Random ();
+		tSeed = randomGenerator.nextLong ();
+		setShuffleSeed (tSeed);
 	}
 
 	public void setFrameContents () {
@@ -298,8 +306,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		tGameName = gamePanel.getSelectedGame ();
 		System.out.println ("Initiate Game of " + tGameName);
 		gameFrame = new GameFrame (tGameName + " Game Frame for " + getClientUserName (), this);
+		gameFrame.startNewRound (shuffleSeed);
 	}
-
+	
 	@Override
 	public boolean gameStarted () {
 		return false;
@@ -331,7 +340,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	public void handleGameWon () {
 		System.out.println ("Game has ended, and XXX has lost");
-		
 	}
 
 	public boolean gameOver () {
@@ -351,17 +359,14 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 
 	public void initiateGame (GameInfo aGameInfo) {
-		System.out.println ("Ready to Initiate Game of " + aGameInfo.getName ());
-		
+		System.out.println ("Ready to Initiate Game of " + aGameInfo.getName ());	
 	}
 
 	public void clearOtherPlayers (String tPlayerName) {
 		System.out.println ("Clear Other Players with " + tPlayerName + " sent");
-		
 	}
 
 	public void setNotifyNetwork (boolean aNotifyNetwork) {
-		// TODO Auto-generated method stub
 		notifyNetwork = aNotifyNetwork;
 	}
 	
@@ -371,12 +376,24 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	public void addGameInfoPanel (JPanel gameInfoPanel) {
 		System.out.println ("Game Manager - Add Game Info Panel");
-		
 	}
 
-	public ActorI getActor (String tActorName) {
-		ActorI tActor = ActorI.NO_ACTOR;
+	public ActorI getActor (String aActorName) {
+		return players.getActor (aActorName);
+	}
+
+	public void setShuffleSeed (Long aShuffleSeed) {
+		shuffleSeed = aShuffleSeed;
+	}
+	
+	public Long getShuffleSeed () {
+		return shuffleSeed;
+	}
+
+	public void setNewShuffleSeed () {
+		Long tNewShuffleSeed;
 		
-		return tActor;
+		tNewShuffleSeed = randomGenerator.nextLong ();
+		setShuffleSeed (tNewShuffleSeed);
 	}
 }

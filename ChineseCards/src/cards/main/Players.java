@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import cards.actions.ActorI;
+
 public class Players {
 	ArrayList<Player> players;
 	public static final Player NO_PLAYER = null;
@@ -263,6 +265,21 @@ public class Players {
 		return tHasPlayer;
 	}
 	
+	public ActorI getActor (String aActorName) {
+		ActorI tActor = ActorI.NO_ACTOR;
+		int tPlayerIndex;
+		Player tPlayer;
+		
+		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
+			tPlayer = players.get (tPlayerIndex);
+			if (tPlayer.getName ().equals (aActorName)) {
+				tActor = tPlayer;
+			}
+		}
+	
+		return tActor;
+	}
+
 	public void printAllPlayers () {
 		int tPlayerIndex;
 		Player tPlayer;

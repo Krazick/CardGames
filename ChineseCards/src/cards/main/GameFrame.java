@@ -29,8 +29,6 @@ public class GameFrame extends XMLFrame {
 		setGameDeck (new Deck (Types.STANDARD));
 		
 		setupGameFrame ();
-		
-		startNewRound ();
 	}
 
 	public Card getCardLed () {
@@ -69,10 +67,10 @@ public class GameFrame extends XMLFrame {
 		return gameDeck;
 	}
 	
-	public void startNewRound () {
+	public void startNewRound (Long aShuffleSeed) {
 		players.cyclePassIncrement ();
 		players.setRoundStart ();
-		shuffleAndDeal ();
+		shuffleAndDeal (aShuffleSeed);
 		showHands ();
 		players.setStartingLead ();
 		revalidateRepaint ();
@@ -131,8 +129,8 @@ public class GameFrame extends XMLFrame {
 		}
 	}
 	
-	public void shuffleAndDeal () {
-		gameDeck.shuffle ();
+	public void shuffleAndDeal (long aShuffleSeed) {
+		gameDeck.shuffle (aShuffleSeed);
 		gameDeck.dealAllCards (players);
 	}
 

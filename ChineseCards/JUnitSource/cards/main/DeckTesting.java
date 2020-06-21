@@ -1,6 +1,9 @@
 package cards.main;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Random;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -255,12 +258,16 @@ class DeckTesting {
 	void deckShuffleTest () {
 		Deck tMainDeck;
 		int tCountMatches;
-		
+		Long tShuffleSeed;
+		Random tRandomGenerator;
 		tMainDeck = new Deck (Deck.Types.STANDARD);
 		tCountMatches = countMatches (tMainDeck);
 		assertEquals (52, tCountMatches);
 		
-		tMainDeck.shuffle ();
+		tRandomGenerator = new Random ();
+		tShuffleSeed = tRandomGenerator.nextLong ();
+
+		tMainDeck.shuffle (tShuffleSeed);
 		tCountMatches = countMatches (tMainDeck);
 		assertNotEquals (52, tCountMatches);
 		System.out.println ("Shuffle results in only " + tCountMatches + " compared to Standard");

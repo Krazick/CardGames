@@ -149,7 +149,8 @@ public class TableTop extends JPanel implements MouseListener {
 		tPlayers = gameManager.getPlayers ();
 		tPlayers.mergeTricks (tGameDeck);
 		System.out.println ("Game Deck now has " + tGameDeck.getCount ());
-		gameFrame.startNewRound ();
+		gameManager.setNewShuffleSeed ();
+		gameFrame.startNewRound (gameManager.getShuffleSeed ());
 	}
 	
 	private void showACard (Card aCard) {
