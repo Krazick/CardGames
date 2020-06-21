@@ -22,4 +22,5 @@ public interface NetworkGameSupport {
 	public void initiateNetworkGame ();
 	public boolean gameStarted ();
 	public void addNewFrame (XMLFrame jGameClient);
+	public void setNotifyNetwork (boolean aNotifyNetwork);
 }
