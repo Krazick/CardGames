@@ -33,7 +33,7 @@ public class GamePanel implements ActionListener {
 	}
 	
 	public void setupJGameClient (String aPlayerName) {		
-		jGameClient = new JGameClient ("Hearts Game JGameClient", gameManager);
+		jGameClient = new JGameClient ("Cards Game Client", gameManager);
 		gameManager.setJGameClient (jGameClient);
 		jGameClient.addLocalPlayer (aPlayerName, false);
 		setGamePanel (new JPanel ());
@@ -72,9 +72,7 @@ public class GamePanel implements ActionListener {
 	}
 	
 	public String getSelectedGame () {
-		String tSelectedGameName = NO_GAME_NAME;
-		
-		return tSelectedGameName;
+		return selectedGameName;
 	}
 
 	@Override
@@ -99,6 +97,7 @@ public class GamePanel implements ActionListener {
 	private void setSelectedGame (int aGameIndex) {
 		selectedGameIndex = aGameIndex;
 		selectedGameName = gameButtons.get (aGameIndex).getText ();
+		gameButtons.get (aGameIndex).setSelected (true);
 	}
 
 	public int getSelectedGameIndex () {
@@ -117,5 +116,7 @@ public class GamePanel implements ActionListener {
 
 	public void handleGameSelection (int aGameIndex, String aGameOptions, String aBroadcast) {
 		setSelectedGame (aGameIndex);
+		jGameClient.setTitle (selectedGameName + " Game Client Frame");
+		jGameClient.appendToChat (aBroadcast);
 	}
 }

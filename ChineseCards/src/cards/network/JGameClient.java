@@ -575,7 +575,6 @@ public class JGameClient extends XMLFrame {
 		selectedGameIndex = aGameIndex;
 		selectedGameName = aGameName;
 		updateReadyButton ("SELECT GAME", true, GAME_SELECTED);
-		System.out.println ("Selected Game is (" + aGameIndex + ") " + aGameName);
 	}
 	
 	public void sendPlayerReady () {
@@ -602,6 +601,7 @@ public class JGameClient extends XMLFrame {
 	public void sendGameSelection () {
 		String tBroadcastMessage, tGameActivity;
 
+		setTitle (selectedGameName + " Game Client Frame");
 		tBroadcastMessage = getName () + " has Selected [" + selectedGameName + "] Are you ready to Play?";
 		tGameActivity = constructGameActivityXML (EN_GAME_SELECTION, AN_GAME_INDEX, selectedGameIndex + "",
 				AN_BROADCAST_MESSAGE, tBroadcastMessage);

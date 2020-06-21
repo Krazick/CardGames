@@ -306,14 +306,10 @@ public class Players {
 	public void handleResetPlayerOrder (String aPlayerOrder) {
 		String tPlayerOrder [] = aPlayerOrder.split (",");
 		
-		System.out.println ("Players - Handle Player Reordering");
-		printAllPlayers ();
 		removeAll ();
 		for (String tPlayerName : tPlayerOrder) {
 			addNewPlayer (tPlayerName);
 		}
-		System.out.println ("After Reordering");
-		printAllPlayers ();
 	}
 
 	public void randomizePlayerOrder () {

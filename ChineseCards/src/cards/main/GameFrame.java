@@ -18,12 +18,7 @@ public class GameFrame extends XMLFrame {
 
 		setGameManager (aGameManager);
 		players = gameManager.getPlayers ();
-		
-		// Temporary to allow for 4 players created to test basic GameFrame
-		players.addNewPlayer ("Fred");
-		players.addNewPlayer ("Anna");
-		players.addNewPlayer ("Harriet");
-		
+				
 		setGameFrameToPlayers ();
 		
 		tPassIncrement = 0;

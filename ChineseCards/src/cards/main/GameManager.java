@@ -38,14 +38,14 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private GamePanel gamePanel;
 	private boolean notifyNetwork;
 	
-	public static void main (String[] args) {
+	public static void main (String [] args) {
 		new GameManager ();
 	}
 	
 	public GameManager () {
 		String tTitle;
 		
-		tTitle = "Hearts Game Startup";
+		tTitle = "Cards Game Startup";
 		setTitle (tTitle);
 		
 //		createActions ();
@@ -59,7 +59,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 
 	public void setFrameContents () {
-		JLabel tGameEngineTitle = new JLabel ("Hearts Card Game");
+		JLabel tGameEngineTitle = new JLabel ("Cards Game Manager");
 //		tGameEngineTitle.setText (resbundle.getString ("message"));
 		tGameEngineTitle.setFont (new Font ("Lucida Grande", Font.BOLD, 24));
 		tGameEngineTitle.setHorizontalAlignment (SwingConstants.CENTER);
@@ -202,7 +202,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		if (! players.hasPlayer (aPlayerName)) {
 			players.addNewPlayer (aPlayerName);
 		}
-		players.printAllPlayers ();
 	}
 
 	@Override
@@ -293,6 +292,11 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	@Override
 	public void initiateNetworkGame () {
+		String tGameName;
+		
+		tGameName = gamePanel.getSelectedGame ();
+		System.out.println ("Initiate Game of " + tGameName);
+		gameFrame = new GameFrame (tGameName + " Game Frame for " + getClientUserName (), this);
 	}
 
 	@Override
