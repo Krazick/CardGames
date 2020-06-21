@@ -126,7 +126,7 @@ public class XMLNode {
 		
 		if (aAttributeName.hasValue ()) {
 			tAttributeName = aAttributeName.getString ();
-			tAttributeValue = getThisIntAttribute (tAttributeName, 0);
+			tAttributeValue = getThisIntAttribute (tAttributeName, tAttributeValue);
 		}
 		
 		return tAttributeValue;
@@ -155,6 +155,18 @@ public class XMLNode {
 		}
 	}
 	
+	public long getThisLongAttribute (AttributeName aAttributeName) {
+		long tAttributeValue = 0;
+		String tAttributeName;
+		
+		if (aAttributeName.hasValue ()) {
+			tAttributeName = aAttributeName.getString ();
+			tAttributeValue = getThisLongAttribute (tAttributeName, tAttributeValue);
+		}
+		
+		return tAttributeValue;
+	}
+
 	public long getThisLongAttribute (AttributeName aAttributeName, long aDefaultValue) {
 		long tAttributeValue = aDefaultValue;
 		String tAttributeName;
