@@ -8,13 +8,12 @@ import java.util.Random;
 public class Players {
 	ArrayList<Player> players;
 	public static final Player NO_PLAYER = null;
+	private String NO_NAME = null;
 	private int passIncrement;
 	private int passCount;
 	private int playCount;
 	private boolean passing;
 	GameFrame gameFrame;
-	private int MAX_PLAYERS = 8;
-	private Object NO_NAME = null;
 	
 	public Players () {
 		players = new ArrayList<Player> ();
@@ -172,7 +171,7 @@ public class Players {
 
 	public void setStartingLead () {
 		Player tLeadingPlayer;
-		int tCurrentPlayerIndex = gameFrame.NO_CURRENT_PLAYER;
+		int tCurrentPlayerIndex = GameFrame.NO_CURRENT_PLAYER;
 		
 		if (allCardsPassed ()) {
 			tLeadingPlayer = findLeadingPlayer ();
@@ -205,7 +204,7 @@ public class Players {
 		int tPlayerIndex, tFoundPlayerIndex;
 		Player tPlayer;
 
-		tFoundPlayerIndex = gameFrame.NO_CURRENT_PLAYER;
+		tFoundPlayerIndex = GameFrame.NO_CURRENT_PLAYER;
 		for (tPlayerIndex = 0; tPlayerIndex < players.size (); tPlayerIndex++) {
 			tPlayer = players.get (tPlayerIndex);
 			if (tPlayer.equals (aPlayer)) {

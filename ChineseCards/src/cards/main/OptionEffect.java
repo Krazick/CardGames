@@ -19,9 +19,9 @@ public class OptionEffect {
 	}
 	
 	public OptionEffect (XMLNode aCellNode) {
-		String tName;
-		
-		tName = aCellNode.getThisAttribute (AN_NAME);
+//		String tName;
+//		
+//		tName = aCellNode.getThisAttribute (AN_NAME);
 	}
 	
 	public boolean getState () {

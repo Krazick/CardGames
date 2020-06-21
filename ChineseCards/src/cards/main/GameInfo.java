@@ -9,7 +9,7 @@ import cards.utilities.XMLDocument;
 import cards.utilities.XMLElement;
 import cards.utilities.XMLNode;
 import cards.utilities.XMLNodeList;
-import cards.main.OptionEffect;
+//import cards.main.OptionEffect;
 import cards.main.Option;
 
 public class GameInfo {
