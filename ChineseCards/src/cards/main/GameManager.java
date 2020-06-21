@@ -274,6 +274,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	private void handleNetworkAction (XMLNode tXMLGameActivityNode) {
 		System.out.println ("GameManager - Handle Network Game Action");
+		actionManager.handleNetworkAction (tXMLGameActivityNode);
 	}
 
 	private void handleResetPlayerOrder (String tPlayerOrder, String tBroadcast) {
@@ -314,10 +315,10 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		System.out.println ("Initiate Game of " + tGameName);
 		gameFrame = new GameFrame (tGameName + " Game Frame for " + getClientUserName (), this);
 		tClientActor = getActor (getClientUserName ());
-		setNotifyNetwork (true);
 		gameFrame.startNewRound (shuffleSeed);
 		tStartNewRoundAction = new StartNewRoundAction (tClientActor);
 		tStartNewRoundAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);
+		tStartNewRoundAction.addInitiateGameEffect (tClientActor, true);
 		System.out.println ("Start New Round Action with Shuffle Seed " + shuffleSeed);
 		actionManager.addAction (tStartNewRoundAction);
 		actionManager.actionReport ();
