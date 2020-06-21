@@ -154,4 +154,27 @@ public class XMLNode {
 			return Integer.parseInt (tValue);
 		}
 	}
+	
+	public long getThisLongAttribute (AttributeName aAttributeName, long aDefaultValue) {
+		long tAttributeValue = aDefaultValue;
+		String tAttributeName;
+		
+		if (aAttributeName.hasValue ()) {
+			tAttributeName = aAttributeName.getString ();
+			tAttributeValue = getThisLongAttribute (tAttributeName, aDefaultValue);
+		}
+		
+		return tAttributeValue;
+	}
+	 
+	/* PRIVATE */
+	private long getThisLongAttribute (String aAttributeName, long aDefaultValue) {
+		String tValue = getThisAttribute (aAttributeName);
+		
+		if (tValue == null) {
+			return aDefaultValue;
+		} else {
+			return Long.parseLong (tValue);
+		}
+	}
 }
