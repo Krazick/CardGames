@@ -312,7 +312,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		ActorI tClientActor;
 		
 		tGameName = gamePanel.getSelectedGame ();
-		System.out.println ("Initiate Game of " + tGameName);
 		gameFrame = new GameFrame (tGameName + " Game Frame for " + getClientUserName (), this);
 		tClientActor = getActor (getClientUserName ());
 		gameFrame.startNewRound (shuffleSeed);

@@ -104,12 +104,20 @@ public class GameFrame extends XMLFrame {
 		Player tPlayer;
 		PlayerFrame tPlayerFrame;
 		String tBorderLayout;
+		int tClientUserIndex, tPlayerIndex, tPlayerCount;
 		
 		System.out.println ("Player Count " + players.getPlayerCount ());
 		tableTop = new TableTop (gameManager, this);
 		add (tableTop, BorderLayout.CENTER);
+		tClientUserIndex = players.getIndexFor (getClientPlayer());
 		tBorderLayout = BorderLayout.SOUTH;
-		for (int tPlayerIndex = 0; tPlayerIndex < players.getPlayerCount (); tPlayerIndex++) {
+		tPlayerCount = players.getPlayerCount ();
+		if (tClientUserIndex > 0) {
+			for (tPlayerIndex = 0; tPlayerIndex < (tPlayerCount - tClientUserIndex); tPlayerIndex++) {
+				tBorderLayout = cycleBorderLayout (tBorderLayout);
+			}
+		}
+		for (tPlayerIndex = 0; tPlayerIndex < tPlayerCount; tPlayerIndex++) {
 			tPlayer = players.getPlayer (tPlayerIndex);
 			tPlayerFrame = tPlayer.getFrame ();
 			add (tPlayerFrame, tBorderLayout);
