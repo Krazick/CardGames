@@ -16,7 +16,6 @@ public class StartNewRoundAction extends Action {
 
 	public StartNewRoundAction (String aName) {
 		this (aName, NO_ACTOR);
-		// TODO Auto-generated constructor stub
 	}
 
 	public StartNewRoundAction (ActorI aActor) {
@@ -57,6 +56,7 @@ public class StartNewRoundAction extends Action {
 		
 		return tNewShuffleSeed;
 	}
+	
 	@Override
 	public String getSimpleActionReport () {
 		String tSimpleActionReport = "";
@@ -67,5 +67,4 @@ public class StartNewRoundAction extends Action {
 		
 		return tSimpleActionReport;
 	}
-
 }
