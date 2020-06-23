@@ -224,8 +224,10 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	}
 
 	public void passACard (Card aCard, Player aToPlayer) {
+		
 		aCard.getCardLabel ().removeMouseListener (this);
 		aCard.setFaceUp (false);
+		removeCard (aCard);
 		aToPlayer.add (aCard);
 	}
 	
@@ -295,6 +297,21 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		return tSelectedCards;
 	}
 
+	public void removeCard (Card aCard) {
+		Hand tHand;
+		int tCardCount;
+		Card tCard;
+		
+		tHand = player.getHand ();
+		tCardCount = tHand.getCount ();
+		for (int aCardIndex = tCardCount - 1; aCardIndex >= 0; aCardIndex--) {
+			tCard = tHand.get (aCardIndex);
+			if (tCard.getAbbrev ().equals (aCard.getAbbrev ())) {
+				removeCardFromFrame (tCard, tHand, aCardIndex);
+			}
+		}
+	}
+	
 	public CardSet removeSelectedCards () {
 		CardSet tSelectedCards;
 		Card tCard;

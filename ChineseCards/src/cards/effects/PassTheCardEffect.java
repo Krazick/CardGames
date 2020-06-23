@@ -9,37 +9,37 @@ import cards.utilities.XMLDocument;
 import cards.utilities.XMLElement;
 import cards.utilities.XMLNode;
 
-public class PassACardEffect extends ToActorEffect {
+public class PassTheCardEffect extends ToActorEffect {
 	public final static String NAME = "Pass the Card";
 	final static AttributeName AN_CARD_NAME = new AttributeName ("cardName");
 	Card card;
 
-	public PassACardEffect () {
+	public PassTheCardEffect () {
 		this (NAME);
 	}
 
-	public PassACardEffect (String aName) {
+	public PassTheCardEffect (String aName) {
 		this (aName, ActorI.NO_ACTOR);
 	}
 
-	public PassACardEffect (String aName, ActorI aFromActor) {
+	public PassTheCardEffect (String aName, ActorI aFromActor) {
 		this (aName, aFromActor, ActorI.NO_ACTOR);
 	}
 
-	public PassACardEffect (String aName, ActorI aFromActor, ActorI aToActor) {
+	public PassTheCardEffect (String aName, ActorI aFromActor, ActorI aToActor) {
 		this (aName, aFromActor, aToActor, Card.NO_CARD);
 	}
 	
-	public PassACardEffect (ActorI aFromActor, ActorI aToActor, Card aCard) {
+	public PassTheCardEffect (ActorI aFromActor, ActorI aToActor, Card aCard) {
 		this (NAME, aFromActor, aToActor, aCard);
 	}
 	
-	public PassACardEffect (String aName, ActorI aFromActor, ActorI aToActor, Card aCard) {
+	public PassTheCardEffect (String aName, ActorI aFromActor, ActorI aToActor, Card aCard) {
 		super (aName, aFromActor, aToActor);
 		setCard (aCard);
 	}
 	
-	public PassACardEffect (XMLNode aEffectNode, GameManager aGameManager) {
+	public PassTheCardEffect (XMLNode aEffectNode, GameManager aGameManager) {
 		super (aEffectNode, aGameManager);
 		Player tFromPlayer;
 		Card tCard;

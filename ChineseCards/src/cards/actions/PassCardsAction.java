@@ -1,6 +1,6 @@
 package cards.actions;
 
-import cards.effects.PassACardEffect;
+import cards.effects.PassTheCardEffect;
 import cards.effects.PassedCardsEffect;
 import cards.main.Card;
 import cards.main.GameManager;
@@ -30,9 +30,9 @@ public class PassCardsAction extends Action {
 	}
 	
 	public void addPassACardEffect (ActorI aFromPlayer, ActorI aToPlayer, Card aCard) {
-		PassACardEffect tPassACardEffect;
+		PassTheCardEffect tPassACardEffect;
 
-		tPassACardEffect = new PassACardEffect (aFromPlayer, aToPlayer, aCard);
+		tPassACardEffect = new PassTheCardEffect (aFromPlayer, aToPlayer, aCard);
 		addEffect (tPassACardEffect);
 	}
 	
