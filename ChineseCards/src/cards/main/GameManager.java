@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.w3c.dom.NodeList;
 
+import cards.actions.Action;
 import cards.actions.ActionManager;
 import cards.actions.ActorI;
 import cards.actions.StartNewRoundAction;
@@ -431,5 +432,15 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	public void updateAllFrames () {
 		System.out.println ("Game Manager - Update all Frames");
+	}
+
+	public void passACard (Player aFromPlayer, Player aToPlayer, Card aCard) {
+		System.out.println ("Game Manager - Pass the Card " + aCard.getAbbrev () + 
+				" from " + aFromPlayer.getName () + " to " + aToPlayer.getName ());
+		
+	}
+
+	public void addAction (Action aAction) {
+		actionManager.addAction (aAction);
 	}
 }

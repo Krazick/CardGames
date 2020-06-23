@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import cards.actions.PassCardsAction;
 import cards.utilities.OverlapLayout;
 
 public class PlayerFrame extends JPanel implements MouseListener {
@@ -189,21 +190,27 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		Player tPassToPlayer;
 		int tCardCount, tCardIndex;
 		Card tCard;
+		PassCardsAction tPassCardsAction;
 		
 		disablePassCardsButton ();
 		tPassToPlayer = player.getPlayerToPassTo ();
 		tSelectedCards = removeSelectedCards ();
 		tCardCount = tSelectedCards.getCount ();
+		tPassCardsAction = new PassCardsAction (player);
 		
 		for (tCardIndex = 0; tCardIndex < tCardCount; tCardIndex++) {
 			tCard = tSelectedCards.get (tCardIndex);
-			tCard.getCardLabel ().removeMouseListener (this);
-			tCard.setFaceUp (false);
-			tPassToPlayer.add (tCard);
+			tPassCardsAction.addPassACardEffect (player, tPassToPlayer, tCard);
+			passACard (tCard, tPassToPlayer);
 		}
-		tPassToPlayer.setReceived (true);
-		updateCardsInFrame (tPassToPlayer);
-		
+		passedCards (tPassToPlayer);
+		tPassCardsAction.addPassedCardsEffect (player, tPassToPlayer);
+		player.addAction (tPassCardsAction);
+	}
+
+	public void passedCards (Player aPassToPlayer) {
+		aPassToPlayer.setReceived (true);
+		updateCardsInFrame (aPassToPlayer);
 		player.setPassed (true);
 		if (player.receivedPass ()) {
 			updateCardsInFrame (player);
@@ -216,6 +223,12 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		}
 	}
 
+	public void passACard (Card aCard, Player aToPlayer) {
+		aCard.getCardLabel ().removeMouseListener (this);
+		aCard.setFaceUp (false);
+		aToPlayer.add (aCard);
+	}
+	
 	public void setStartingLead () {
 		Player tPlayer;
 		int tCurrentPlayerIndex;

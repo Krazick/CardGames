@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import cards.actions.Action;
 import cards.actions.ActorI;
 
 public class Players {
@@ -357,4 +358,7 @@ public class Players {
 		return tPlayerNames;
     }
 
+	public void addAction (Action aAction) {
+		gameFrame.addAction (aAction);
+	}
 }

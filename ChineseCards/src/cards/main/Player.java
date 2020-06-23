@@ -2,6 +2,7 @@ package cards.main;
 
 import java.util.ArrayList;
 
+import cards.actions.Action;
 import cards.actions.ActorI;
 import cards.main.Card.Suits;
 import cards.network.NetworkPlayer;
@@ -367,5 +368,25 @@ public class Player implements ActorI {
 	@Override
 	public boolean isAPlayer () {
 		return true;
+	}
+
+	public void addAction (Action tAction) {
+		players.addAction (tAction);
+	}
+
+	public Card getCard (String tCardName) {
+		Card tCard;
+		
+		tCard = hand.getCard (tCardName);
+		
+		return tCard;
+	}
+
+	public void passACard (Card aCard, Player aToPlayer) {
+		frame.passACard (aCard, aToPlayer);
+	}
+	
+	public void passedCards (Player aToPlayer) {
+		frame.passedCards (aToPlayer);
 	}
 }

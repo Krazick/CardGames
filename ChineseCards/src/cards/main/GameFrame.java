@@ -1,6 +1,8 @@
 package cards.main;
 
 import java.awt.BorderLayout;
+
+import cards.actions.Action;
 import cards.main.Deck.Types;
 
 public class GameFrame extends XMLFrame {
@@ -169,5 +171,9 @@ public class GameFrame extends XMLFrame {
 	public void revalidateRepaint () {
 		revalidate ();
 		repaint ();
+	}
+	
+	public void addAction (Action aAction) {
+		gameManager.addAction (aAction);
 	}
 }

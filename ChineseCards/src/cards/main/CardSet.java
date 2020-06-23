@@ -106,6 +106,19 @@ public class CardSet {
 		Collections.sort (cards, new CardComparator ());
 	}
 	
+	public Card getCard (String aCardName) {
+		Card tFoundCard;
+		
+		tFoundCard = Card.NO_CARD;
+		for (Card tCard : cards) {
+			if (tCard.getAbbrev ().equals (aCardName)) {
+				tFoundCard = tCard;
+			}
+		}
+		
+		return tFoundCard;
+	}
+
 	public class CardComparator implements Comparator<Card> {
 		
 	    @Override
