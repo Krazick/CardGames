@@ -9,10 +9,9 @@ import cards.utilities.XMLDocument;
 import cards.utilities.XMLElement;
 import cards.utilities.XMLNode;
 
-public class PassACardEffect extends Effect {
+public class PassACardEffect extends ToActorEffect {
 	public final static String NAME = "Pass the Card";
 	final static AttributeName AN_CARD_NAME = new AttributeName ("cardName");
-	ActorI toActor;
 	Card card;
 
 	public PassACardEffect () {
@@ -36,45 +35,24 @@ public class PassACardEffect extends Effect {
 	}
 	
 	public PassACardEffect (String aName, ActorI aFromActor, ActorI aToActor, Card aCard) {
-		super (aName, aFromActor);
-		setToActor (aToActor);
+		super (aName, aFromActor, aToActor);
 		setCard (aCard);
 	}
 	
 	public PassACardEffect (XMLNode aEffectNode, GameManager aGameManager) {
 		super (aEffectNode, aGameManager);
 		Player tFromPlayer;
-		ActorI tToActor;
 		Card tCard;
-		String tToActorName, tCardName;
+		String tCardName;
 		
-		tFromPlayer = (Player) getActor ();
-		tToActorName = aEffectNode.getThisAttribute (ActorI.AN_TO_ACTOR_NAME);
-		tToActor = aGameManager.getActor (tToActorName);
-		setToActor (tToActor);
+		tFromPlayer = getFromPlayer ();
 		tCardName = aEffectNode.getThisAttribute (AN_CARD_NAME);
 		tCard = tFromPlayer.getCard (tCardName);
 		setCard (tCard);
 	}
-
-	public void setToActor (ActorI aToActor) {
-		toActor = aToActor;
-	}
 	
 	public void setCard (Card aCard) {
 		card = aCard;
-	}
-	
-	public Player getFromPlayer () {
-		return (Player) actor;
-	}
-	
-	public Player getToPlayer () {
-		return (Player) toActor;
-	}
-	
-	public ActorI getToActor () {
-		return toActor;
 	}
 	
 	public Card getCard () {
@@ -86,7 +64,6 @@ public class PassACardEffect extends Effect {
 		XMLElement tEffectElement;
 		
 		tEffectElement = super.getEffectElement (aXMLDocument, aActorAN);
-		tEffectElement.setAttribute (ActorI.AN_TO_ACTOR_NAME, toActor.getName ());
 		tEffectElement.setAttribute (AN_CARD_NAME, card.getAbbrev ());
 	
 		return tEffectElement;
@@ -100,7 +77,6 @@ public class PassACardEffect extends Effect {
 		tFromPlayer = getFromPlayer ();
 		tToPlayer = getToPlayer ();
 		tFromPlayer.passACard (card, tToPlayer);
-//		aGameManager.passACard (getFromPlayer (), getToPlayer (), card);
 		tEffectApplied = true;
 
 		return tEffectApplied;
