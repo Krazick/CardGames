@@ -1,6 +1,5 @@
 package cards.network;
 
-import cards.network.JGameClient;
 import cards.main.XMLFrame;
 
 public interface NetworkGameSupport {

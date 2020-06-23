@@ -2,8 +2,6 @@ package cards.network;
 
 import javax.swing.DefaultListModel;
 
-import cards.network.NetworkGameSupport;
-
 public class NetworkPlayers {
 	private DefaultListModel<NetworkPlayer> playerList;
 	private NetworkGameSupport gameManager;

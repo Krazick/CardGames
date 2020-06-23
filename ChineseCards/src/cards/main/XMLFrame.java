@@ -3,7 +3,6 @@ package cards.main;
 import cards.config.Config;
 import cards.config.FrameInfo;
 import cards.config.GameFrameConfig;
-import cards.main.GameManager;
 import cards.utilities.LoadableXMLI;
 
 //

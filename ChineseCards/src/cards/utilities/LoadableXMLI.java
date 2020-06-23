@@ -8,9 +8,6 @@ package cards.utilities;
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
-import cards.utilities.ParsingRoutineI;
-import cards.utilities.XMLDocument;
-
 import java.io.*;
 
 public interface LoadableXMLI extends ParsingRoutineI {

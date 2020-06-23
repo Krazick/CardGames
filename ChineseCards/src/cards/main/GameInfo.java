@@ -10,7 +10,7 @@ import cards.utilities.XMLElement;
 import cards.utilities.XMLNode;
 import cards.utilities.XMLNodeList;
 //import cards.main.OptionEffect;
-import cards.main.Option;
+//import cards.main.Option;
 
 public class GameInfo {
 	final AttributeName AN_MIN_PLAYERS = new AttributeName ("minPlayers");

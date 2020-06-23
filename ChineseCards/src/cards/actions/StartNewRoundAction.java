@@ -2,7 +2,6 @@ package cards.actions;
 
 import cards.main.GameManager;
 import cards.utilities.XMLNode;
-import cards.actions.ActorI;
 import cards.effects.Effect;
 import cards.effects.InitiateGameEffect;
 import cards.effects.NewShuffleSeedEffect;

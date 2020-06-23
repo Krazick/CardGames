@@ -31,7 +31,6 @@ import javax.swing.JScrollBar;
 import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 
-import cards.network.NetworkGameSupport;
 import cards.main.XMLFrame;
 import cards.utilities.AttributeName;
 import cards.utilities.ElementName;
