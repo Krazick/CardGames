@@ -58,10 +58,6 @@ public class ToActorEffect extends Effect {
 		toActor = aToActor;
 	}
 	
-	public Player getFromPlayer () {
-		return (Player) actor;
-	}
-	
 	public Player getToPlayer () {
 		return (Player) toActor;
 	}

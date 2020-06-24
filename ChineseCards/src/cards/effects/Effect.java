@@ -1,6 +1,7 @@
 package cards.effects;
 
 import cards.main.GameManager;
+import cards.main.Player;
 import cards.actions.ActorI;
 import cards.utilities.AttributeName;
 import cards.utilities.ElementName;
@@ -117,5 +118,9 @@ public class Effect {
 		tEffectApplied = false;
 		
 		return tEffectApplied;
+	}
+
+	public Player getFromPlayer () {
+		return (Player) actor;
 	}
 }
