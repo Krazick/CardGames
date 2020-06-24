@@ -193,10 +193,10 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		
 		tPlayerName = getClientUserName ();
 		players = new Players ();
+		gameFrame = new GameFrame ("Game Frame for " + tPlayerName, this);
+		gameFrame.setPlayers (players);
 		players.addNewPlayer (tPlayerName);
 		gamePanel = new GamePanel (this, tPlayerName);
-//		setupJGameClient (tPlayerName);
-//		gameFrame = new GameFrame ("Game Frame for " + getClientUserName (), this);
 	}
 
 	public Players getPlayers () {
@@ -313,8 +313,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		ActorI tClientActor;
 		
 		tGameName = gamePanel.getSelectedGame ();
-		gameFrame = new GameFrame (tGameName + " Game Frame for " + getClientUserName (), this);
 		tClientActor = getActor (getClientUserName ());
+		gameFrame.setupGameFrame ();
+		gameFrame.setGameFrameName (tGameName + "Game Frame for " + getClientUserName ());
 		gameFrame.startNewRound (shuffleSeed);
 		tStartNewRoundAction = new StartNewRoundAction (tClientActor);
 		tStartNewRoundAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);

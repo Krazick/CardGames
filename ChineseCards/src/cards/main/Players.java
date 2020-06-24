@@ -36,9 +36,9 @@ public class Players {
 		int tPlayerIndex;
 		
 		tPlayerIndex = players.size ();
-		tPlayer = new Player (aName, tPlayerIndex);
-		tPlayer.setPlayers (this);
-		tPlayer.setGameFrame (gameFrame);
+		tPlayer = new Player (aName, tPlayerIndex, this, gameFrame);
+//		tPlayer.setPlayers (this);
+//		tPlayer.setGameFrame (gameFrame);
 		players.add (tPlayer);
 	}
 	

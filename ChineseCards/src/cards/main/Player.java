@@ -23,9 +23,11 @@ public class Player implements ActorI {
 	GameFrame gameFrame;
 	ActionStates actionState;
 	
-	public Player (String aName, int aMyIndex) {
+	public Player (String aName, int aMyIndex, Players aPlayers, GameFrame aGameFrame) {
 		setName (aName);
 		setNewTricks ();
+		setPlayers (aPlayers);
+		setGameFrame (aGameFrame);
 		frame = new PlayerFrame ("Player Frame", this);
 		setScore (0);
 		setNetworkPlayer (name);
@@ -388,5 +390,17 @@ public class Player implements ActorI {
 	
 	public void passedCards (Player aToPlayer) {
 		frame.passedCards (aToPlayer);
+	}
+
+	public String getClientUserName (String aDefaultName) {
+		Player tClientPlayer;
+		String tName = aDefaultName;
+		
+		tClientPlayer = gameFrame.getClientPlayer ();
+		if (tClientPlayer != null) {
+			tName = tClientPlayer.getName ();
+		}
+		
+		return tName;
 	}
 }

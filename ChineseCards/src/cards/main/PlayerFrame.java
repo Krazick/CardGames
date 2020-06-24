@@ -67,6 +67,10 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		return player;
 	}
 	
+	public void setButtonsPanelInvisible () {
+		buttonsPanel.setVisible (false);
+	}
+	
 	public void setupPlayerInfoPanel () {
 		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 20, 10);
 		

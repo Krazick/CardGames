@@ -13,26 +13,40 @@ public class GameFrame extends XMLFrame {
 	Deck gameDeck;
 	TableTop tableTop;
 	int currentPlayer;
+	int passIncrement;
 	
 	public GameFrame (String aFrameName, GameManager aGameManager) {
 		super (aFrameName);
-		int tPassIncrement;
 
 		setGameManager (aGameManager);
-		players = gameManager.getPlayers ();
-				
-		setGameFrameToPlayers ();
-		
-		tPassIncrement = 0;
-		players.setPassIncrement (tPassIncrement);
-		players.setPassCount (3);
-		players.setPlayCount (1);
-
+		passIncrement = 0;
 		setGameDeck (new Deck (Types.STANDARD));
-		
-		setupGameFrame ();
 	}
 
+	public void setPlayers (Players aPlayers) {
+		players = aPlayers;
+		players.setPassIncrement (passIncrement);
+		players.setPassCount (3);
+		players.setPlayCount (1);
+		setGameFrameToPlayers ();
+	}
+	
+	public void setGameFrameToPlayers () {
+		int tPlayerIndex;
+		Player tPlayer;
+		
+		players.setGameFrame (this);
+		
+		for (tPlayerIndex = 0; tPlayerIndex < players.getPlayerCount (); tPlayerIndex++) {
+			tPlayer = players.getPlayer (tPlayerIndex);
+			tPlayer.setGameFrame (this);
+		}
+	}
+
+	public void setGameFrameName (String aFrameName) {
+		setTitle (aFrameName);
+	}
+	
 	public Card getCardLed () {
 		return tableTop.getCardLed ();
 	}
@@ -89,26 +103,13 @@ public class GameFrame extends XMLFrame {
 	public Player getClientPlayer () {
 		return gameManager.getClientPlayer ();
 	}
-	
-	public void setGameFrameToPlayers () {
-		int tPlayerIndex;
-		Player tPlayer;
 		
-		players.setGameFrame (this);
-		
-		for (tPlayerIndex = 0; tPlayerIndex < players.getPlayerCount (); tPlayerIndex++) {
-			tPlayer = players.getPlayer (tPlayerIndex);
-			tPlayer.setGameFrame (this);
-		}
-	}
-	
 	public void setupGameFrame () {
 		Player tPlayer;
 		PlayerFrame tPlayerFrame;
 		String tBorderLayout;
 		int tClientUserIndex, tPlayerIndex, tPlayerCount;
 		
-		System.out.println ("Player Count " + players.getPlayerCount ());
 		tableTop = new TableTop (gameManager, this);
 		add (tableTop, BorderLayout.CENTER);
 		tClientUserIndex = players.getIndexFor (getClientPlayer());
@@ -122,16 +123,19 @@ public class GameFrame extends XMLFrame {
 		for (tPlayerIndex = 0; tPlayerIndex < tPlayerCount; tPlayerIndex++) {
 			tPlayer = players.getPlayer (tPlayerIndex);
 			tPlayerFrame = tPlayer.getFrame ();
+			if (tBorderLayout != BorderLayout.SOUTH) {
+				tPlayerFrame.setButtonsPanelInvisible ();
+			}
 			add (tPlayerFrame, tBorderLayout);
 			tBorderLayout = cycleBorderLayout (tBorderLayout);
 		}
 		setSize (1024, 775);
-		setVisible (true);
 	}
 	
 	public void showHands () {
 		Player tPlayer;
 
+		setVisible (true);
 		for (int tPlayerIndex = 0; tPlayerIndex < players.getPlayerCount (); tPlayerIndex++) {
 			tPlayer = players.getPlayer (tPlayerIndex);
 			tPlayer.sortCards ();
