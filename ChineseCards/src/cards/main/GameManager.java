@@ -316,13 +316,24 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		tClientActor = getActor (getClientUserName ());
 		gameFrame.setupGameFrame ();
 		gameFrame.setGameFrameName (tGameName + "Game Frame for " + getClientUserName ());
-		gameFrame.startNewRound (shuffleSeed);
+		
+		startNewRound ();
+		
 		tStartNewRoundAction = new StartNewRoundAction (tClientActor);
 		tStartNewRoundAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);
 		tStartNewRoundAction.addInitiateGameEffect (tClientActor, true);
+		
 		System.out.println ("Start New Round Action with Shuffle Seed " + shuffleSeed);
 		actionManager.addAction (tStartNewRoundAction);
 		actionManager.actionReport ();
+	}
+	
+	public void finishRound () {
+		gameFrame.finishRound ();
+	}
+
+	public void startNewRound () {
+		gameFrame.startNewRound (shuffleSeed);
 	}
 	
 	@Override
@@ -438,7 +449,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public void passACard (Player aFromPlayer, Player aToPlayer, Card aCard) {
 		System.out.println ("Game Manager - Pass the Card " + aCard.getAbbrev () + 
 				" from " + aFromPlayer.getName () + " to " + aToPlayer.getName ());
-		
 	}
 
 	public void addAction (Action aAction) {

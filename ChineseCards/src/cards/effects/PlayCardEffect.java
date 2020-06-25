@@ -37,6 +37,14 @@ public class PlayCardEffect extends Effect {
 	
 	public PlayCardEffect (XMLNode aEffectNode, GameManager aGameManager) {
 		super (aEffectNode, aGameManager);
+		Card tCard;
+		String tCardName;
+		Player tFromPlayer;
+		
+		tFromPlayer = getFromPlayer ();
+		tCardName = aEffectNode.getThisAttribute (AN_CARD_NAME);
+		tCard = tFromPlayer.getCard (tCardName);
+		setCard (tCard);
 	}
 
 	public void setCard (Card aCard) {

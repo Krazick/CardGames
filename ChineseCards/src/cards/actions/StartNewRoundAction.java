@@ -1,10 +1,12 @@
 package cards.actions;
 
 import cards.main.GameManager;
+import cards.main.Player;
 import cards.utilities.XMLNode;
 import cards.effects.Effect;
 import cards.effects.InitiateGameEffect;
 import cards.effects.NewShuffleSeedEffect;
+import cards.effects.StartNewRoundEffect;
 
 public class StartNewRoundAction extends Action {
 	public final static String NAME = "Start New Round";
@@ -35,6 +37,13 @@ public class StartNewRoundAction extends Action {
 
 		tInitiateGameEffect = new InitiateGameEffect (aPlayer, aInitiateGame);
 		addEffect (tInitiateGameEffect);
+	}
+
+	public void addStartNewRoundEffect (Player tPlayer) {
+		StartNewRoundEffect tStartNewRoundEffect;
+
+		tStartNewRoundEffect = new StartNewRoundEffect (tPlayer);
+		addEffect (tStartNewRoundEffect);
 	}
 
 	public void addNewShuffleSeedEffect (ActorI aPlayer, Long aShuffleSeed) {

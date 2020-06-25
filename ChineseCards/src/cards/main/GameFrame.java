@@ -83,6 +83,16 @@ public class GameFrame extends XMLFrame {
 		return gameDeck;
 	}
 	
+	public void finishRound () {
+		Deck tGameDeck;
+		Players tPlayers;
+		
+		tGameDeck = getGameDeck ();
+		tPlayers = gameManager.getPlayers ();
+		tPlayers.mergeTricks (tGameDeck);
+		tableTop.hideStartNextRound ();
+	}
+	
 	public void startNewRound (Long aShuffleSeed) {
 		players.cyclePassIncrement ();
 		players.setRoundStart ();

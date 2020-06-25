@@ -1,5 +1,6 @@
 package cards.main;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -8,6 +9,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import cards.actions.StartNewRoundAction;
 
 public class TableTop extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
@@ -23,17 +26,20 @@ public class TableTop extends JPanel implements MouseListener {
 
 	public TableTop (GameManager aGameManager, GameFrame aGameFrame) {
 		super ();
+		this.setBackground (Color.blue);
 		setGameManager (aGameManager);
 		gameFrame = aGameFrame;
 		startNextRound = new JButton ("Start Next Round");
 		startNextRound.addActionListener (new ActionListener() {
 			public void actionPerformed (ActionEvent aEvent) {
 				startNewRound ();
-				remove (startNextRound);
+				hideStartNextRound ();
 				gameFrame.revalidateRepaint ();
 			}
 		});
-		startNewTrick ();
+//		add (startNextRound);
+//		hideStartNextRound ();
+   		startNewTrick ();
 	}
 	
 	public void setGameManager (GameManager aGameManager) {
@@ -139,18 +145,31 @@ public class TableTop extends JPanel implements MouseListener {
 	
 	public void showStartNextRound () {
 		add (startNextRound);
+		startNextRound.setVisible (true);
+	}
+	
+	public void hideStartNextRound () {
+		startNextRound.setVisible (false);
+		remove (startNextRound);
 	}
 	
 	public void startNewRound () {
-		Deck tGameDeck;
 		Players tPlayers;
+		Player tPlayer;
+		StartNewRoundAction tStartNewRoundAction;
+		Long tNewShuffleSeed;
 		
-		tGameDeck = gameFrame.getGameDeck ();
+		gameManager.finishRound ();
+		hideStartNextRound ();
 		tPlayers = gameManager.getPlayers ();
-		tPlayers.mergeTricks (tGameDeck);
-		System.out.println ("Game Deck now has " + tGameDeck.getCount ());
+		tPlayer = tPlayers.getPlayer (0);
+		tStartNewRoundAction = new StartNewRoundAction (tPlayer);
 		gameManager.setNewShuffleSeed ();
-		gameFrame.startNewRound (gameManager.getShuffleSeed ());
+		tNewShuffleSeed = gameManager.getShuffleSeed ();
+		tStartNewRoundAction.addNewShuffleSeedEffect (tPlayer, tNewShuffleSeed);
+		tStartNewRoundAction.addStartNewRoundEffect (tPlayer);
+		tPlayer.addAction (tStartNewRoundAction);
+		gameFrame.startNewRound (tNewShuffleSeed);
 	}
 	
 	private void showACard (Card aCard) {

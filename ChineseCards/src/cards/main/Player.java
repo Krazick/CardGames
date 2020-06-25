@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cards.actions.Action;
 import cards.actions.ActorI;
+import cards.actions.PlayCardAction;
 import cards.main.Card.Suits;
 import cards.network.NetworkPlayer;
 
@@ -279,10 +280,15 @@ public class Player implements ActorI {
 	}
 	
 	public void playCard (Card aCard) {
+		PlayCardAction tPlayCardAction;
+		
 		hand.remove (aCard);
 		gameFrame.playCard (aCard, this);
 		frame.removeCardFromCardPanel (aCard);
 		resetActionState (ActorI.ActionStates.PlayedCard);
+		 tPlayCardAction = new PlayCardAction (this);
+		 tPlayCardAction.addPlayCardEffect (this, aCard);
+		 addAction (tPlayCardAction);
 	}
 
 	public Player findLeadingPlayer () {
