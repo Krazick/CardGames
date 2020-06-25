@@ -37,8 +37,6 @@ public class TableTop extends JPanel implements MouseListener {
 				gameFrame.revalidateRepaint ();
 			}
 		});
-//		add (startNextRound);
-//		hideStartNextRound ();
    		startNewTrick ();
 	}
 	
