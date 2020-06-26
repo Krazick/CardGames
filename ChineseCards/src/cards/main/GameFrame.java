@@ -7,6 +7,7 @@ import cards.main.Deck.Types;
 
 public class GameFrame extends XMLFrame {
 	private static final long serialVersionUID = 1L;
+	public static final String CLIENT_POSITION = BorderLayout.SOUTH;
 	public final static int NO_CURRENT_PLAYER = -1;
 	GameManager gameManager;
 	Players players;
@@ -136,6 +137,7 @@ public class GameFrame extends XMLFrame {
 			if (tBorderLayout != BorderLayout.SOUTH) {
 				tPlayerFrame.setButtonsPanelInvisible ();
 			}
+			tPlayerFrame.setGFLayoutPosition (tBorderLayout);
 			add (tPlayerFrame, tBorderLayout);
 			tBorderLayout = cycleBorderLayout (tBorderLayout);
 		}

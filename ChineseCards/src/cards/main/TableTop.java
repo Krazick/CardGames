@@ -26,7 +26,7 @@ public class TableTop extends JPanel implements MouseListener {
 
 	public TableTop (GameManager aGameManager, GameFrame aGameFrame) {
 		super ();
-		this.setBackground (Color.blue);
+		this.setBackground (Color.cyan);
 		setGameManager (aGameManager);
 		gameFrame = aGameFrame;
 		startNextRound = new JButton ("Start Next Round");

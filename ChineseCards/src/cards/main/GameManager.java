@@ -46,7 +46,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private boolean notifyNetwork;
 	private Long shuffleSeed;
 	private Random randomGenerator;
-	
+	private int scoreLimit;
+	private boolean overLimitWon;
 	public static void main (String [] args) {
 		new GameManager ();
 	}
@@ -135,7 +136,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		);
 		disableGameButtons ();
 		getContentPane ().setLayout (groupLayout);
-
 	}
 	
 	private void disableGameButtons () {
@@ -197,8 +197,26 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		gameFrame.setPlayers (players);
 		players.addNewPlayer (tPlayerName);
 		gamePanel = new GamePanel (this, tPlayerName);
+		setScoreLimit (20);
+		setOverLimitWon (false);
 	}
 
+	public void setScoreLimit (int aScoreLimit) {
+		scoreLimit = aScoreLimit;
+	}
+	
+	public int getScoreLimit () {
+		return scoreLimit;
+	}
+	
+	public void setOverLimitWon (boolean aOverLimitWon) {
+		overLimitWon = aOverLimitWon;
+	}
+	
+	public boolean getOverLimitWon () {
+		return overLimitWon;
+	}
+	
 	public Players getPlayers () {
 		return players;
 	}
@@ -274,7 +292,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 
 	private void handleNetworkAction (XMLNode tXMLGameActivityNode) {
-		System.out.println ("GameManager - Handle Network Game Action");
 		actionManager.handleNetworkAction (tXMLGameActivityNode);
 	}
 
@@ -323,7 +340,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		tStartNewRoundAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);
 		tStartNewRoundAction.addInitiateGameEffect (tClientActor, true);
 		
-		System.out.println ("Start New Round Action with Shuffle Seed " + shuffleSeed);
 		actionManager.addAction (tStartNewRoundAction);
 		actionManager.actionReport ();
 	}
@@ -366,15 +382,30 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 
 	public void handleGameWon () {
-		System.out.println ("Game has ended, and XXX has lost");
+		Player tPlayer;
+
+		tPlayer = players.getPlayerOverLimit (scoreLimit);
+		if (tPlayer != Players.NO_PLAYER) {
+			System.out.println ("Game has ended, and XXX has lost");
+			System.out.println (tPlayer.getName () + " with a score of " + tPlayer.getScore () + " is over the Score Limit of " + scoreLimit);
+			if (overLimitWon) {
+				System.out.println ("And has Won the Game");
+			} else {
+				System.out.println ("And has Lost the Game");
+			}
+			System.exit (0);
+		}
 	}
 
 	public boolean gameOver () {
-		boolean tGameWon = false;
+		boolean tGameOver = false;
 		
-		System.out.println ("Round Done - has anyone Exceeded 100 Points?");
+		if (players.anyPlayerOverLimit (scoreLimit)) {
+			tGameOver = true;
+			System.out.println ("Game Over - Someone has more than " + scoreLimit + " Points");
+		}
 		
-		return tGameWon;
+		return tGameOver;
 	}
 
 	public void setJGameClient (JGameClient aJGameClient) {

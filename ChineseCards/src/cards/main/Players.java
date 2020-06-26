@@ -361,4 +361,35 @@ public class Players {
 	public void addAction (Action aAction) {
 		gameFrame.addAction (aAction);
 	}
+
+	public Player getPlayerOverLimit (int aScoreLimit) {
+		Player tThisPlayer;
+		int tHighScore = 0;
+		int tScore;
+		
+		tThisPlayer = NO_PLAYER;
+		for (Player tPlayer : players) {
+			tScore = tPlayer.getScore ();
+			if (tScore > aScoreLimit) {
+				if (tScore > tHighScore) {
+					tThisPlayer = tPlayer;
+					tHighScore = tScore;
+				}
+			}
+		}
+		
+		return tThisPlayer;
+	}
+
+	public boolean anyPlayerOverLimit (int aScoreLimit) {
+		boolean tAnyPlayerOverLimit = false;
+		
+		for (Player tPlayer : players) {
+			if (tPlayer.getScore () > aScoreLimit) {
+				tAnyPlayerOverLimit = true;
+			}
+		}
+		
+		return tAnyPlayerOverLimit;
+	}
 }

@@ -37,6 +37,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	int playerIndex;
 	OverlapLayout layout;
 	Player player;
+	String gfLayoutPosition;
 	
 	public PlayerFrame (String aFrameName, Player aPlayer) {
 		super ();
@@ -59,6 +60,14 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		setVisible (true);
 	}
 
+	public void setGFLayoutPosition (String aGFLayoutPosition) {
+		gfLayoutPosition = aGFLayoutPosition;
+	}
+	
+	public String getGFLayoutPosition () {
+		return gfLayoutPosition;
+	}
+	
 	public void setPlayer (Player aPlayer) {
 		player = aPlayer;
 	}
@@ -403,25 +412,31 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	
 	private void showACard (Card aCard) {
 		JLabel tCardLabel;
-	
+		
 		tCardLabel = aCard.getCardLabel ();
-		addMouseListener (tCardLabel);
+		removeAllMouseListners (tCardLabel);
+		if (gfLayoutPosition.equals (GameFrame.CLIENT_POSITION)) {
+			addMouseListener (tCardLabel);
+		} else {
+			aCard.setFaceUp (false);
+		}
 		cardPanel.add (tCardLabel);
 		revalidate ();
 	}
 
 	public void addMouseListener (JLabel aCardLabel) {
-		MouseListener [] allMouseListeners;
+		aCardLabel.addMouseListener (this);
+	}
+
+	public void removeAllMouseListners (JLabel aCardLabel) {
+		MouseListener [] tAllMouseListeners;
 		
-		allMouseListeners = aCardLabel.getMouseListeners ();
-		
-		if (allMouseListeners.length > 0) {
-			for (MouseListener tMouseListener : allMouseListeners) {
+		tAllMouseListeners = aCardLabel.getMouseListeners ();
+		if (tAllMouseListeners.length > 0) {
+			for (MouseListener tMouseListener : tAllMouseListeners) {
 				aCardLabel.removeMouseListener (tMouseListener);
 			}
 		}
-		
-		aCardLabel.addMouseListener (this);
 	}
 
 	private void disablePlayCardButton () {
