@@ -475,8 +475,8 @@ public class PlayerFrame extends JPanel implements MouseListener {
 			tPassLabel += "to " + tPlayerName;
 		} else if (tPassIncrement < 0) {
 			tPassLabel += "Right ";
-			if (tPassIncrement > 1) {
-				tPassLabel += tPassIncrement + " ";
+			if (tPassIncrement < -1) {
+				tPassLabel += (- tPassIncrement) + " ";
 			}
 			tPassLabel += "to " + tPlayerName;
 		} else {
