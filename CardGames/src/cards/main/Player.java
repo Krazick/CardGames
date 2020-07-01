@@ -286,9 +286,9 @@ public class Player implements ActorI {
 		gameFrame.playCard (aCard, this);
 		frame.removeCardFromCardPanel (aCard);
 		resetActionState (ActorI.ActionStates.PlayedCard);
-		 tPlayCardAction = new PlayCardAction (this);
-		 tPlayCardAction.addPlayCardEffect (this, aCard);
-		 addAction (tPlayCardAction);
+		tPlayCardAction = new PlayCardAction (this);
+		tPlayCardAction.addPlayCardEffect (this, aCard);
+		addAction (tPlayCardAction);
 	}
 
 	public Player findLeadingPlayer () {

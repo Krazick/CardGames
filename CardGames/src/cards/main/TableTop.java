@@ -85,6 +85,7 @@ public class TableTop extends JPanel implements MouseListener {
 			playerWhoWillWin = aPlayer;
 			winningCard = cardLed;
 		}
+		aCard.setFaceUp (true);
 		cardsOnTable.add (aCard, aPlayer);
 		aPlayer.updateButtons ();
 		if (aCard.getSuit ().equals (cardLed.getSuit ())) {

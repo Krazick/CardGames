@@ -114,6 +114,7 @@ public class Card {
 	private Suits suit;
 	private boolean faceUp;
 	ImageIcon image;
+	ImageIcon backImage;
 	JLabel cardLabel;
 	
 	public Ranks [] allRanks = { 
@@ -174,7 +175,18 @@ public class Card {
 	}
 	
 	public void setFaceUp (boolean aFaceUp) {
+		JLabel tCardLabel;
+
 		faceUp = aFaceUp;
+		
+		tCardLabel = getCardLabel ();
+		if (tCardLabel != null) {
+			if (faceUp) {
+				tCardLabel.setIcon (image);
+			} else {
+				tCardLabel.setIcon (backImage);
+			}
+		}
 	}
 	
 	public boolean getFaceUp () {
@@ -286,8 +298,9 @@ public class Card {
 	private void setImage () {
 		try {
 			image = loadAndScaleImage ();
+			backImage = loadAndScaleBackImage ();
 			JLabel tCardLabel = new JLabel ("");
-			tCardLabel.setIcon (image);
+//			tCardLabel.setIcon (image);
 			setCardLabel (tCardLabel);
 		} catch (Exception tException) {
 			System.err.println ("Missing Image File " + getFullName ());
@@ -300,6 +313,17 @@ public class Card {
 	
 	public JLabel getCardLabel () {
 		return cardLabel;
+	}
+	
+	private ImageIcon loadAndScaleBackImage () {
+		ImageIcon tImage;
+		Image tScaledImage;
+		
+		tImage = new ImageIcon ("Images/cardback.jpg");
+		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth/2, cardImageHeight/2);
+		tImage.setImage (tScaledImage);
+		
+		return tImage;
 	}
 	
 	private ImageIcon loadAndScaleImage () {

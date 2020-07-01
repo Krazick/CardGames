@@ -380,6 +380,16 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		return playerIndex;
 	}
 	
+	public boolean isClientPlayer () {
+		boolean tIsClientPlayer = false;
+		
+		if (gfLayoutPosition.equals (GameFrame.CLIENT_POSITION)) {
+			tIsClientPlayer = true;
+		}
+		
+		return tIsClientPlayer;
+	}
+	
 	public void showAllCardsInFrame () {
 		int tCardIndex, tCardCount;
 		Hand tPlayerHand;
@@ -404,10 +414,9 @@ public class PlayerFrame extends JPanel implements MouseListener {
 						pushUp (tCard.getCardLabel ());
 					}
 				}
-			}
+			}		
+			updateButtons ();
 		}
-		
-		updateButtons ();
 	}
 	
 	private void showACard (Card aCard) {
@@ -415,8 +424,9 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		
 		tCardLabel = aCard.getCardLabel ();
 		removeAllMouseListners (tCardLabel);
-		if (gfLayoutPosition.equals (GameFrame.CLIENT_POSITION)) {
+		if (isClientPlayer ()) {
 			addMouseListener (tCardLabel);
+			aCard.setFaceUp (true);
 		} else {
 			aCard.setFaceUp (false);
 		}
