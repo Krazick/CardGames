@@ -11,7 +11,7 @@ import cards.actions.ActorI;
 public class Players {
 	ArrayList<Player> players;
 	public static final Player NO_PLAYER = null;
-	private String NO_NAME = null;
+	private final String NO_NAME = null;
 	private int passIncrement;
 	private int passCount;
 	private int playCount;
@@ -37,8 +37,6 @@ public class Players {
 		
 		tPlayerIndex = players.size ();
 		tPlayer = new Player (aName, tPlayerIndex, this, gameFrame);
-//		tPlayer.setPlayers (this);
-//		tPlayer.setGameFrame (gameFrame);
 		players.add (tPlayer);
 	}
 	
