@@ -192,4 +192,8 @@ public class GameFrame extends XMLFrame {
 	public void addAction (Action aAction) {
 		gameManager.addAction (aAction);
 	}
+	
+	public boolean isClientPlayer (String aPlayerName) {
+		return gameManager.isClientPlayer (aPlayerName);
+	}
 }

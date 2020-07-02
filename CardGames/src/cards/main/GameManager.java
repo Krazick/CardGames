@@ -48,6 +48,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private Random randomGenerator;
 	private int scoreLimit;
 	private boolean overLimitWon;
+	
 	public static void main (String [] args) {
 		new GameManager ();
 	}
@@ -484,5 +485,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	public void addAction (Action aAction) {
 		actionManager.addAction (aAction);
+	}
+	
+	public boolean isClientPlayer (String aPlayerName) {
+		return (getClientUserName ().equals (aPlayerName));
 	}
 }

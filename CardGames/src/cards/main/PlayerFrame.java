@@ -24,6 +24,8 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	Component strutHoriz20 = Box.createHorizontalStrut (20);
 	JPanel playerInfoPanel;
 	JPanel cardPanel;
+//	JPanel cardPanelFaceUp;
+//	JPanel cardPanelFaceDown;
 	JPanel cardInfoPanel;
 	JPanel buttonsPanel;
 	JButton pushCardsDown;
@@ -36,6 +38,8 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	JLabel trickInfoLabel;
 	int playerIndex;
 	OverlapLayout layout;
+//	OverlapLayout layoutFaceUp;
+//	OverlapLayout layoutFaceDown;
 	Player player;
 	String gfLayoutPosition;
 	
@@ -56,7 +60,11 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		panel.add (buttonsPanel, BorderLayout.SOUTH);
 		
 		add (panel);
-		setSize (650, 300);
+		if (isClientPlayer ()) {
+			setSize (650, 300);
+		} else {
+			setSize (300, 200);
+		}
 		setVisible (true);
 	}
 
@@ -102,6 +110,13 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		cardInfoPanel.setLayout (layout);
 		setupCardPanel ();
 		cardInfoPanel.add (cardPanel);
+//		if (isClientPlayer ()) {
+//			cardInfoPanel.add (cardPanel);
+//			System.out.println ("Client Player " + player.getName () + " Face Up Card Panel");
+//		} else {
+//			System.out.println ("Player " + player.getName () + " Face Down Card Panel");
+//			cardInfoPanel.add (cardPanel);
+//		}
 		trickInfoLabel = new JLabel ();
 		cardInfoPanel.add (trickInfoLabel);
 		updateTrickInfoLabel ();
@@ -137,9 +152,23 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	public void setupCardPanel () {
 		Card tCard = new Card (Card.Ranks.ACE, Card.Suits.SPADES);
 		
-		layout = new OverlapLayout (new Point (tCard.getCardOverlap (), 0));
-		layout.setPopupInsets (new Insets (tCard.getCardOverlap (), 0, 0, 0));
+		if (isClientPlayer ()) {
+			layout = new OverlapLayout (new Point (tCard.getCardOverlapUp (), 0));
+			layout.setPopupInsets (new Insets (tCard.getCardOverlapUp (), 0, 0, 0));
+		} else {
+			layout = new OverlapLayout (new Point (tCard.getCardOverlapDown (), 0));
+			layout.setPopupInsets (new Insets (tCard.getCardOverlapDown (), 0, 0, 0));
+		}
 		cardPanel = new JPanel (layout);
+//		layoutFaceUp = new OverlapLayout (new Point (tCard.getCardOverlapUp (), 0));
+//		layoutFaceUp.setPopupInsets (new Insets (tCard.getCardOverlapUp (), 0, 0, 0));
+//		cardPanelFaceUp = new JPanel (layoutFaceUp);
+//
+//		layoutFaceDown = new OverlapLayout (new Point (tCard.getCardOverlapDown (), 0));
+//		layoutFaceDown.setPopupInsets (new Insets (tCard.getCardOverlapDown (), 0, 0, 0));
+//		cardPanelFaceDown = new JPanel (layoutFaceDown);
+//		System.out.println ("Card Panels Up setup " + tCard.getCardOverlapUp ());
+//		System.out.println ("Card Panels Down setup " + tCard.getCardOverlapDown ());
 	}
 
 	public void setupButtonsPanel () {
@@ -351,7 +380,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		JLabel aCardLabel;
 		
 		aCardLabel = aCard.cardLabel;
-		cardPanel.remove (aCardLabel);		
+		cardPanel.remove (aCardLabel);
 	}
 	
 	public void removeCardFromFrame (Card aCard, Hand aHand, int aCardIndex) {
@@ -383,9 +412,10 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	public boolean isClientPlayer () {
 		boolean tIsClientPlayer = false;
 		
-		if (gfLayoutPosition.equals (GameFrame.CLIENT_POSITION)) {
-			tIsClientPlayer = true;
-		}
+		tIsClientPlayer = player.isClientPlayer ();
+//		if (gfLayoutPosition.equals (GameFrame.CLIENT_POSITION)) {
+//			tIsClientPlayer = true;
+//		}
 		
 		return tIsClientPlayer;
 	}
@@ -540,11 +570,21 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	}
 	
 	public void pushUp (Component aCardComponent) {
-        layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
+		layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
+//		if (isClientPlayer ()) {
+//			layoutFaceUp.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
+//		} else {
+//			layoutFaceDown.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
+//		}
 	}
 	
 	public void pushDown (Component aCardComponent) {
-        layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_DOWN);
+		layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_DOWN);
+//		if (isClientPlayer ()) {
+//			layoutFaceUp.addLayoutComponent (aCardComponent, OverlapLayout.POP_DOWN);
+//		} else {
+//			layoutFaceDown.addLayoutComponent(aCardComponent, OverlapLayout.POP_DOWN);
+//		}
 	}
 
 	public void updateFrame (Component aCardComponent) {

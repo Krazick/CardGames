@@ -15,7 +15,8 @@ public class Card {
 	
 	private int cardImageWidth = 75;
 	private int cardImageHeight = 120;
-	private int cardOverlap = 20;
+	private int cardOverlapUp = 20;
+	private int cardOverlapDown = 5;
 	private int cardPopUp = 10;
 	
 	public int getCardImageWidth () {
@@ -26,8 +27,12 @@ public class Card {
 		return cardImageHeight;
 	}
 	
-	public int getCardOverlap () {
-		return cardOverlap;
+	public int getCardOverlapDown () {
+		return cardOverlapDown;
+	}
+	
+	public int getCardOverlapUp () {
+		return cardOverlapUp;
 	}
 	
 	public int getCardPopup () {

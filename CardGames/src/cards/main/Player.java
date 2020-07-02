@@ -409,4 +409,8 @@ public class Player implements ActorI {
 		
 		return tName;
 	}
+	
+	public boolean isClientPlayer () {
+		return gameFrame.isClientPlayer (name);
+	}
 }
