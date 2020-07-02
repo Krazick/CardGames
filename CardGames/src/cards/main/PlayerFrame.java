@@ -24,8 +24,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	Component strutHoriz20 = Box.createHorizontalStrut (20);
 	JPanel playerInfoPanel;
 	JPanel cardPanel;
-//	JPanel cardPanelFaceUp;
-//	JPanel cardPanelFaceDown;
 	JPanel cardInfoPanel;
 	JPanel buttonsPanel;
 	JButton pushCardsDown;
@@ -38,8 +36,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	JLabel trickInfoLabel;
 	int playerIndex;
 	OverlapLayout layout;
-//	OverlapLayout layoutFaceUp;
-//	OverlapLayout layoutFaceDown;
 	Player player;
 	String gfLayoutPosition;
 	
@@ -110,13 +106,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		cardInfoPanel.setLayout (layout);
 		setupCardPanel ();
 		cardInfoPanel.add (cardPanel);
-//		if (isClientPlayer ()) {
-//			cardInfoPanel.add (cardPanel);
-//			System.out.println ("Client Player " + player.getName () + " Face Up Card Panel");
-//		} else {
-//			System.out.println ("Player " + player.getName () + " Face Down Card Panel");
-//			cardInfoPanel.add (cardPanel);
-//		}
 		trickInfoLabel = new JLabel ();
 		cardInfoPanel.add (trickInfoLabel);
 		updateTrickInfoLabel ();
@@ -160,15 +149,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 			layout.setPopupInsets (new Insets (tCard.getCardOverlapDown (), 0, 0, 0));
 		}
 		cardPanel = new JPanel (layout);
-//		layoutFaceUp = new OverlapLayout (new Point (tCard.getCardOverlapUp (), 0));
-//		layoutFaceUp.setPopupInsets (new Insets (tCard.getCardOverlapUp (), 0, 0, 0));
-//		cardPanelFaceUp = new JPanel (layoutFaceUp);
-//
-//		layoutFaceDown = new OverlapLayout (new Point (tCard.getCardOverlapDown (), 0));
-//		layoutFaceDown.setPopupInsets (new Insets (tCard.getCardOverlapDown (), 0, 0, 0));
-//		cardPanelFaceDown = new JPanel (layoutFaceDown);
-//		System.out.println ("Card Panels Up setup " + tCard.getCardOverlapUp ());
-//		System.out.println ("Card Panels Down setup " + tCard.getCardOverlapDown ());
 	}
 
 	public void setupButtonsPanel () {
@@ -413,9 +393,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		boolean tIsClientPlayer = false;
 		
 		tIsClientPlayer = player.isClientPlayer ();
-//		if (gfLayoutPosition.equals (GameFrame.CLIENT_POSITION)) {
-//			tIsClientPlayer = true;
-//		}
 		
 		return tIsClientPlayer;
 	}
@@ -571,20 +548,10 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	
 	public void pushUp (Component aCardComponent) {
 		layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
-//		if (isClientPlayer ()) {
-//			layoutFaceUp.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
-//		} else {
-//			layoutFaceDown.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
-//		}
 	}
 	
 	public void pushDown (Component aCardComponent) {
 		layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_DOWN);
-//		if (isClientPlayer ()) {
-//			layoutFaceUp.addLayoutComponent (aCardComponent, OverlapLayout.POP_DOWN);
-//		} else {
-//			layoutFaceDown.addLayoutComponent(aCardComponent, OverlapLayout.POP_DOWN);
-//		}
 	}
 
 	public void updateFrame (Component aCardComponent) {
