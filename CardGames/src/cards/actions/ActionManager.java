@@ -200,16 +200,6 @@ public class ActionManager {
 		
 		return tLastActionUndone;
 	}
-//	
-//	public boolean wasLastActionStartAuction () {
-//		Action tLastAction;
-//		boolean tWasLastActionStartAuction = false;
-//
-//		tLastAction = getLastAction ();
-//		tWasLastActionStartAuction = tLastAction.wasLastActionStartAuction ();
-//		
-//		return tWasLastActionStartAuction;
-//	}
 
 	public void appendAction (String aGameActivity) {
 		actionReportFrame.append (aGameActivity);

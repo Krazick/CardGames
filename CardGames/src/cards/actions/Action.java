@@ -210,7 +210,7 @@ public class Action {
 	}
 	
 	public void setName (String aName) {
-		if (aName.equals(NO_NAME)) {
+		if (aName.equals (NO_NAME)) {
 			name = aName;
 		} else {
 			name = createFullName (aName);
@@ -226,36 +226,25 @@ public class Action {
 		
 		tActionUndone = true;
 		for (Effect tEffect: effects) {
-			System.out.println ("Trying to Undo " + name + " Effect: " + tEffect.getName ());
 			tEffectUndone = tEffect.undoEffect (aGameManager);
 			tActionUndone &= tEffectUndone;
 			System.out.println ("Tried to Undo a " + name + ", Effect " + tEffect.getName () +
 					" EffectUndone Flag " + tEffectUndone);
 		}
 		
-		System.out.println ("Request to Undo Action -- All Effects Undone");
-		
 		return tActionUndone;
 	}
-//	
-//	public boolean wasLastActionStartAuction () {
-//		return false;
-//	}
 
 	public boolean applyAction (GameManager aGameManager) {
 		boolean tActionApplied, tEffectApplied;
 		
 		tActionApplied = true;
 		for (Effect tEffect: effects) {
-//			System.out.println ("---Trying to Apply Effect:");
-//			tEffect.printEffectReport (aGameManager);
 			tEffectApplied = tEffect.applyEffect (aGameManager);
 			tActionApplied &= tEffectApplied;
 			System.out.println ("Tried to Apply a |" + name + "|, Effect " + tEffect.getName () +
 					" EffectApplied Flag " + tEffectApplied);
 		}
-		
-		System.out.println ("Applied All Effects " + tActionApplied);
 
 		return tActionApplied;
 	}
