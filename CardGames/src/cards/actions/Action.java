@@ -210,7 +210,11 @@ public class Action {
 	}
 	
 	public void setName (String aName) {
-		name = createFullName (aName);
+		if (aName.equals(NO_NAME)) {
+			name = aName;
+		} else {
+			name = createFullName (aName);
+		}
 	}
 	
 	private String createFullName (String aName) {
@@ -233,10 +237,10 @@ public class Action {
 		
 		return tActionUndone;
 	}
-	
-	public boolean wasLastActionStartAuction () {
-		return false;
-	}
+//	
+//	public boolean wasLastActionStartAuction () {
+//		return false;
+//	}
 
 	public boolean applyAction (GameManager aGameManager) {
 		boolean tActionApplied, tEffectApplied;

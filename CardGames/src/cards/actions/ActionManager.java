@@ -200,16 +200,16 @@ public class ActionManager {
 		
 		return tLastActionUndone;
 	}
-	
-	public boolean wasLastActionStartAuction () {
-		Action tLastAction;
-		boolean tWasLastActionStartAuction = false;
-
-		tLastAction = getLastAction ();
-		tWasLastActionStartAuction = tLastAction.wasLastActionStartAuction ();
-		
-		return tWasLastActionStartAuction;
-	}
+//	
+//	public boolean wasLastActionStartAuction () {
+//		Action tLastAction;
+//		boolean tWasLastActionStartAuction = false;
+//
+//		tLastAction = getLastAction ();
+//		tWasLastActionStartAuction = tLastAction.wasLastActionStartAuction ();
+//		
+//		return tWasLastActionStartAuction;
+//	}
 
 	public void appendAction (String aGameActivity) {
 		actionReportFrame.append (aGameActivity);
@@ -222,7 +222,7 @@ public class ActionManager {
 		int tActionNodeCount, tActionIndex;
 		String tANodeName;
 		
-		// When handling incomming Network Actions, we DO NOT want to notify other clients
+		// When handling incoming Network Actions, we DO NOT want to notify other clients
 		// that they should apply these Actions (one of them is sending it to us)
 		// We end up getting into an Infinite Loop between two separate clients 
 		gameManager.setNotifyNetwork (false); 
