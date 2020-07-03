@@ -10,7 +10,7 @@ public class FrameInfo {
 	public static final AttributeName AN_WIDTH = new AttributeName ("width");
 	public static final AttributeName AN_HEIGHT = new AttributeName ("height");
 	public static final AttributeName AN_XLOCATION = new AttributeName ("xLocation");
-	public static final AttributeName AN_YLOCATION= new AttributeName ("yLocation");
+	public static final AttributeName AN_YLOCATION = new AttributeName ("yLocation");
 	public static final AttributeName AN_VISIBLE = new AttributeName ("visible");
 	public static final FrameInfo NO_FRAME_INFO = null;
 	public static final String NO_FRAME_NAME = null;
