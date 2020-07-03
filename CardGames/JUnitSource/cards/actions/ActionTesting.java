@@ -2,6 +2,8 @@ package cards.actions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -10,6 +12,30 @@ import cards.main.Player;
 
 @DisplayName ("Action Class Testing")
 class ActionTesting {
+	Action action;
+	Player mPlayer;
+	String actionName;
+	String mPlayerName = "JUnitPlayer";
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@BeforeEach
+	void setUp () throws Exception {
+		
+		mPlayer = Mockito.mock (Player.class);
+		Mockito.when (mPlayer.getName ()).thenReturn (mPlayerName);
+		actionName = "JUnitTest";
+		
+		action = new Action (actionName, mPlayer);
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@AfterEach
+	void tearDown () throws Exception {
+	}
 
 	@Test
 	@DisplayName ("Testing Action Class NoArg Constructor")
@@ -41,17 +67,29 @@ class ActionTesting {
 	@Test
 	@DisplayName ("Testing Action Class Constructor")
 	void testBasicConstructor () {
-		Action tAction;
-		Player mPlayer;
-		String tActionName;
+		assertTrue (action.actorIsSet ());
+		assertEquals (actionName + " Action", action.getName ());
+		assertEquals (mPlayer, action.getActor ());
+		assertFalse (action.getChainToPrevious ());
+		assertEquals ("Dummy Action", action.getName ("Dummy"));
+	}
+	
+	@Test
+	@DisplayName ("Testing Action Reports")
+	void testActionReports () {
+		assertEquals ("-" + mPlayerName + " performed " + actionName + " Action Chain to Previous [false]",
+						action.getBriefActionReport ());
 		
-		mPlayer = Mockito.mock (Player.class);
-		tActionName = "JUnitTest";
+		actionName = "JUnitTest2";
+		action.setName (actionName);
 		
-		tAction = new Action (tActionName, mPlayer);
-		assertTrue (tAction.actorIsSet ());
-		assertEquals (tActionName + " Action", tAction.getName ());
-		assertEquals (mPlayer, tAction.getActor ());
-		assertFalse (tAction.getChainToPrevious ());
+		assertEquals ("Brief [-" + mPlayerName + " performed " + actionName + " Action Chain to Previous [false]]",
+						action.getSimpleActionReport ());
+	}
+	
+	@Test
+	@DisplayName ("Testing Action Reports with Mocked Effects")
+	void testActionWithMockedEffects () {
+		
 	}
 }
