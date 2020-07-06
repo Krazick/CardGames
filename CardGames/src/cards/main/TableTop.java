@@ -47,15 +47,18 @@ public class TableTop extends JPanel implements MouseListener {
 
 	private void setupTableTopContents() {
 		setLayout (new BoxLayout (this, BoxLayout.LINE_AXIS));
-		this.setBackground (Color.cyan);
-		leftBox = new JPanel (new BoxLayout (leftBox, BoxLayout.PAGE_AXIS));
-		rightBox = new JPanel (new BoxLayout (rightBox, BoxLayout.PAGE_AXIS));
-		centerBox = new JPanel (new BoxLayout (centerBox, BoxLayout.PAGE_AXIS));
-		this.add (leftBox);
-		this.add (Box.createHorizontalGlue());
-		this.add (centerBox);
-		this.add (Box.createHorizontalGlue());
-		this.add (rightBox);
+		setBackground (Color.cyan);
+		leftBox = new JPanel ();
+		leftBox.setLayout (new BoxLayout (leftBox, BoxLayout.PAGE_AXIS));
+		rightBox = new JPanel ();
+		rightBox.setLayout (new BoxLayout (rightBox, BoxLayout.PAGE_AXIS));
+		centerBox = new JPanel ();
+		centerBox.setLayout (new BoxLayout (centerBox, BoxLayout.PAGE_AXIS));
+		add (leftBox);
+		add (Box.createHorizontalGlue());
+		add (centerBox);
+		add (Box.createHorizontalGlue());
+		add (rightBox);
 	}
 	
 	public void setGameManager (GameManager aGameManager) {
