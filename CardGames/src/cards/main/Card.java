@@ -235,7 +235,6 @@ public class Card {
 	public Ranks getMatchingRank (int aRankIndex) {
 		Ranks tRank;
 		
-		System.out.println ("Looking for Rank Index " + aRankIndex);
 		if ((aRankIndex < MIN_RANK_INDEX) || (aRankIndex > MAX_RANK_INDEX)) {
 			throw new IllegalArgumentException ("Invalid Rank");
 		} else {
