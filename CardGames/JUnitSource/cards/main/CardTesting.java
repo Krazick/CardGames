@@ -15,61 +15,86 @@ class CardTesting {
 	@Test
 	@DisplayName ("Verify Card Constructors")
 	void test () {
-		Card singleCard, anotherCard, thirdCard, fourthCard;
+		Card singleCard, anotherCard, thirdCard, fourthCard, fifthCard;
+		CardImages tCardImages;
 		
-		singleCard = new Card (Card.Ranks.ACE, "Hearts");
+		tCardImages = new CardImages ();
+		
+		singleCard = new Card (Card.Ranks.ACE, "Hearts", tCardImages);
 		assertEquals ("Ace of Hearts", singleCard.getFullName ());
 		assertEquals ("AHearts", singleCard.getShortName ());
+		assertEquals ("AH", singleCard.getAbbrev ());
 		assertTrue (singleCard.isRed ());
 		assertFalse (singleCard.isBlack ());
 		
-		anotherCard = new Card (Card.Ranks.SEVEN, "Clubs");
+		singleCard = new Card (0, "Diamonds", tCardImages);
+		assertEquals ("Ace of Diamonds", singleCard.getFullName ());
+		assertEquals ("ADiamonds", singleCard.getShortName ());
+		assertEquals ("AD", singleCard.getAbbrev ());
+		assertTrue (singleCard.isRed ());
+		assertFalse (singleCard.isBlack ());
+		
+		anotherCard = new Card (Card.Ranks.SEVEN, "Clubs", tCardImages);
 		assertEquals ("7 of Clubs", anotherCard.getFullName ());
 		assertEquals ("7Clubs", anotherCard.getShortName ());
+		assertEquals ("7C", anotherCard.getAbbrev ());
 		assertTrue (anotherCard.isBlack ());
 		assertFalse (anotherCard.isRed ());
 		
-		thirdCard = new Card (3, "Diamonds");
+		thirdCard = new Card (2, "Diamonds", tCardImages);
 		assertEquals ("3 of Diamonds", thirdCard.getFullName ());
 		assertEquals ("3Diamonds", thirdCard.getShortName ());
+		assertEquals ("3D", thirdCard.getAbbrev ());
 		assertTrue (singleCard.isRed ());
 		assertFalse (singleCard.isBlack ());
 		
-		anotherCard = new Card (Card.Ranks.KING, "Spades");
+		anotherCard = new Card (Card.Ranks.KING, "Spades", tCardImages);
 		assertEquals ("King of Spades", anotherCard.getFullName ());
 		assertEquals ("KSpades", anotherCard.getShortName ());
+		assertEquals ("KS", anotherCard.getAbbrev ());
 		assertTrue (anotherCard.isBlack ());
 		assertFalse (anotherCard.isRed ());
 		
-		anotherCard = new Card (Card.Ranks.QUEEN, Card.Suits.HEARTS);
+		anotherCard = new Card (Card.Ranks.QUEEN, Card.Suits.HEARTS, tCardImages);
 		assertEquals ("Queen of Hearts", anotherCard.getFullName ());
 		assertEquals ("QHearts", anotherCard.getShortName ());
+		assertEquals ("QH", anotherCard.getAbbrev ());
 		assertTrue (anotherCard.isRed ());
 		assertFalse (anotherCard.isBlack ());
 
-		thirdCard = new Card (7, Card.Suits.DIAMONDS);
+		thirdCard = new Card (6, Card.Suits.DIAMONDS, tCardImages);
 		assertEquals ("7 of Diamonds", thirdCard.getFullName ());
 		assertEquals ("7Diamonds", thirdCard.getShortName ());
+		assertEquals ("7D", thirdCard.getAbbrev ());
 		assertTrue (thirdCard.isRed ());
 		assertFalse (thirdCard.isBlack ());
 
-		fourthCard = new Card (Ranks.JOKER, Suits.JOKER_RED);
-		assertEquals ("Joker of Joker Red", fourthCard.getFullName ());
-		assertEquals ("JJoker Red", fourthCard.getShortName ());
-		assertTrue (fourthCard.isRed ());
-		assertFalse (fourthCard.isBlack ());
-		
-		fourthCard = new Card (Ranks.JOKER, Suits.JOKER_BLACK);
-		assertEquals ("Joker of Joker Black", fourthCard.getFullName ());
-		assertEquals ("JJoker Black", fourthCard.getShortName ());
+		fourthCard = new Card (9, "Spades", tCardImages);
+		assertEquals ("10 of Spades", fourthCard.getFullName ());
+		assertEquals ("10Spades", fourthCard.getShortName ());
+		assertEquals ("10S", fourthCard.getAbbrev ());
 		assertTrue (fourthCard.isBlack ());
 		assertFalse (fourthCard.isRed ());
 
+		fifthCard = new Card (Ranks.JOKER, Suits.JOKER_RED, tCardImages);
+		assertEquals ("Joker of Red Joker", fifthCard.getFullName ());
+		assertEquals ("JRed Joker", fifthCard.getShortName ());
+		assertEquals ("JR", fifthCard.getAbbrev ());
+		assertTrue (fifthCard.isRed ());
+		assertFalse (fifthCard.isBlack ());
+		
+		fifthCard = new Card (Ranks.JOKER, Suits.JOKER_BLACK, tCardImages);
+		assertEquals ("Joker of Black Joker", fifthCard.getFullName ());
+		assertEquals ("JBlack Joker", fifthCard.getShortName ());
+		assertEquals ("JB", fifthCard.getAbbrev ());
+		assertTrue (fifthCard.isBlack ());
+		assertFalse (fifthCard.isRed ());
+
 		Assertions.assertThrows (IllegalArgumentException.class, () -> {
-			new Card (0, "NOT ACE"); });
+			new Card (0, "NOT ACE", tCardImages); });
 		
 		Assertions.assertThrows (IllegalArgumentException.class, () -> {
-			new Card (53, "NOT GOOD"); });
+			new Card (53, "NOT GOOD", tCardImages); });
 
 	}
 

@@ -13,12 +13,14 @@ class DeckTesting {
 	Deck emptyDeck;
 	Deck standardDeck;
 	Deck standardJokerDeck;
+	CardImages cardImages;
 	
 	@BeforeEach
 	void setUp () throws Exception {
 		emptyDeck = new Deck ();
-		standardDeck = new Deck (Deck.Types.STANDARD);
-		standardJokerDeck = new Deck (Deck.Types.STANDARD_JOKERS);
+		cardImages = new CardImages ();
+		standardDeck = new Deck (Deck.Types.STANDARD, cardImages);
+		standardJokerDeck = new Deck (Deck.Types.STANDARD_JOKERS, cardImages);
 	}
 	
 	
@@ -193,7 +195,7 @@ class DeckTesting {
 		assertTrue (tDuplicateSuccess);
 		assertTrue (tMainDeck.isEmpty ());
 		
-		tMainDeck = new Deck (Deck.Types.STANDARD);
+		tMainDeck = new Deck (Deck.Types.STANDARD, cardImages);
 		assertFalse (tMainDeck.isEmpty ());
 		
 		tDuplicateSuccess = emptyDeck.duplicate (tMainDeck);
@@ -249,7 +251,7 @@ class DeckTesting {
 	void unknownDeckTypeConstructionTest () {
 		Deck tMainDeck;
 		
-		tMainDeck = new Deck (Deck.Types.UNKNOWN);
+		tMainDeck = new Deck (Deck.Types.UNKNOWN, cardImages);
 		assertEquals (0, tMainDeck.getCount ());
 	}
 	
@@ -260,7 +262,7 @@ class DeckTesting {
 		int tCountMatches;
 		Long tShuffleSeed;
 		Random tRandomGenerator;
-		tMainDeck = new Deck (Deck.Types.STANDARD);
+		tMainDeck = new Deck (Deck.Types.STANDARD, cardImages);
 		tCountMatches = countMatches (tMainDeck);
 		assertEquals (52, tCountMatches);
 		
