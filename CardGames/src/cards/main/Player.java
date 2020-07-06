@@ -413,4 +413,8 @@ public class Player implements ActorI {
 	public boolean isClientPlayer () {
 		return gameFrame.isClientPlayer (name);
 	}
+
+	public String getGFLayoutPosition() {
+		return frame.getGFLayoutPosition ();
+	}
 }

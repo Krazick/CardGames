@@ -15,13 +15,18 @@ public class GameFrame extends XMLFrame {
 	TableTop tableTop;
 	int currentPlayer;
 	int passIncrement;
+	int frameWidth = 845;
+	int frameHeight = 685;
 	
 	public GameFrame (String aFrameName, GameManager aGameManager) {
 		super (aFrameName);
 
+		CardImages tCardImages;
+		
 		setGameManager (aGameManager);
 		passIncrement = 0;
-		setGameDeck (new Deck (Types.STANDARD));
+		tCardImages = gameManager.getCardImages ();
+		setGameDeck (new Deck (Types.STANDARD, tCardImages));
 	}
 
 	public void setPlayers (Players aPlayers) {
@@ -141,7 +146,7 @@ public class GameFrame extends XMLFrame {
 			add (tPlayerFrame, tBorderLayout);
 			tBorderLayout = cycleBorderLayout (tBorderLayout);
 		}
-		setSize (1024, 775);
+		setSize (frameWidth, frameHeight);
 	}
 	
 	public void showHands () {

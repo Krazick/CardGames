@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,11 +25,14 @@ public class TableTop extends JPanel implements MouseListener {
 	Card winningCard;
 	Player nextPlayer;
 	JButton startNextRound;
-
+	JPanel leftBox, centerBox, rightBox;
+	
 	public TableTop (GameManager aGameManager, GameFrame aGameFrame) {
 		super ();
-		this.setBackground (Color.cyan);
 		setGameManager (aGameManager);
+		
+		setupTableTopContents();
+		
 		gameFrame = aGameFrame;
 		startNextRound = new JButton ("Start Next Round");
 		startNextRound.addActionListener (new ActionListener() {
@@ -38,6 +43,19 @@ public class TableTop extends JPanel implements MouseListener {
 			}
 		});
    		startNewTrick ();
+	}
+
+	private void setupTableTopContents() {
+		setLayout (new BoxLayout (this, BoxLayout.LINE_AXIS));
+		this.setBackground (Color.cyan);
+		leftBox = new JPanel (new BoxLayout (leftBox, BoxLayout.PAGE_AXIS));
+		rightBox = new JPanel (new BoxLayout (rightBox, BoxLayout.PAGE_AXIS));
+		centerBox = new JPanel (new BoxLayout (centerBox, BoxLayout.PAGE_AXIS));
+		this.add (leftBox);
+		this.add (Box.createHorizontalGlue());
+		this.add (centerBox);
+		this.add (Box.createHorizontalGlue());
+		this.add (rightBox);
 	}
 	
 	public void setGameManager (GameManager aGameManager) {
@@ -94,7 +112,7 @@ public class TableTop extends JPanel implements MouseListener {
 				winningCard = aCard;
 			}
 		}
-		showACard (aCard);
+		showACard (aCard, aPlayer);
 		if (allPlayersPlayed ()) {
 			resolveTrick ();
 		} else {
@@ -171,13 +189,21 @@ public class TableTop extends JPanel implements MouseListener {
 		gameFrame.startNewRound (tNewShuffleSeed);
 	}
 	
-	private void showACard (Card aCard) {
+	private void showACard (Card aCard, Player aPlayer) {
 		JLabel tCardLabel;
-	
+		String tPlayerPosition;
+		
+		tPlayerPosition = aPlayer.getGFLayoutPosition ();
+		System.out.println ("Border Layout for " + aPlayer.getName () + " is " + tPlayerPosition);
 		tCardLabel = aCard.getCardLabel ();
+		positionCard (tCardLabel, tPlayerPosition);
 		add (tCardLabel);
 	}
 
+	public void positionCard (JLabel aCardLabel, String tPlayerPosition) {
+		// TODO Put the Card in the Proper Position on the Table Top
+	}
+	
 	public boolean trickIsDone () {
 		boolean tTrickIsDone = false;
 		

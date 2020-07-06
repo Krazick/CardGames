@@ -48,6 +48,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private Random randomGenerator;
 	private int scoreLimit;
 	private boolean overLimitWon;
+	CardImages cardImages;
 	
 	public static void main (String [] args) {
 		new GameManager ();
@@ -56,6 +57,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public GameManager () {
 		String tTitle;
 		Long tSeed;
+		
+		cardImages = new CardImages ();
 		
 		tTitle = "Cards Game Startup";
 		setTitle (tTitle);
@@ -74,6 +77,10 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		setShuffleSeed (tSeed);
 	}
 
+	public CardImages getCardImages () {
+		return cardImages;
+	}
+	
 	public void setFrameContents () {
 		JLabel tGameEngineTitle = new JLabel ("Cards Game Manager");
 //		tGameEngineTitle.setText (resbundle.getString ("message"));
