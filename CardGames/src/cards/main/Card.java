@@ -9,8 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Card {
-	public static int MIN_RANK_INDEX = 1;
-	public static int MAX_RANK_INDEX = 13;
+	public static int MIN_RANK_INDEX = 0;
+	public static int MAX_RANK_INDEX = 12;
 	public static Card NO_CARD = null;
 	
 	private int cardImageWidth = 75;
@@ -43,9 +43,9 @@ public class Card {
 		HEARTS   ("Hearts",   "Red",      "H"),
 		DIAMONDS ("Diamonds", "Red",      "D"),
 		CLUBS    ("Clubs",    "Black",    "C"),
-		SPADES   ("Spades",   "Black",    "B"),
-		JOKER_RED   ("Joker Red",   "Red",   "JR"),
-		JOKER_BLACK ("Joker Black", "Black", "JB");
+		SPADES   ("Spades",   "Black",    "S"),
+		JOKER_RED   ("Red Joker",   "Red",   "RJ"),
+		JOKER_BLACK ("Black Joker", "Black", "BJ");
 		
 		String name, color, symbol;
 		Suits (String aName, String aColor, String aSymbol) {
@@ -67,6 +67,10 @@ public class Card {
 		}
 		
 		public String getSymbol () {
+			return symbol;
+		}
+		
+		public String getAbbrev () {
 			return symbol;
 		}
 	}
@@ -112,6 +116,10 @@ public class Card {
 			
 			return tShortName;
 		}
+		
+		public String getAbbrev () {
+			return getShortName ();
+		}
 	}
 	
 	private int points;
@@ -119,7 +127,8 @@ public class Card {
 	private Suits suit;
 	private boolean faceUp;
 	ImageIcon image;
-	ImageIcon backImage;
+	ImageIcon backImage = null;
+	ImageIcon blankImage = null;
 	JLabel cardLabel;
 	
 	public Ranks [] allRanks = { 
@@ -127,34 +136,41 @@ public class Card {
 			Ranks.SIX,  Ranks.SEVEN, Ranks.EIGHT,  Ranks.NINE, Ranks.TEN, 
 			Ranks.JACK, Ranks.QUEEN, Ranks.KING };
 	
-	public Card (Ranks aRank, String aSuit) {
+	public Card (Ranks aRank, String aSuit, CardImages aCardImages) {
 		setRank (aRank);
 		setSuit (aSuit);
 		setFaceUp (true);
-		setImage ();
+		setImage (aCardImages);
 	}
 
-	public Card (int aRank, String aSuit) {
+	public Card (int aRank, String aSuit, CardImages aCardImages) {
 		setRank (getMatchingRank (aRank));
 		setSuit (aSuit);
 		setFaceUp (true);
-		setImage ();
+		setImage (aCardImages);
 		setPoints ();
 	}
 	
-	public Card (int aRank, Suits aSuit) {
+	public Card (int aRank, Suits aSuit, CardImages aCardImages) {
 		setRank (getMatchingRank (aRank));
 		setSuit (aSuit);
 		setFaceUp (true);
-		setImage ();
+		setImage (aCardImages);
 		setPoints ();
 	}
 	
+	public Card (Ranks aRank, Suits aSuit, CardImages aCardImages) {
+		setRank (aRank);
+		setSuit (aSuit);
+		setFaceUp (true);
+		setImage (aCardImages);
+		setPoints ();
+	}
+
 	public Card (Ranks aRank, Suits aSuit) {
 		setRank (aRank);
 		setSuit (aSuit);
 		setFaceUp (true);
-		setImage ();
 		setPoints ();
 	}
 
@@ -219,10 +235,11 @@ public class Card {
 	public Ranks getMatchingRank (int aRankIndex) {
 		Ranks tRank;
 		
+		System.out.println ("Looking for Rank Index " + aRankIndex);
 		if ((aRankIndex < MIN_RANK_INDEX) || (aRankIndex > MAX_RANK_INDEX)) {
 			throw new IllegalArgumentException ("Invalid Rank");
 		} else {
-			tRank = allRanks [aRankIndex - 1];
+			tRank = allRanks [aRankIndex];
 		}
 		
 		return tRank;
@@ -300,7 +317,23 @@ public class Card {
 		}
 	}
 	
-	private void setImage () {
+	public void setCardLabel (JLabel aCardLabel) {
+		cardLabel = aCardLabel;
+	}
+	
+	public JLabel getCardLabel () {
+		return cardLabel;
+	}
+	
+	private void setImage (CardImages aCardImages) {
+		CardImage tCardImage;
+		
+		tCardImage = aCardImages.getCardImage (getAbbrev ());
+		image = tCardImage.getImage ();
+		setCardLabel (tCardImage.getCardLabel ());
+	}
+	
+	private void setImageX () {
 		try {
 			image = loadAndScaleImage ();
 			backImage = loadAndScaleBackImage ();
@@ -310,14 +343,6 @@ public class Card {
 		} catch (Exception tException) {
 			System.err.println ("Missing Image File " + getFullName ());
 		}
-	}
-	
-	public void setCardLabel (JLabel aCardLabel) {
-		cardLabel = aCardLabel;
-	}
-	
-	public JLabel getCardLabel () {
-		return cardLabel;
 	}
 	
 	private ImageIcon loadAndScaleBackImage () {

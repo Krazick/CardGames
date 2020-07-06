@@ -13,32 +13,32 @@ public class Deck extends CardSet {
 		buildEmptyCardSet ();		
 	}
 	
-	public Deck (Types aType) {
+	public Deck (Types aType, CardImages aCardImages) {
 		Card tCard;
 		
 		buildEmptyCardSet ();
 		
 		if (aType.equals (Types.STANDARD)) {
-			fillStandardDeck ();
+			fillStandardDeck (aCardImages);
 		} else if (aType.equals (Types.STANDARD_JOKERS)) {
-			fillStandardDeck ();
-			tCard = new Card (Ranks.JOKER, Suits.JOKER_RED);
+			fillStandardDeck (aCardImages);
+			tCard = new Card (Ranks.JOKER, Suits.JOKER_RED, aCardImages);
 			cards.add (tCard);
-			tCard = new Card (Ranks.JOKER, Suits.JOKER_BLACK);
+			tCard = new Card (Ranks.JOKER, Suits.JOKER_BLACK, aCardImages);
 			cards.add (tCard);
 		} else {
 			System.err.println ("Not a known Deck Type");
 		}
 	}
-
-	private void fillStandardDeck () {
+	
+	private void fillStandardDeck (CardImages aCardImages) {
 		int tRankIndex;
 		Card tCard;
 		
 		for (Suits tSuit : Card.Suits.values ()) {
-			if (tSuit.getSymbol ().length() == 1) {
+			if (tSuit.getSymbol ().length () == 1) {
 				for (tRankIndex = Card.MIN_RANK_INDEX; tRankIndex <= Card.MAX_RANK_INDEX; tRankIndex++) {
-					tCard = new Card (tRankIndex, tSuit);
+					tCard = new Card (tRankIndex, tSuit, aCardImages);
 					cards.add (tCard);
 				}
 			}
