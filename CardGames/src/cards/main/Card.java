@@ -1,10 +1,5 @@
 package cards.main;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -13,19 +8,19 @@ public class Card {
 	public static int MAX_RANK_INDEX = 12;
 	public static Card NO_CARD = null;
 	
-	private int cardImageWidth = 75;
-	private int cardImageHeight = 120;
+//	private int cardImageWidth = 75;
+//	private int cardImageHeight = 120;
 	private int cardOverlapUp = 20;
 	private int cardOverlapDown = 5;
 	private int cardPopUp = 10;
 	
-	public int getCardImageWidth () {
-		return cardImageWidth;
-	}
-	
-	public int getCardImageHeight () {
-		return cardImageHeight;
-	}
+//	public int getCardImageWidth () {
+//		return cardImageWidth;
+//	}
+//	
+//	public int getCardImageHeight () {
+//		return cardImageHeight;
+//	}
 	
 	public int getCardOverlapDown () {
 		return cardOverlapDown;
@@ -137,43 +132,55 @@ public class Card {
 			Ranks.JACK, Ranks.QUEEN, Ranks.KING };
 	
 	public Card (Ranks aRank, String aSuit, CardImages aCardImages) {
-		setRank (aRank);
-		setSuit (aSuit);
-		setFaceUp (true);
-		setImage (aCardImages);
+		setupBasicCard (aRank, getMatchingSuit (aSuit));
+//		setRank (aRank);
+//		setSuit (aSuit);
+//		setFaceUp (true);
+		setImages (aCardImages);
 	}
 
 	public Card (int aRank, String aSuit, CardImages aCardImages) {
-		setRank (getMatchingRank (aRank));
-		setSuit (aSuit);
-		setFaceUp (true);
-		setImage (aCardImages);
-		setPoints ();
+		setupBasicCard (getMatchingRank (aRank), getMatchingSuit (aSuit));
+//		setRank (getMatchingRank (aRank));
+//		setSuit (aSuit);
+//		setFaceUp (true);
+		setImages (aCardImages);
+//		setPoints ();
 	}
 	
 	public Card (int aRank, Suits aSuit, CardImages aCardImages) {
-		setRank (getMatchingRank (aRank));
-		setSuit (aSuit);
-		setFaceUp (true);
-		setImage (aCardImages);
-		setPoints ();
+		setupBasicCard (getMatchingRank (aRank), aSuit);
+//		setRank (getMatchingRank (aRank));
+//		setSuit (aSuit);
+//		setFaceUp (true);
+		setImages (aCardImages);
+//		setPoints ();
 	}
 	
 	public Card (Ranks aRank, Suits aSuit, CardImages aCardImages) {
-		setRank (aRank);
-		setSuit (aSuit);
-		setFaceUp (true);
-		setImage (aCardImages);
-		setPoints ();
+		setupBasicCard (aRank, aSuit);
+//		setRank (aRank);
+//		setSuit (aSuit);
+//		setFaceUp (true);
+		setImages (aCardImages);
+//		setPoints ();
 	}
 
 	public Card (Ranks aRank, Suits aSuit) {
+		setupBasicCard (aRank, aSuit);
+//		setRank (aRank);
+//		setSuit (aSuit);
+//		setFaceUp (true);
+//		setPoints ();
+	}
+
+	private void setupBasicCard (Ranks aRank, Suits aSuit) {
 		setRank (aRank);
 		setSuit (aSuit);
 		setFaceUp (true);
 		setPoints ();
 	}
-
+	
 	public void setPoints () {
 		setPoints (0);
 		if (suit.equals (Suits.HEARTS)) {
@@ -324,6 +331,12 @@ public class Card {
 		return cardLabel;
 	}
 	
+	private void setImages (CardImages aCardImages) {
+		setImage (aCardImages);
+		setBackImage (aCardImages);
+		setBlankImage (aCardImages);
+	}
+	
 	private void setImage (CardImages aCardImages) {
 		CardImage tCardImage;
 		
@@ -332,50 +345,64 @@ public class Card {
 		setCardLabel (tCardImage.getCardLabel ());
 	}
 	
-	private void setImageX () {
-		try {
-			image = loadAndScaleImage ();
-			backImage = loadAndScaleBackImage ();
-			JLabel tCardLabel = new JLabel ("");
-//			tCardLabel.setIcon (image);
-			setCardLabel (tCardLabel);
-		} catch (Exception tException) {
-			System.err.println ("Missing Image File " + getFullName ());
-		}
+	private void setBackImage (CardImages aCardImages) {
+		CardImage tCardImage;
+		
+		tCardImage = aCardImages.getCardImage ("cardback");
+		backImage = tCardImage.getImage ();
 	}
 	
-	private ImageIcon loadAndScaleBackImage () {
-		ImageIcon tImage;
-		Image tScaledImage;
+	private void setBlankImage (CardImages aCardImages) {
+		CardImage tCardImage;
 		
-		tImage = new ImageIcon ("Images/cardback.jpg");
-		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth/2, cardImageHeight/2);
-		tImage.setImage (tScaledImage);
-		
-		return tImage;
+		tCardImage = aCardImages.getCardImage ("cardblank");
+		blankImage = tCardImage.getImage ();
 	}
 	
-	private ImageIcon loadAndScaleImage () {
-		ImageIcon tImage;
-		Image tScaledImage;
-		
-		tImage = new ImageIcon ("Images/" + getAbbrev () + ".jpg");
-		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth, cardImageHeight);
-		tImage.setImage (tScaledImage);
-		
-		return tImage;
-	}
-	
-	private Image getScaledImage (Image srcImg, int w, int h){
-	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-	    Graphics2D g2 = resizedImg.createGraphics();
-
-	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g2.drawImage(srcImg, 0, 0, w, h, null);
-	    g2.dispose();
-
-	    return resizedImg;
-	}
+//	private void setImageX () {
+//		try {
+//			image = loadAndScaleImage ();
+//			backImage = loadAndScaleBackImage ();
+//			JLabel tCardLabel = new JLabel ("");
+////			tCardLabel.setIcon (image);
+//			setCardLabel (tCardLabel);
+//		} catch (Exception tException) {
+//			System.err.println ("Missing Image File " + getFullName ());
+//		}
+//	}
+//	
+//	private ImageIcon loadAndScaleBackImage () {
+//		ImageIcon tImage;
+//		Image tScaledImage;
+//		
+//		tImage = new ImageIcon ("Images/cardback.jpg");
+//		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth/2, cardImageHeight/2);
+//		tImage.setImage (tScaledImage);
+//		
+//		return tImage;
+//	}
+//	
+//	private ImageIcon loadAndScaleImage () {
+//		ImageIcon tImage;
+//		Image tScaledImage;
+//		
+//		tImage = new ImageIcon ("Images/" + getAbbrev () + ".jpg");
+//		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth, cardImageHeight);
+//		tImage.setImage (tScaledImage);
+//		
+//		return tImage;
+//	}
+//	
+//	private Image getScaledImage (Image srcImg, int w, int h){
+//	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+//	    Graphics2D g2 = resizedImg.createGraphics();
+//
+//	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+//	    g2.drawImage(srcImg, 0, 0, w, h, null);
+//	    g2.dispose();
+//
+//	    return resizedImg;
+//	}
 	
 	public int suitCompare (Card aCard) {
 		return - (getSuit ().compareTo (aCard.getSuit ()));
