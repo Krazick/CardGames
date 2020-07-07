@@ -7,20 +7,12 @@ public class Card {
 	public static int MIN_RANK_INDEX = 0;
 	public static int MAX_RANK_INDEX = 12;
 	public static Card NO_CARD = null;
+	public static String RED_CARD = "Red";
+	public static String BLACK_CARD = "Black";
 	
-//	private int cardImageWidth = 75;
-//	private int cardImageHeight = 120;
 	private int cardOverlapUp = 20;
 	private int cardOverlapDown = 5;
 	private int cardPopUp = 10;
-	
-//	public int getCardImageWidth () {
-//		return cardImageWidth;
-//	}
-//	
-//	public int getCardImageHeight () {
-//		return cardImageHeight;
-//	}
 	
 	public int getCardOverlapDown () {
 		return cardOverlapDown;
@@ -35,12 +27,12 @@ public class Card {
 	}
 	
 	public enum Suits { 
-		HEARTS   ("Hearts",   "Red",      "H"),
-		DIAMONDS ("Diamonds", "Red",      "D"),
-		CLUBS    ("Clubs",    "Black",    "C"),
-		SPADES   ("Spades",   "Black",    "S"),
-		JOKER_RED   ("Red Joker",   "Red",   "RJ"),
-		JOKER_BLACK ("Black Joker", "Black", "BJ");
+		HEARTS   ("Hearts",   RED_CARD,      "H"),
+		DIAMONDS ("Diamonds", RED_CARD,      "D"),
+		CLUBS    ("Clubs",    BLACK_CARD,    "C"),
+		SPADES   ("Spades",   BLACK_CARD,    "S"),
+		JOKER_RED   ("Red Joker",   RED_CARD,   "RJ"),
+		JOKER_BLACK ("Black Joker", BLACK_CARD, "BJ");
 		
 		String name, color, symbol;
 		Suits (String aName, String aColor, String aSymbol) {
@@ -132,46 +124,28 @@ public class Card {
 			Ranks.JACK, Ranks.QUEEN, Ranks.KING };
 	
 	public Card (Ranks aRank, String aSuit, CardImages aCardImages) {
-		setupBasicCard (aRank, getMatchingSuit (aSuit));
-//		setRank (aRank);
-//		setSuit (aSuit);
-//		setFaceUp (true);
-		setImages (aCardImages);
+		setupBasicCard (aRank, getMatchingSuit (aSuit), aCardImages);
 	}
 
 	public Card (int aRank, String aSuit, CardImages aCardImages) {
-		setupBasicCard (getMatchingRank (aRank), getMatchingSuit (aSuit));
-//		setRank (getMatchingRank (aRank));
-//		setSuit (aSuit);
-//		setFaceUp (true);
-		setImages (aCardImages);
-//		setPoints ();
+		setupBasicCard (getMatchingRank (aRank), getMatchingSuit (aSuit), aCardImages);
 	}
 	
 	public Card (int aRank, Suits aSuit, CardImages aCardImages) {
-		setupBasicCard (getMatchingRank (aRank), aSuit);
-//		setRank (getMatchingRank (aRank));
-//		setSuit (aSuit);
-//		setFaceUp (true);
-		setImages (aCardImages);
-//		setPoints ();
+		setupBasicCard (getMatchingRank (aRank), aSuit, aCardImages);
 	}
 	
 	public Card (Ranks aRank, Suits aSuit, CardImages aCardImages) {
-		setupBasicCard (aRank, aSuit);
-//		setRank (aRank);
-//		setSuit (aSuit);
-//		setFaceUp (true);
-		setImages (aCardImages);
-//		setPoints ();
+		setupBasicCard (aRank, aSuit, aCardImages);
 	}
 
 	public Card (Ranks aRank, Suits aSuit) {
 		setupBasicCard (aRank, aSuit);
-//		setRank (aRank);
-//		setSuit (aSuit);
-//		setFaceUp (true);
-//		setPoints ();
+	}
+	
+	private void setupBasicCard (Ranks aRank, Suits aSuit, CardImages aCardImages) {
+		setupBasicCard (aRank, aSuit);
+		setImages (aCardImages);
 	}
 
 	private void setupBasicCard (Ranks aRank, Suits aSuit) {
@@ -259,10 +233,6 @@ public class Card {
 		suit = aSuit;
 	}
 	
-	private void setSuit (String aSuit) {
-		setSuit (getMatchingSuit (aSuit));
-	}
-	
 	public Ranks getRank () {
 		return rank;
 	}
@@ -296,11 +266,11 @@ public class Card {
 	}
 	
 	public boolean isRed () {
-		return ("Red".equals (suit.getColor ()));
+		return (RED_CARD.equals (suit.getColor ()));
 	}
 	
 	public boolean isBlack () {
-		return ("Black".equals (suit.getColor ()));
+		return (BLACK_CARD.equals (suit.getColor ()));
 	}
 	
 	public String getFullName () {
@@ -358,51 +328,6 @@ public class Card {
 		tCardImage = aCardImages.getCardImage ("cardblank");
 		blankImage = tCardImage.getImage ();
 	}
-	
-//	private void setImageX () {
-//		try {
-//			image = loadAndScaleImage ();
-//			backImage = loadAndScaleBackImage ();
-//			JLabel tCardLabel = new JLabel ("");
-////			tCardLabel.setIcon (image);
-//			setCardLabel (tCardLabel);
-//		} catch (Exception tException) {
-//			System.err.println ("Missing Image File " + getFullName ());
-//		}
-//	}
-//	
-//	private ImageIcon loadAndScaleBackImage () {
-//		ImageIcon tImage;
-//		Image tScaledImage;
-//		
-//		tImage = new ImageIcon ("Images/cardback.jpg");
-//		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth/2, cardImageHeight/2);
-//		tImage.setImage (tScaledImage);
-//		
-//		return tImage;
-//	}
-//	
-//	private ImageIcon loadAndScaleImage () {
-//		ImageIcon tImage;
-//		Image tScaledImage;
-//		
-//		tImage = new ImageIcon ("Images/" + getAbbrev () + ".jpg");
-//		tScaledImage = getScaledImage (tImage.getImage (), cardImageWidth, cardImageHeight);
-//		tImage.setImage (tScaledImage);
-//		
-//		return tImage;
-//	}
-//	
-//	private Image getScaledImage (Image srcImg, int w, int h){
-//	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-//	    Graphics2D g2 = resizedImg.createGraphics();
-//
-//	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-//	    g2.drawImage(srcImg, 0, 0, w, h, null);
-//	    g2.dispose();
-//
-//	    return resizedImg;
-//	}
 	
 	public int suitCompare (Card aCard) {
 		return - (getSuit ().compareTo (aCard.getSuit ()));
