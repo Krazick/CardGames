@@ -11,7 +11,7 @@ import cards.actions.ActorI;
 public class Players {
 	ArrayList<Player> players;
 	public static final Player NO_PLAYER = null;
-	private final String NO_NAME = null;
+	private final String NO_NAME = "";
 	private int passIncrement;
 	private int passCount;
 	private int playCount;
