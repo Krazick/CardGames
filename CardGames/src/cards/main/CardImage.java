@@ -1,5 +1,6 @@
 package cards.main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -10,6 +11,8 @@ import javax.swing.JLabel;
 
 public class CardImage {
 	public final static CardImage NO_CARD_IMAGE = null;
+	public final static String BLANK_CARD = "cardblank";
+	public final static String CARD_BACK = "cardback";
 	ImageIcon image;
 	String name;
 	JLabel cardLabel;
@@ -17,6 +20,10 @@ public class CardImage {
 	private int cardImageHeight = 120;
 	private int backFactor = 2;
 	private int frontFactor = 1;
+	
+	CardImage () {
+		this (BLANK_CARD);
+	}
 	
 	CardImage (String aName) {
 		setName (aName);
@@ -27,8 +34,17 @@ public class CardImage {
 	private void setCardLabel () {
 		cardLabel = new JLabel ("");
 		cardLabel.setIcon (image);
+		cardLabel.setBackground (Color.lightGray);
+		if (name.equals(BLANK_CARD)) {
+			System.out.println ("Blank Card Image Set");
+			cardLabel.setText (BLANK_CARD);
+		}
 	}
 
+	public void setText (String aText) {
+		cardLabel.setText (aText);
+	}
+	
 	public JLabel getCardLabel () {
 		return cardLabel;
 	}
@@ -60,7 +76,7 @@ public class CardImage {
 	private int getFactor () {
 		int tFactor = frontFactor;
 		
-		if (name.endsWith("back")) {
+		if (name.endsWith ("back")) {
 			tFactor = backFactor;
 		}
 		

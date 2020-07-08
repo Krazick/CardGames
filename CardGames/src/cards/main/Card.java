@@ -318,14 +318,14 @@ public class Card {
 	private void setBackImage (CardImages aCardImages) {
 		CardImage tCardImage;
 		
-		tCardImage = aCardImages.getCardImage ("cardback");
+		tCardImage = aCardImages.getCardImage (CardImage.CARD_BACK);
 		backImage = tCardImage.getImage ();
 	}
 	
 	private void setBlankImage (CardImages aCardImages) {
 		CardImage tCardImage;
 		
-		tCardImage = aCardImages.getCardImage ("cardblank");
+		tCardImage = aCardImages.getCardImage (CardImage.BLANK_CARD);
 		blankImage = tCardImage.getImage ();
 	}
 	

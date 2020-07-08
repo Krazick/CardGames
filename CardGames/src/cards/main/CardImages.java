@@ -46,8 +46,8 @@ public class CardImages {
 		}
 		tStandardNames.add ("JR");
 		tStandardNames.add ("JB");
-		tStandardNames.add ("cardback");
-		tStandardNames.add ("cardblank");
+		tStandardNames.add (CardImage.CARD_BACK);
+		tStandardNames.add (CardImage.BLANK_CARD);
 		
 		return tStandardNames;
 	}
