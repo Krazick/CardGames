@@ -168,7 +168,6 @@ public class TableTop extends JPanel implements MouseListener {
 		} else {
 			moveToNextPlayer(aPlayer);
 		}
-		revalidateAll ();
 		gameFrame.revalidateRepaint ();
 	}
 
@@ -222,21 +221,13 @@ public class TableTop extends JPanel implements MouseListener {
 		removeCardsFromTable ();
 	}
 
-	private void revalidateAll () {
-		leftBox.revalidate ();
-		centerBox.revalidate ();
-		rightBox.revalidate ();
-		revalidate ();
-	}
 	
 	public void removeCardsFromTable () {
 		southCard.resetIconImage ();
 		northCard.resetIconImage ();
 		eastCard.resetIconImage ();
 		westCard.resetIconImage ();
-		revalidateAll ();
 		
-		removeAll ();
 		gameFrame.revalidateRepaint ();
 		startNewTrick ();
 		if (playerWhoWillWin.getCardCount () == 0) {
