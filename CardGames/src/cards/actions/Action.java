@@ -242,8 +242,8 @@ public class Action {
 		for (Effect tEffect: effects) {
 			tEffectApplied = tEffect.applyEffect (aGameManager);
 			tActionApplied &= tEffectApplied;
-			System.out.println ("Tried to Apply a |" + name + "|, Effect " + tEffect.getName () +
-					" EffectApplied Flag " + tEffectApplied);
+//			System.out.println ("Tried to Apply a |" + name + "|, Effect " + tEffect.getName () +
+//					" EffectApplied Flag " + tEffectApplied);
 		}
 
 		return tActionApplied;

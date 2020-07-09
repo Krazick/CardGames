@@ -1,6 +1,9 @@
 package cards.main;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -8,8 +11,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cards.actions.StartNewRoundAction;
@@ -23,14 +26,17 @@ public class TableTop extends JPanel implements MouseListener {
 	Player playerWhoWillWin;
 	Card cardLed;
 	Card winningCard;
+	CardImage blankCard;
+	ImageIcon blankIconImage;
 	Player nextPlayer;
 	JButton startNextRound;
 	JPanel leftBox, centerBox, rightBox;
+	CardImage westCard, northCard, eastCard, southCard;
 	
 	public TableTop (GameManager aGameManager, GameFrame aGameFrame) {
 		super ();
 		setGameManager (aGameManager);
-		
+		setupBlankCard ();
 		setupTableTopContents();
 		
 		gameFrame = aGameFrame;
@@ -45,20 +51,70 @@ public class TableTop extends JPanel implements MouseListener {
    		startNewTrick ();
 	}
 
+	private void setupBlankCard () {
+		CardImages tCardImages;
+		
+		tCardImages = gameManager.getCardImages ();
+		blankCard = tCardImages.getCardImage ("cardblank");
+		blankIconImage = blankCard.getImage ();
+	}
+	
 	private void setupTableTopContents() {
-		setLayout (new BoxLayout (this, BoxLayout.LINE_AXIS));
+		Component tRigidVertical;
+		
+		westCard = new CardImage ();
+		westCard.setText ("WCard");
+		northCard = new CardImage ();
+		northCard.setText ("NCard");
+		eastCard = new CardImage ();
+		eastCard.setText ("ECard");
+		southCard = new CardImage ();
+		southCard.setText ("SCard");
+		
 		setBackground (Color.cyan);
-		leftBox = new JPanel ();
-		leftBox.setLayout (new BoxLayout (leftBox, BoxLayout.PAGE_AXIS));
-		rightBox = new JPanel ();
-		rightBox.setLayout (new BoxLayout (rightBox, BoxLayout.PAGE_AXIS));
+		tRigidVertical = createRigidVertical ();
+		leftBox = setupEastWestBox (westCard, Color.WHITE, tRigidVertical);
+		
 		centerBox = new JPanel ();
+		centerBox.setBackground (Color.orange);
 		centerBox.setLayout (new BoxLayout (centerBox, BoxLayout.PAGE_AXIS));
+		centerBox.add (northCard.getCardLabel ());
+		centerBox.add (southCard.getCardLabel ());
+		
+		rightBox = setupEastWestBox (eastCard, Color.YELLOW, tRigidVertical);
+		
 		add (leftBox);
 		add (Box.createHorizontalGlue());
 		add (centerBox);
 		add (Box.createHorizontalGlue());
 		add (rightBox);
+	}
+	
+	private JPanel setupEastWestBox (CardImage aCardImage, Color aBackgroundColor, Component aRigidArea) {
+		JPanel tEastWestBox;
+		
+		tEastWestBox = new JPanel ();
+		tEastWestBox.setBackground (aBackgroundColor);
+		tEastWestBox.setLayout (new BoxLayout (tEastWestBox, BoxLayout.PAGE_AXIS));
+//		tEastWestBox.add (aRigidArea);
+//		tEastWestBox.add (Box.createVerticalGlue ());
+		tEastWestBox.add (aCardImage.getCardLabel ());
+//		tEastWestBox.add (Box.createVerticalGlue ());
+//		tEastWestBox.add (aRigidArea);
+		
+		return tEastWestBox;
+	}
+	
+	private Component createRigidVertical () {
+		int tRigidHeight, tRigidWidth;
+		Component tRigidVertical;
+		
+		//Box.createRigidArea(new Dimension(5,0))
+		tRigidHeight = blankCard.getCardImageHeight () + 10;
+		tRigidWidth = blankCard.getCardImageWidth () + 10;
+		tRigidVertical = Box.createRigidArea (new Dimension (tRigidHeight, tRigidWidth));
+		
+		return tRigidVertical;
 	}
 	
 	public void setGameManager (GameManager aGameManager) {
@@ -97,35 +153,52 @@ public class TableTop extends JPanel implements MouseListener {
 	}
 	
 	public void playCard (Card aCard, Player aPlayer) {
-		int tNextPlayerIndex;
-		Player tNextPlayer;
+		handleFirstCardPlayed (aCard, aPlayer);
 		
-		if (firstCard ()) {
-			playerWhoLed = aPlayer;
-			cardLed = aCard;
-			playerWhoWillWin = aPlayer;
-			winningCard = cardLed;
-		}
 		aCard.setFaceUp (true);
 		cardsOnTable.add (aCard, aPlayer);
 		aPlayer.updateButtons ();
+		
+		handleWinnerUpdate (aCard, aPlayer);
+		
+		showACard (aCard, aPlayer);
+		
+		if (allPlayersPlayed ()) {
+			resolveTrick ();
+		} else {
+			moveToNextPlayer(aPlayer);
+		}
+		revalidateAll ();
+		gameFrame.revalidateRepaint ();
+	}
+
+	private void moveToNextPlayer (Player aPlayer) {
+		int tNextPlayerIndex;
+		Player tNextPlayer;
+		
+		aPlayer.setReadyToPlay (false);
+		tNextPlayerIndex = gameFrame.getNextPlayerIndex ();
+		tNextPlayer = gameFrame.getPlayer (tNextPlayerIndex);
+		gameFrame.setCurrentPlayer (tNextPlayerIndex);
+		tNextPlayer.setReadyToPlay (true);
+	}
+
+	private void handleWinnerUpdate (Card aCard, Player aPlayer) {
 		if (aCard.getSuit ().equals (cardLed.getSuit ())) {
 			if (aCard.getRankValue () > winningCard.getRankValue ()) {
 				playerWhoWillWin = aPlayer;
 				winningCard = aCard;
 			}
 		}
-		showACard (aCard, aPlayer);
-		if (allPlayersPlayed ()) {
-			resolveTrick ();
-		} else {
-			aPlayer.setReadyToPlay (false);
-			tNextPlayerIndex = gameFrame.getNextPlayerIndex ();
-			tNextPlayer = gameFrame.getPlayer (tNextPlayerIndex);
-			gameFrame.setCurrentPlayer (tNextPlayerIndex);
-			tNextPlayer.setReadyToPlay (true);
+	}
+
+	private void handleFirstCardPlayed (Card aCard, Player aPlayer) {
+		if (firstCard ()) {
+			playerWhoLed = aPlayer;
+			cardLed = aCard;
+			playerWhoWillWin = aPlayer;
+			winningCard = cardLed;
 		}
-		gameFrame.revalidateRepaint ();
 	}
 	
 	public void resolveTrick () {
@@ -149,7 +222,20 @@ public class TableTop extends JPanel implements MouseListener {
 		removeCardsFromTable ();
 	}
 
+	private void revalidateAll () {
+		leftBox.revalidate ();
+		centerBox.revalidate ();
+		rightBox.revalidate ();
+		revalidate ();
+	}
+	
 	public void removeCardsFromTable () {
+		southCard.resetIconImage ();
+		northCard.resetIconImage ();
+		eastCard.resetIconImage ();
+		westCard.resetIconImage ();
+		revalidateAll ();
+		
 		removeAll ();
 		gameFrame.revalidateRepaint ();
 		startNewTrick ();
@@ -193,18 +279,32 @@ public class TableTop extends JPanel implements MouseListener {
 	}
 	
 	private void showACard (Card aCard, Player aPlayer) {
-		JLabel tCardLabel;
 		String tPlayerPosition;
+		ImageIcon tPlayedIconImage;
 		
 		tPlayerPosition = aPlayer.getGFLayoutPosition ();
-		System.out.println ("Border Layout for " + aPlayer.getName () + " is " + tPlayerPosition);
-		tCardLabel = aCard.getCardLabel ();
-		positionCard (tCardLabel, tPlayerPosition);
-		add (tCardLabel);
-	}
+		System.out.println ("Border Layout for " + aPlayer.getName () + " is " + tPlayerPosition + " Card " + aCard.getAbbrev ());
 
-	public void positionCard (JLabel aCardLabel, String tPlayerPosition) {
-		// TODO Put the Card in the Proper Position on the Table Top
+		tPlayedIconImage = aCard.getIconImage ();
+		if (tPlayerPosition.equals (BorderLayout.SOUTH)) {
+			southCard.setIconImage (tPlayedIconImage);
+			southCard.repaint ();
+			southCard.setText ("SPlayed");
+		} else if (tPlayerPosition.equals (BorderLayout.NORTH)) {
+			northCard.setIconImage (tPlayedIconImage);
+			northCard.repaint ();
+			northCard.setText ("NPlayed");
+		} else if (tPlayerPosition.equals (BorderLayout.EAST)) {
+			eastCard.setIconImage (tPlayedIconImage);
+			eastCard.repaint ();
+			eastCard.setText ("EPlayed");
+		} else if (tPlayerPosition.equals (BorderLayout.WEST)) {
+			westCard.setIconImage (tPlayedIconImage);
+			westCard.repaint ();
+			westCard.setText ("WPlayed");
+		} else {
+			System.err.println ("Don't know where to place for " + tPlayerPosition);
+		}
 	}
 	
 	public boolean trickIsDone () {

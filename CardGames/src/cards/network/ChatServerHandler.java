@@ -21,7 +21,6 @@ public class ChatServerHandler extends ServerHandler {
 	
 	public void handleServerMessage (String tMessage) {
 		jClient.handleServerMessage (tMessage);
-		System.out.println ("Received Message [" + tMessage + "]");
 	}
 	
 	public void handleServerCommands (String aCommand) {

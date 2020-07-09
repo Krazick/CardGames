@@ -28,19 +28,19 @@ public class CardImage {
 	CardImage (String aName) {
 		setName (aName);
 		loadImage ();
-		setCardLabel ();
 	}
 	
 	private void setCardLabel () {
 		cardLabel = new JLabel ("");
-		cardLabel.setIcon (image);
+//		cardLabel.setIcon (image);
+		resetIconImage ();
 		cardLabel.setBackground (Color.lightGray);
-		if (name.equals(BLANK_CARD)) {
+		if (name.equals (BLANK_CARD)) {
 			System.out.println ("Blank Card Image Set");
 			cardLabel.setText (BLANK_CARD);
 		}
 	}
-
+	
 	public void setText (String aText) {
 		cardLabel.setText (aText);
 	}
@@ -63,6 +63,20 @@ public class CardImage {
 	
 	public int getCardImageHeight () {
 		return cardImageHeight/getFactor ();
+	}
+	
+	public void resetIconImage () {
+		setIconImage (image);
+		repaint ();
+	}
+	
+	public void setIconImage (ImageIcon aIconImage) {
+		cardLabel.setIcon (aIconImage);
+	}
+	
+	public void repaint () {
+		cardLabel.repaint ();
+//		cardLabel.revalidate ();
 	}
 	
 	public ImageIcon getImage () {

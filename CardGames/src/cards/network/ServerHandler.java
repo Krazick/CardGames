@@ -84,7 +84,7 @@ public abstract class ServerHandler implements Runnable {
 			try {
 				while (continueRunning) {
 					tString = in.readLine ();
-					System.out.println ("RAW Line: | " + tString + " |");
+//					System.out.println ("RAW Line: | " + tString + " |");
 					if (tString == null) {
 						setContinueRunning (false);
 					} else if (tString.startsWith ("[") && tString.endsWith ("]")) {

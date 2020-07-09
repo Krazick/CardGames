@@ -348,4 +348,8 @@ public class Card {
 		
 		return tRankOrder;
 	}
+
+	public ImageIcon getIconImage() {
+		return (ImageIcon) cardLabel.getIcon ();
+	}
 }
