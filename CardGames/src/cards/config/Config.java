@@ -43,7 +43,7 @@ public class Config {
 				}
 			}
 		} catch (Exception tException) {
-			System.out.println ("Caught Exception with message ");
+			System.err.println ("Caught Exception with message ");
 			tException.printStackTrace ();
 		}
 	}

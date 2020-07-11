@@ -266,7 +266,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		int tGameIndex;
 		String tGameOptions, tBroadcast, tPlayerOrder;
 
-		System.out.println ("-------- Game Activity [" + aGameActivity + "]");
 		tXMLGameActivity = new XMLDocument ();
 		tXMLGameActivity = tXMLGameActivity.ParseXMLString (aGameActivity);
 		tXMLGameActivityNode = tXMLGameActivity.getDocumentElement ();

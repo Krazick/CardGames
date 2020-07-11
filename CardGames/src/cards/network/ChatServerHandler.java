@@ -52,7 +52,7 @@ public class ChatServerHandler extends ServerHandler {
 			} else if (tShortened.endsWith (" Starts the Game")) {
 				jClient.startsGame ();
 			} else {
-				System.out.println ("Received Command [" + aCommand + "]");
+				System.err.println ("Received Command [" + aCommand + "]");
 
 			}
 			appendToChat (tShortened);

@@ -32,11 +32,9 @@ public class CardImage {
 	
 	private void setCardLabel () {
 		cardLabel = new JLabel ("");
-//		cardLabel.setIcon (image);
 		resetIconImage ();
 		cardLabel.setBackground (Color.lightGray);
 		if (name.equals (BLANK_CARD)) {
-			System.out.println ("Blank Card Image Set");
 			cardLabel.setText (BLANK_CARD);
 		}
 	}

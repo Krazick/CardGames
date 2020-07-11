@@ -94,7 +94,7 @@ public class Action {
 				}
 			}			
 		} catch (Exception tException) {
-			System.out.println ("Caught Exception with message ");
+			System.err.println ("Caught Exception with message ");
 			tException.printStackTrace ();
 		}
 	}
@@ -197,7 +197,7 @@ public class Action {
 	
 	public void printUndoCompletion (boolean aActionUndone) {
 		if (aActionUndone == false) {
-			System.out.println ("***Not all Effects Undone properly***");
+			System.err.println ("***Not all Effects Undone properly***");
 		}
 	}
 	
@@ -228,8 +228,6 @@ public class Action {
 		for (Effect tEffect: effects) {
 			tEffectUndone = tEffect.undoEffect (aGameManager);
 			tActionUndone &= tEffectUndone;
-			System.out.println ("Tried to Undo a " + name + ", Effect " + tEffect.getName () +
-					" EffectUndone Flag " + tEffectUndone);
 		}
 		
 		return tActionUndone;
@@ -242,8 +240,6 @@ public class Action {
 		for (Effect tEffect: effects) {
 			tEffectApplied = tEffect.applyEffect (aGameManager);
 			tActionApplied &= tEffectApplied;
-//			System.out.println ("Tried to Apply a |" + name + "|, Effect " + tEffect.getName () +
-//					" EffectApplied Flag " + tEffectApplied);
 		}
 
 		return tActionApplied;

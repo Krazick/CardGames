@@ -67,10 +67,8 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 	}
 	
 	public void setSelectedGameIndex (int aSelectedGameIndex) {
-		System.out.println ("Need to reset Game Index to " + aSelectedGameIndex);
 		gameRadioButtons [aSelectedGameIndex].setSelected (true);
 		setSelectedGame (aSelectedGameIndex);
-		System.out.println ("Button State " + gameRadioButtons [aSelectedGameIndex].isSelected ());
 	}
 	
 	public void setSelectedGame (int aSelectedGameIndex) {

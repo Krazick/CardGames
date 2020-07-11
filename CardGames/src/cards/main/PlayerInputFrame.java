@@ -150,7 +150,6 @@ public class PlayerInputFrame extends XMLFrame implements ActionListener, FocusL
 		JGameClient tJGameClient;
 		String [] tPlayerNames;
 		
-		System.out.println ("Names: " + aPlayerOrder);
 		tPlayerNames = aPlayerOrder.split (",");
 		for (tIndex = 0; tIndex < MAX_PLAYERS; tIndex++) {
 			if (tIndex < tPlayerNames.length) {

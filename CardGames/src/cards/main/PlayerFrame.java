@@ -282,18 +282,32 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	
 	public int getSelectedCount () {
 		CardSet tSelectedCards;
+		int tSelectedCount;
 		
-		tSelectedCards = getSelectedCards ();
+		if (player.getCardCount () == 1) {
+			tSelectedCount = 1;
+		} else {
+			tSelectedCards = getSelectedCards ();
+			tSelectedCount = tSelectedCards.getCount ();
+		}
 		
-		return tSelectedCards.getCount ();
+		return tSelectedCount;
 	}
 	
 	public Card getSelectedCard () {
 		CardSet tCardSet;
 		Card tCard;
+		int tCardCount;
 		
-		tCardSet = getSelectedCards ();
-		tCard = tCardSet.get (0);
+		tCardCount = player.getCardCount ();
+		if (tCardCount > 1) {
+			tCardSet = getSelectedCards ();
+			tCard = tCardSet.get (0);
+		} else if (tCardCount == 1){
+			tCard = player.get (0);
+		} else {
+			tCard = Card.NO_CARD;
+		}
 		
 		return tCard;
 	}
