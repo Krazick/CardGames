@@ -483,7 +483,12 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		tPlayerToPassTo = player.getPlayerToPassTo ();
 		tPlayerName = tPlayerToPassTo.getName ();
 		tPassIncrement = player.players.getPassIncrement ();
-		tPassLabel = "Pass " + player.getPassCount () + " Cards ";
+		if (player.hasPassed ()) {
+			tPassLabel = "Passed ";
+		} else {
+			tPassLabel = "Pass ";
+		}
+		tPassLabel += player.getPassCount () + " Cards ";
 		if (tPassIncrement > 0) {
 			tPassLabel += "Left ";
 			if (tPassIncrement > 1) {
