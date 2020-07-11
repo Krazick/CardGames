@@ -63,13 +63,13 @@ public class TableTop extends JPanel implements MouseListener {
 		Component tRigidVertical;
 		
 		westCard = new CardImage ();
-		westCard.setText ("WCard");
+		westCard.setText ("");
 		northCard = new CardImage ();
-		northCard.setText ("NCard");
+		northCard.setText ("");
 		eastCard = new CardImage ();
-		eastCard.setText ("ECard");
+		eastCard.setText ("");
 		southCard = new CardImage ();
-		southCard.setText ("SCard");
+		southCard.setText ("");
 		
 		setBackground (Color.cyan);
 		tRigidVertical = createRigidVertical ();
@@ -96,11 +96,7 @@ public class TableTop extends JPanel implements MouseListener {
 		tEastWestBox = new JPanel ();
 		tEastWestBox.setBackground (aBackgroundColor);
 		tEastWestBox.setLayout (new BoxLayout (tEastWestBox, BoxLayout.PAGE_AXIS));
-//		tEastWestBox.add (aRigidArea);
-//		tEastWestBox.add (Box.createVerticalGlue ());
 		tEastWestBox.add (aCardImage.getCardLabel ());
-//		tEastWestBox.add (Box.createVerticalGlue ());
-//		tEastWestBox.add (aRigidArea);
 		
 		return tEastWestBox;
 	}
@@ -109,7 +105,6 @@ public class TableTop extends JPanel implements MouseListener {
 		int tRigidHeight, tRigidWidth;
 		Component tRigidVertical;
 		
-		//Box.createRigidArea(new Dimension(5,0))
 		tRigidHeight = blankCard.getCardImageHeight () + 10;
 		tRigidWidth = blankCard.getCardImageWidth () + 10;
 		tRigidVertical = Box.createRigidArea (new Dimension (tRigidHeight, tRigidWidth));
@@ -274,25 +269,16 @@ public class TableTop extends JPanel implements MouseListener {
 		ImageIcon tPlayedIconImage;
 		
 		tPlayerPosition = aPlayer.getGFLayoutPosition ();
-		System.out.println ("Border Layout for " + aPlayer.getName () + " is " + tPlayerPosition + " Card " + aCard.getAbbrev ());
 
 		tPlayedIconImage = aCard.getIconImage ();
 		if (tPlayerPosition.equals (BorderLayout.SOUTH)) {
 			southCard.setIconImage (tPlayedIconImage);
-			southCard.repaint ();
-			southCard.setText ("SPlayed");
 		} else if (tPlayerPosition.equals (BorderLayout.NORTH)) {
 			northCard.setIconImage (tPlayedIconImage);
-			northCard.repaint ();
-			northCard.setText ("NPlayed");
 		} else if (tPlayerPosition.equals (BorderLayout.EAST)) {
 			eastCard.setIconImage (tPlayedIconImage);
-			eastCard.repaint ();
-			eastCard.setText ("EPlayed");
 		} else if (tPlayerPosition.equals (BorderLayout.WEST)) {
 			westCard.setIconImage (tPlayedIconImage);
-			westCard.repaint ();
-			westCard.setText ("WPlayed");
 		} else {
 			System.err.println ("Don't know where to place for " + tPlayerPosition);
 		}
