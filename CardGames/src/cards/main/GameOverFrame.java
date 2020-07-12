@@ -1,5 +1,8 @@
 package cards.main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -43,9 +46,23 @@ public class GameOverFrame extends XMLFrame {
 			}
 		}
 		tNewGameButton = new JButton ("New Game");
+		tNewGameButton.addActionListener (new ActionListener () {
+			public void actionPerformed (ActionEvent aEvent) {
+				aGameManager.startNewGame ();
+			}
+		});
+		
 		tQuitButton = new JButton ("Quit");
+		tQuitButton.addActionListener (new ActionListener () {
+			public void actionPerformed (ActionEvent aEvent) {
+				// Tell Other Players to Quit
+				aGameManager.endGame ();
+			}
+		});
+
 		add (tNewGameButton);
 		add (tQuitButton);
+		setSize (500, 500);
 	}
 
 }

@@ -99,6 +99,11 @@ public class GameFrame extends XMLFrame {
 		tableTop.hideStartNextRound ();
 	}
 	
+	public void startNewGame () {
+		
+		tableTop.startNewRound ();
+	}
+	
 	public void startNewRound (Long aShuffleSeed) {
 		players.cyclePassIncrement ();
 		players.setRoundStart ();

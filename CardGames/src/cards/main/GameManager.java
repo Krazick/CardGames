@@ -22,7 +22,7 @@ import org.w3c.dom.NodeList;
 import cards.actions.Action;
 import cards.actions.ActionManager;
 import cards.actions.ActorI;
-import cards.actions.StartNewRoundAction;
+import cards.actions.StartNewGameAction;
 import cards.config.GameFrameConfig;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
@@ -35,6 +35,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private final String ENTER_USER_NAME = "Must Enter User Name";
 	private final String NO_TOOL_TIP = "";
 	private final int SCORE_LIMIT = 10;
+	public GameOverFrame gameOverFrame;
 	public PlayerFrame playerFrame;
 	public GameFrame gameFrame;
 	public Players players;
@@ -167,13 +168,13 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 			}
 		});
 	
-		newGameButton.addActionListener (new ActionListener() {
+		newGameButton.addActionListener (new ActionListener () {
 			public void actionPerformed (ActionEvent aEvent) {
 				newGame ();
 			}
 		});
 		
-		newGameButton.addKeyListener (new KeyAdapter() {
+		newGameButton.addKeyListener (new KeyAdapter () {
 			@Override
 			public void keyReleased (KeyEvent e) {
 				if (e.getKeyCode () == KeyEvent.VK_ENTER){
@@ -182,7 +183,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 			}
 		});
 				
-		quitButton.addActionListener (new ActionListener() {
+		quitButton.addActionListener (new ActionListener () {
 			public void actionPerformed (ActionEvent aEvent) {
 				System.exit (0);
 			}
@@ -195,6 +196,21 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	
 	public JGameClient getJGameClient () {
 		return jGameClient;
+	}
+	
+	public void startNewGame () {
+		hideGameOverFrame ();
+		System.out.println ("Start a new Game");
+		players.removeAllScores ();
+		gameFrame.startNewGame ();
+		// Tell other Players to reset
+	}
+	
+	public void endGame () {
+		System.out.println ("End the Game - Tell all Players this Player is Quitting");
+		removeNetworkPlayer (getClientUserName ());
+		// Tell other Players this Player Quit
+		System.exit (NORMAL);
 	}
 	
 	public void newGame () {
@@ -334,21 +350,21 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	@Override
 	public void initiateNetworkGame () {
 		String tGameName;
-		StartNewRoundAction tStartNewRoundAction;
+		StartNewGameAction tStartNewGameAction;
 		ActorI tClientActor;
 		
 		tGameName = gamePanel.getSelectedGame ();
 		tClientActor = getActor (getClientUserName ());
 		gameFrame.setupGameFrame ();
-		gameFrame.setGameFrameName (tGameName + "Game Frame for " + getClientUserName ());
+		gameFrame.setGameFrameName (tGameName + " Game Frame for " + getClientUserName ());
 		
 		startNewRound ();
 		
-		tStartNewRoundAction = new StartNewRoundAction (tClientActor);
-		tStartNewRoundAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);
-		tStartNewRoundAction.addInitiateGameEffect (tClientActor, true);
+		tStartNewGameAction = new StartNewGameAction (tClientActor);
+		tStartNewGameAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);
+		tStartNewGameAction.addInitiateGameEffect (tClientActor, true);
 		
-		actionManager.addAction (tStartNewRoundAction);
+		actionManager.addAction (tStartNewGameAction);
 		actionManager.actionReport ();
 	}
 	
@@ -391,12 +407,11 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	public void handleGameWon () {
 		Player tPlayer;
-		GameOverFrame tGameOverFrame;
 		
 		tPlayer = players.getPlayerOverLimit (scoreLimit);
 		if (tPlayer != Players.NO_PLAYER) {
-			tGameOverFrame = new GameOverFrame ("Game Over Frame", this, tPlayer, players);
-			tGameOverFrame.setVisible (true);
+			gameOverFrame = new GameOverFrame ("Game Over Frame", this, tPlayer, players);
+			gameOverFrame.setVisible (true);
 			System.out.println ("Game has ended, and XXX has lost");
 			System.out.println (tPlayer.getName () + " with a score of " + tPlayer.getScore () + " is over the Score Limit of " + scoreLimit);
 //			if (overLimitWon) {
@@ -408,6 +423,10 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		}
 	}
 
+	public void hideGameOverFrame () {
+		gameOverFrame.setVisible (false);
+	}
+	
 	public boolean gameOver () {
 		boolean tGameOver = false;
 		

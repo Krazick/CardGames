@@ -390,4 +390,12 @@ public class Players {
 		
 		return tAnyPlayerOverLimit;
 	}
+
+	public void removeAllScores() {
+		// TODO Auto-generated method stub
+		for (Player tPlayer : players) {
+			tPlayer.setScore (0);
+		}
+
+	}
 }
