@@ -31,13 +31,13 @@ public class StartNewRoundAction extends Action {
 		super (aActionNode, aGameManager);
 		setName (NAME);
 	}
-
-	public void addInitiateGameEffect (ActorI aPlayer, boolean aInitiateGame) {
-		InitiateGameEffect tInitiateGameEffect;
-
-		tInitiateGameEffect = new InitiateGameEffect (aPlayer, aInitiateGame);
-		addEffect (tInitiateGameEffect);
-	}
+//
+//	public void addInitiateGameEffect (ActorI aPlayer, boolean aInitiateGame) {
+//		InitiateGameEffect tInitiateGameEffect;
+//
+//		tInitiateGameEffect = new InitiateGameEffect (aPlayer, aInitiateGame);
+//		addEffect (tInitiateGameEffect);
+//	}
 
 	public void addStartNewRoundEffect (Player tPlayer) {
 		StartNewRoundEffect tStartNewRoundEffect;
