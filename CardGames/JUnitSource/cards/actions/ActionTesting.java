@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import cards.effects.Effect;
+//import cards.effects.Effect;
 import cards.main.Player;
 
 @DisplayName ("Action Class Testing")
@@ -91,11 +91,11 @@ class ActionTesting {
 	@Test
 	@DisplayName ("Testing Action Reports with Mocked Effects")
 	void testActionWithMockedEffects () {
-		Effect mEffect;
+//		Effect mEffect;
 		
 //		mPlayer = Mockito.mock (Player.class);
 //		Mockito.when (mPlayer.getName ()).thenReturn (mPlayerName);
-		mEffect = Mockito.mock (Effect.class);
+//		mEffect = Mockito.mock (Effect.class);
 //		Mockito.when(mEffect.getEffectReport(aGameManager))
 //		action.addEffect (mEffect);
 	}
