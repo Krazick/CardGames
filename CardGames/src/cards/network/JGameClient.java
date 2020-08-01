@@ -44,7 +44,7 @@ public class JGameClient extends XMLFrame {
 	private static final long serialVersionUID = 1L;
 	private static final int DEFAULT_SERVER_PORT = 52000;
 	private static final String DEFAULT_REMOTE_SERVER_IP = "173.79.188.165";
-	private static final String DEFAULT_LOCAL_SERVER_IP = "192.168.1.5";
+	private static final String DEFAULT_LOCAL_SERVER_IP = "192.168.1.21";
 	private static final String CONNECT_ACTION = "CONNECT";
 	private final String ALREADY_CONNECTED = "You are already connected";
 	private final String NO_TOOL_TIP = "";
@@ -378,11 +378,12 @@ public class JGameClient extends XMLFrame {
 							.addGap (18)
 							.addComponent (startReadyButton)
 							.addGap (18)
-							.addComponent(lblServerChoice)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(rbLocalServer)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(rbRemoteServer))
+//							.addComponent(lblServerChoice)
+//							.addPreferredGap(ComponentPlacement.UNRELATED)
+//							.addComponent(rbLocalServer)
+//							.addPreferredGap(ComponentPlacement.UNRELATED)
+//							.addComponent(rbRemoteServer)
+							)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblMessage)
@@ -425,9 +426,9 @@ public class JGameClient extends XMLFrame {
 						.addComponent(playerName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(connectButton)
 						.addComponent (startReadyButton)
-						.addComponent(lblServerChoice)
-						.addComponent(rbLocalServer)
-						.addComponent(rbRemoteServer)
+//						.addComponent(lblServerChoice)
+//						.addComponent(rbLocalServer)
+//						.addComponent(rbRemoteServer)
 						.addComponent(lblPlayers))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
