@@ -309,7 +309,7 @@ public class JGameClient extends XMLFrame {
 		// Static Labels
 		JLabel lblName = new JLabel ("Name:");
 		lblName.setLabelFor (playerName);
-		JLabel lblServerChoice = new JLabel ("Server");
+//		JLabel lblServerChoice = new JLabel ("Server");
 		JLabel lblPlayers = new JLabel ("Players");
 		JLabel lblMessage = new JLabel ("Message:");		
 		lblMessage.setVerticalTextPosition (SwingConstants.BOTTOM);
