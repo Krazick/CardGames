@@ -35,6 +35,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private final String ENTER_USER_NAME = "Must Enter User Name";
 	private final String NO_TOOL_TIP = "";
 	private final int SCORE_LIMIT = 10;
+//	private final int SCORE_LIMIT = 100;
 	public GameOverFrame gameOverFrame;
 	public PlayerFrame playerFrame;
 	public GameFrame gameFrame;
@@ -224,6 +225,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		gamePanel = new GamePanel (this, tPlayerName);
 		setScoreLimit (SCORE_LIMIT);
 		setOverLimitWon (false);
+		hideFrame ();
 	}
 
 	public void setScoreLimit (int aScoreLimit) {
@@ -487,7 +489,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 
 	public void appendToGameActivity (String aSimpleActionReport) {
 		jGameClient.appendToGameActivity (aSimpleActionReport);
-		
 	}
 
 	public String getGameName () {
@@ -518,5 +519,13 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	
 	public boolean isClientPlayer (String aPlayerName) {
 		return (getClientUserName ().equals (aPlayerName));
+	}
+	
+	public void hideFrame () {
+		this.setVisible (false);
+	}
+	
+	public void showFrame () {
+		this.setVisible (true);
 	}
 }
