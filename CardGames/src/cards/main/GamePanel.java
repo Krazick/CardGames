@@ -40,6 +40,7 @@ public class GamePanel implements ActionListener {
 		gameButtonGroup = new ButtonGroup ();
 		addGameButton ("Hearts");
 		addGameButton ("Spades");
+		enableAllGameButtons (false);
 		jGameClient.addGamePanel (gamePanel);
 		jGameClient.setVisible (true);
 	}
@@ -49,12 +50,16 @@ public class GamePanel implements ActionListener {
 		
 		tGameButton = new JRadioButton (aGameName);
 		tGameButton.setActionCommand (aGameName);
-		tGameButton.addActionListener (this);
 		gameButtons.add (tGameButton);
 		gameButtonGroup.add (tGameButton);
 		gamePanel.add (tGameButton);
 	}
 	
+	public void enableAllGameButtons (boolean aEnable) {
+		for (JRadioButton tGameButton : gameButtons) {
+			tGameButton.setEnabled (aEnable);
+		}
+	}
 	public void setGamePanel (JPanel aGamePanel) {
 		gamePanel = aGamePanel;
 	}

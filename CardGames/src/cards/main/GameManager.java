@@ -528,4 +528,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public void showFrame () {
 		this.setVisible (true);
 	}
+
+	@Override
+	public void enableAllGameButtons (boolean aEnable) {
+		gamePanel.enableAllGameButtons (aEnable);
+	}
 }

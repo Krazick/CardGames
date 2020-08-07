@@ -49,6 +49,7 @@ public class JGameClient extends XMLFrame {
 	private final String ALREADY_CONNECTED = "You are already connected";
 	private final String NO_TOOL_TIP = "";
 	private final String NOT_CONNECTED = "You are not connected yet";
+	private final String WAITING_FOR_PLAYERS = "Waiting for enough Players (4)";
 	private final String WAITING_FOR_GAME = "Waiting for Game Selection";
 	private final String GAME_SELECTED = "Game has been Selected, hit the button when ready to play";
 	private final String WAITING_FOR_ALL = "Waiting for ALL players to be Ready";
@@ -236,6 +237,7 @@ public class JGameClient extends XMLFrame {
 				if ("DISCONNECT".equals (tAction)) {
 					serverHandler.shutdown ();
 					networkPlayers.removeAllPlayers ();
+					updateGameButtons ();
 					setForUnconnected ();
 				}
 			}
@@ -796,6 +798,17 @@ public class JGameClient extends XMLFrame {
 				
 	public void addPlayer (String aPlayerName) {
 		networkPlayers.addPlayer (aPlayerName);
+		updateGameButtons();
+	}
+
+	private void updateGameButtons () {
+		if (networkPlayers.getPlayerCount () >= 4) {
+			gameManager.enableAllGameButtons (true);
+			updateReadyButton ("SELECT GAME", true, WAITING_FOR_GAME);
+		} else {
+			gameManager.enableAllGameButtons (false);
+			updateReadyButton ("SELECT GAME", false, WAITING_FOR_PLAYERS);
+		}
 	}
 	
 	public void setPlayerAsAFK (String aPlayerName) {
@@ -812,6 +825,7 @@ public class JGameClient extends XMLFrame {
 	
 	public void removePlayer (String aPlayerName) {
 		networkPlayers.removePlayer (aPlayerName);
+		updateGameButtons();
 	}
 	
 	public void rejectedConnect () {
