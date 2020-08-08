@@ -27,22 +27,29 @@ public class Card {
 	}
 	
 	public enum Suits { 
-		HEARTS   ("Hearts",   RED_CARD,      "H"),
-		DIAMONDS ("Diamonds", RED_CARD,      "D"),
-		CLUBS    ("Clubs",    BLACK_CARD,    "C"),
-		SPADES   ("Spades",   BLACK_CARD,    "S"),
-		JOKER_RED   ("Red Joker",   RED_CARD,   "RJ"),
-		JOKER_BLACK ("Black Joker", BLACK_CARD, "BJ");
+		HEARTS   ("Hearts",   RED_CARD,      "H", 4),
+		DIAMONDS ("Diamonds", RED_CARD,      "D", 2),
+		CLUBS    ("Clubs",    BLACK_CARD,    "C", 1),
+		SPADES   ("Spades",   BLACK_CARD,    "S", 3),
+		JOKER_RED   ("Red Joker",   RED_CARD,   "RJ", 5),
+		JOKER_BLACK ("Black Joker", BLACK_CARD, "BJ", 6);
 		
 		String name, color, symbol;
-		Suits (String aName, String aColor, String aSymbol) {
+		int order;
+		
+		Suits (String aName, String aColor, String aSymbol, int aOrder) {
 			name = aName;
 			color = aColor;
 			symbol = aSymbol;
+			order = aOrder;
 		}
 		
 		public String getName () {
 			return name;
+		}
+		
+		public int getOrder () {
+			return order;
 		}
 		
 		public String toString () {
@@ -281,6 +288,10 @@ public class Card {
 		return rank.getShortName () + suit;
 	}
 	
+	public int getOrder () {
+		return suit.getOrder ();
+	}
+	
 	public String getAbbrev () {
 		return rank.getShortName () + suit.toString ().substring (0, 1);
 	}
@@ -330,7 +341,21 @@ public class Card {
 	}
 	
 	public int suitCompare (Card aCard) {
-		return - (getSuit ().compareTo (aCard.getSuit ()));
+		int tOrder, tThisOrder, tOtherOrder;
+		
+		tOrder =  - (getSuit ().compareTo (aCard.getSuit ()));
+		
+		tThisOrder = getOrder ();
+		tOtherOrder = aCard.getOrder ();
+		if (tThisOrder == tOtherOrder) {
+			tOrder = 0;
+		} else if (tThisOrder > tOtherOrder) {
+			tOrder = -1;
+		} else {
+			tOrder = 1;
+		}
+		
+		return tOrder;
 	}
 	
 	public int rankValueCompare (Card aCard) {
