@@ -566,11 +566,19 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	}
 	
 	public void pushUp (Component aCardComponent) {
-		layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
+		if (cardDown (aCardComponent)) {
+			if (aCardComponent.getParent () != null) {
+				layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_UP);
+			}
+		}
 	}
 	
 	public void pushDown (Component aCardComponent) {
-		layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_DOWN);
+		if (! cardDown (aCardComponent)) {
+			if (aCardComponent.getParent () != null) {
+				layout.addLayoutComponent (aCardComponent, OverlapLayout.POP_DOWN);
+			}
+		}
 	}
 
 	public void updateFrame (Component aCardComponent) {
