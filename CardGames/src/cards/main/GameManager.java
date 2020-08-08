@@ -416,12 +416,11 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 			gameOverFrame.setVisible (true);
 			System.out.println ("Game has ended, and XXX has lost");
 			System.out.println (tPlayer.getName () + " with a score of " + tPlayer.getScore () + " is over the Score Limit of " + scoreLimit);
-//			if (overLimitWon) {
-//				System.out.println ("And has Won the Game");
-//			} else {
-//				System.out.println ("And has Lost the Game");
-//			}
-//			System.exit (0);
+			if (overLimitWon) {
+				System.out.println ("And has Won the Game");
+			} else {
+				System.out.println ("And has Lost the Game");
+			}
 		}
 	}
 

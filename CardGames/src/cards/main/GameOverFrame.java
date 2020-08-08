@@ -26,7 +26,7 @@ public class GameOverFrame extends XMLFrame {
 		String tPlayerOverString;
 		int tPlayerCount;
 		
-		tGameNameLabel = new JLabel ("Game of " + aGameManager.getGameName() + " is Over", JLabel.CENTER);
+		tGameNameLabel = new JLabel ("The " + aGameManager.getGameName() + " Game is Over", JLabel.CENTER);
 		tPlayerOverString = aPlayer.getName () + " is over " + aGameManager.getScoreLimit() + 
 				" with " + aPlayer.getScore () + " Points and has ";
 		if (aGameManager.getOverLimitWon ()) {
@@ -74,7 +74,7 @@ public class GameOverFrame extends XMLFrame {
 		add (Box.createVerticalStrut (30));
 		add (tButtonsPanel);
 		add (Box.createVerticalStrut (30));
-		setSize (500, 300);
+		setSize (500, 700);
 	}
 
 }

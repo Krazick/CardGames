@@ -1,5 +1,6 @@
 package cards.actions;
 
+import cards.effects.Effect;
 import cards.effects.PassTheCardEffect;
 import cards.effects.PassedCardsEffect;
 import cards.main.Card;
@@ -43,17 +44,30 @@ public class PassCardsAction extends Action {
 		addEffect (tPassedCardsEffect);
 	}
 	
+	private String getPassedCardTo () {
+		String tToPlayerName = "TO";
+		PassedCardsEffect tPassedCardsEffect;
+		
+		for (Effect tEffect : effects) {
+			if (tEffect instanceof PassedCardsEffect) {
+				tPassedCardsEffect = (PassedCardsEffect) tEffect;
+				tToPlayerName = tPassedCardsEffect.getToActorName ();
+			}
+		}
+		
+		return tToPlayerName;
+	}
+
 	@Override
 	public String getSimpleActionReport () {
 		String tSimpleActionReport = "";
-		String tFromPlayerName, tToPlayerName, tCardName;
+		String tToPlayerName, tCardName;
 		
-		tFromPlayerName = "FROM";
-		tToPlayerName = "TO";
-		tCardName = "CARD";
+		tToPlayerName = getPassedCardTo ();
+		tCardName = "3 Cards";
 		
-		tSimpleActionReport = actor.getName () + " Pass the Card " + tCardName +
-				" from " + tFromPlayerName + " to " + tToPlayerName;
+		tSimpleActionReport = actor.getName () + " Passed " + tCardName +
+				 " to " + tToPlayerName;
 		
 		return tSimpleActionReport;
 	}

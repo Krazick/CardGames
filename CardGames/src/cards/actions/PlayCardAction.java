@@ -1,5 +1,6 @@
 package cards.actions;
 
+import cards.effects.Effect;
 import cards.effects.PlayCardEffect;
 import cards.main.Card;
 import cards.main.GameManager;
@@ -35,16 +36,28 @@ public class PlayCardAction extends Action {
 		addEffect (tPlayCardEffect);
 	}
 	
+	private String getPlayedCardName () {
+		String tCardName = "CARD";
+		PlayCardEffect tPlayedCardEffect;
+		
+		for (Effect tEffect : effects) {
+			if (tEffect instanceof PlayCardEffect) {
+				tPlayedCardEffect = (PlayCardEffect) tEffect;
+				tCardName = tPlayedCardEffect.getFullCardName ();
+			}
+		}
+		
+		return tCardName;
+	}
+	
 	@Override
 	public String getSimpleActionReport () {
 		String tSimpleActionReport = "";
-		String tFromPlayerName, tCardName;
+		String tCardName;
 		
-		tFromPlayerName = "FROM";
-		tCardName = "CARD";
+		tCardName = getPlayedCardName ();
 		
-		tSimpleActionReport = actor.getName () + " Play the Card " + tCardName +
-				" from " + tFromPlayerName;
+		tSimpleActionReport = actor.getName () + " Played the Card " + tCardName;
 		
 		return tSimpleActionReport;
 	}

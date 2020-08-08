@@ -55,13 +55,19 @@ public class PlayCardEffect extends Effect {
 		return card;
 	}
 	
+	public String getFullCardName () {
+		return card.getFullName();
+	}
+	public String getCardAbbrev () {
+		return card.getAbbrev ();
+	}
 	
 	@Override
 	public XMLElement getEffectElement (XMLDocument aXMLDocument, AttributeName aActorAN) {
 		XMLElement tEffectElement;
 		
 		tEffectElement = super.getEffectElement (aXMLDocument, aActorAN);
-		tEffectElement.setAttribute (AN_CARD_NAME, card.getAbbrev ());
+		tEffectElement.setAttribute (AN_CARD_NAME, getCardAbbrev ());
 	
 		return tEffectElement;
 	}
