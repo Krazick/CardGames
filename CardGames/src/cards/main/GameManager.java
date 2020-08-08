@@ -34,8 +34,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public static final String NO_GAME_NAME = "NO-NAME";
 	private final String ENTER_USER_NAME = "Must Enter User Name";
 	private final String NO_TOOL_TIP = "";
-	private final int SCORE_LIMIT = 10;
-//	private final int SCORE_LIMIT = 100;
+//	private final int SCORE_LIMIT = 10;
+	private final int SCORE_LIMIT = 100;
 	public GameOverFrame gameOverFrame;
 	public PlayerFrame playerFrame;
 	public GameFrame gameFrame;
