@@ -15,8 +15,8 @@ public class GameFrame extends XMLFrame {
 	TableTop tableTop;
 	int currentPlayer;
 	int passIncrement;
-	int frameWidth = 845;
-	int frameHeight = 685;
+	int frameWidth = 550;
+	int frameHeight = 775;
 	
 	public GameFrame (String aFrameName, GameManager aGameManager) {
 		super (aFrameName);
