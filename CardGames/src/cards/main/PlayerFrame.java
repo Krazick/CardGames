@@ -3,6 +3,7 @@ package cards.main;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.Point;
@@ -12,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,6 +27,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	JPanel playerInfoPanel;
 	JPanel cardPanel;
 	JPanel cardInfoPanel;
+	JPanel trickInfoPanel;
 	JPanel buttonsPanel;
 	JButton pushCardsDown;
 	JButton passCards;
@@ -45,19 +48,23 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		setPlayer (aPlayer);
 		setupPlayerInfoPanel ();
 		setupCardInfoPanel ();
+		setupTrickInfoPanel ();
 		setupButtonsPanel ();
 		setupActionListeners ();
-		JPanel panel = new JPanel (new BorderLayout ());
+		JPanel panel = new JPanel ();
+		BoxLayout tLayout = new BoxLayout (panel, BoxLayout.PAGE_AXIS);
+		panel.setLayout (tLayout);
 		
-		panel.add (playerInfoPanel,  BorderLayout.NORTH);
-		panel.add (strutHoriz20, BorderLayout.WEST);
-		panel.add (cardInfoPanel, BorderLayout.CENTER);
-		panel.add (strutHoriz20, BorderLayout.EAST);
-		panel.add (buttonsPanel, BorderLayout.SOUTH);
+		panel.add (playerInfoPanel);
+		panel.add (cardInfoPanel);
+		panel.add (trickInfoPanel);
+		if (isClientPlayer ()) {
+			panel.add (buttonsPanel);
+		}
 		
 		add (panel);
 		if (isClientPlayer ()) {
-			setSize (650, 300);
+			setSize (400, 300);
 		} else {
 			setSize (300, 200);
 		}
@@ -85,10 +92,11 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	}
 	
 	public void setupPlayerInfoPanel () {
-		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 20, 10);
-		
 		playerInfoPanel = new JPanel ();
-		playerInfoPanel.setLayout (layout);
+		BoxLayout tLayout = new BoxLayout (playerInfoPanel, BoxLayout.PAGE_AXIS);
+//		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 20, 10);
+		
+		playerInfoPanel.setLayout (tLayout);
 		
 		nameLabel = new JLabel ("Name: " + player.getName ());
 		playerInfoPanel.add (nameLabel);
@@ -97,18 +105,29 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		playerInfoPanel.add (scoreLabel);
 		leadLabel = new JLabel ("Must Lead");
 		playerInfoPanel.add (leadLabel);
+		playerInfoPanel.add(Box.createRigidArea (new Dimension (10, 10)));
+		playerInfoPanel.setAlignmentX (CENTER_ALIGNMENT);
 	}
 	
 	public void setupCardInfoPanel () {
-		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 10, 10);
-
+//		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 10, 10);
 		cardInfoPanel = new JPanel ();
-		cardInfoPanel.setLayout (layout);
+		BoxLayout tLayout = new BoxLayout (cardInfoPanel, BoxLayout.PAGE_AXIS);
+		
+		cardInfoPanel.setLayout (tLayout);
 		setupCardPanel ();
 		cardInfoPanel.add (cardPanel);
-		trickInfoLabel = new JLabel ();
-		cardInfoPanel.add (trickInfoLabel);
+		cardInfoPanel.add(Box.createRigidArea (new Dimension (10, 10)));
+		cardInfoPanel.setAlignmentX (CENTER_ALIGNMENT);
+	}
+	
+	public void setupTrickInfoPanel () {
+		trickInfoPanel = new JPanel ();
+		
+		trickInfoLabel = new JLabel ("TRICK INFO PANEL");
 		updateTrickInfoLabel ();
+		trickInfoPanel.add (trickInfoLabel);
+		trickInfoPanel.setAlignmentX (CENTER_ALIGNMENT);
 	}
 	
 	public void updateTrickInfoLabel () {
