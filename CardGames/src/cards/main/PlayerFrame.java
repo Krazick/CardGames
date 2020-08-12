@@ -60,7 +60,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		BoxLayout tLayout = new BoxLayout (panel, BoxLayout.PAGE_AXIS);
 		panel.setLayout (tLayout);
 		
-		
 		add (panel);
 		if (isClientPlayer ()) {
 			setSize (400, 300);
