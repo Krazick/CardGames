@@ -29,6 +29,9 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	JPanel cardInfoPanel;
 	JPanel trickInfoPanel;
 	JPanel buttonsPanel;
+	JPanel centerPanel;
+	JPanel bottomPanel;
+	JPanel panel;
 	JButton pushCardsDown;
 	JButton passCards;
 	JButton playCard;
@@ -45,22 +48,18 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	public PlayerFrame (String aFrameName, Player aPlayer) {
 		super ();
 		
+		centerPanel = new JPanel ();
+		bottomPanel = new JPanel ();
 		setPlayer (aPlayer);
 		setupPlayerInfoPanel ();
 		setupCardInfoPanel ();
 		setupTrickInfoPanel ();
 		setupButtonsPanel ();
 		setupActionListeners ();
-		JPanel panel = new JPanel ();
+		panel = new JPanel ();
 		BoxLayout tLayout = new BoxLayout (panel, BoxLayout.PAGE_AXIS);
 		panel.setLayout (tLayout);
 		
-		panel.add (playerInfoPanel);
-		panel.add (cardInfoPanel);
-		panel.add (trickInfoPanel);
-		if (isClientPlayer ()) {
-			panel.add (buttonsPanel);
-		}
 		
 		add (panel);
 		if (isClientPlayer ()) {
@@ -71,8 +70,26 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		setVisible (true);
 	}
 
+	private void fillPanel () {
+		panel.add (playerInfoPanel);
+		centerPanel.add (cardInfoPanel);
+		panel.add (centerPanel);
+		if (gfLayoutPosition.equals (BorderLayout.SOUTH) || gfLayoutPosition.equals (BorderLayout.NORTH)) {
+			centerPanel.add (cardInfoPanel);
+			centerPanel.add (trickInfoPanel);
+		} else {
+			bottomPanel.add (trickInfoPanel);
+			panel.add (bottomPanel);
+		}
+		
+		if (isClientPlayer ()) {
+			panel.add (buttonsPanel);
+		}
+	}
+
 	public void setGFLayoutPosition (String aGFLayoutPosition) {
 		gfLayoutPosition = aGFLayoutPosition;
+		fillPanel ();
 	}
 	
 	public String getGFLayoutPosition () {
