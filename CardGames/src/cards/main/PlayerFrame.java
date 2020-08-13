@@ -110,7 +110,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	public void setupPlayerInfoPanel () {
 		playerInfoPanel = new JPanel ();
 		BoxLayout tLayout = new BoxLayout (playerInfoPanel, BoxLayout.PAGE_AXIS);
-//		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 20, 10);
 		
 		playerInfoPanel.setLayout (tLayout);
 		
@@ -126,7 +125,6 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	}
 	
 	public void setupCardInfoPanel () {
-//		FlowLayout layout = new FlowLayout (FlowLayout.CENTER, 10, 10);
 		cardInfoPanel = new JPanel ();
 		BoxLayout tLayout = new BoxLayout (cardInfoPanel, BoxLayout.PAGE_AXIS);
 		
@@ -160,7 +158,9 @@ public class PlayerFrame extends JPanel implements MouseListener {
 			tTrickInfo += player.getLastTrickInfo () + "<br>";
 		}
 		tTrickInfo += "Trick Points: " + player.getLastTrickPoints () + "<br>";
-		tTrickInfo += "All Points: " + player.getAllTricksPoints ();
+		if (isClientPlayer ()) {
+			tTrickInfo += "All Points: " + player.getAllTricksPoints ();
+		}
 		tTrickInfo = "<html>" + tTrickInfo + "</html>";
 		trickInfoLabel.setText (tTrickInfo);
 	}
