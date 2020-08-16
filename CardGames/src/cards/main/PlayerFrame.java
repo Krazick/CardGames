@@ -156,8 +156,8 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		} 
 		if (player.willLead ()) {
 			tTrickInfo += player.getLastTrickInfo () + "<br>";
+			tTrickInfo += "Trick Points: " + player.getLastTrickPoints () + "<br>";
 		}
-		tTrickInfo += "Trick Points: " + player.getLastTrickPoints () + "<br>";
 		if (isClientPlayer ()) {
 			tTrickInfo += "All Points: " + player.getAllTricksPoints ();
 		}
