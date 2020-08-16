@@ -27,7 +27,7 @@ public class Trick extends CardSet {
 		for (tTrickIndex = 0; tTrickIndex < whoPlayed.size (); tTrickIndex++) {
 			tPlayer = whoPlayed.get (tTrickIndex);
 			tCard = get (tTrickIndex);
-			tTrickInfo += tPlayer.getName () + ": " + tCard.getAbbrev () + "<br>";
+			tTrickInfo += tPlayer.getName () + ": " + tCard.getAbbrev () + tCard.getPointsFormatted ()  + "<br>";
 		}
 		
 		return tTrickInfo;
