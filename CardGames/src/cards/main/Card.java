@@ -183,6 +183,16 @@ public class Card {
 		return points;
 	}
 	
+	public String getPointsFormatted () {
+		String tPoints = "";
+		
+		if (points > 0) {
+			tPoints = " (" + points + ")";
+		}
+		
+		return tPoints;
+	}
+	
 	public void setFaceUp (boolean aFaceUp) {
 		JLabel tCardLabel;
 
