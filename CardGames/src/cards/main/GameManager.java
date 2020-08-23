@@ -52,15 +52,18 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private int scoreLimit;
 	private boolean overLimitWon;
 	CardImages cardImages;
+	private String arg1;
 	
-	public static void main (String [] args) {
-		new GameManager ();
+	public static void main (String [] aArgs) {
+		new GameManager (aArgs);
 	}
 	
-	public GameManager () {
+	public GameManager (String [] aArgs) {
 		String tTitle;
 		Long tSeed;
+
 		
+		printArgs (aArgs);
 		cardImages = new CardImages ();
 		
 		tTitle = "Cards Game Startup";
@@ -80,18 +83,32 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		setShuffleSeed (tSeed);
 	}
 
+	public void printArgs (String [] aArgs) {
+		if (aArgs.length > 0) {
+			for (int i = 0; i < aArgs.length; i++) {
+				System.out.println ("Arg " + i + " [" + aArgs [i] + "]");		
+			}
+			arg1 = aArgs [0];
+		} else {
+			System.out.println ("No Arguments");
+			arg1 = "";
+		}
+	}
+	
 	public CardImages getCardImages () {
 		return cardImages;
 	}
 	
 	public void setFrameContents () {
+		String tVersionLabel = "Version 0.2 Alpha";
+		
 		JLabel tGameEngineTitle = new JLabel ("Cards Game Manager");
 //		tGameEngineTitle.setText (resbundle.getString ("message"));
 		tGameEngineTitle.setFont (new Font ("Lucida Grande", Font.BOLD, 24));
 		tGameEngineTitle.setHorizontalAlignment (SwingConstants.CENTER);
 		
 		JLabel tGameEngineVersion = new JLabel ("Version: X.X");
-		tGameEngineVersion.setText ("Version: 0.1 Alpha");
+		tGameEngineVersion.setText (tVersionLabel);
 		tGameEngineVersion.setHorizontalAlignment (SwingConstants.CENTER);
 		tGameEngineVersion.setFont (new Font ("Lucida Grande", Font.PLAIN, 20));
 		

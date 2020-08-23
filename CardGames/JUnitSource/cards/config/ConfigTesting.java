@@ -15,8 +15,9 @@ class ConfigTesting {
 	void testConfigConstructor () {
 		GameManager tGameManager;
 		Config tConfig;
+		String [] tArgs = new String []  {};
 		
-		tGameManager = new GameManager ();
+		tGameManager = new GameManager (tArgs);
 		tConfig = new Config (tGameManager);
 		
 		assertEquals (0, tConfig.getGameFramesCount());
