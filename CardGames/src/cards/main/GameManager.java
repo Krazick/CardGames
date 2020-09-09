@@ -52,7 +52,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private int scoreLimit;
 	private boolean overLimitWon;
 	CardImages cardImages;
-	private String arg1;
+//	private String arg1;
 	
 	public static void main (String [] aArgs) {
 		new GameManager (aArgs);
@@ -88,10 +88,10 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 			for (int i = 0; i < aArgs.length; i++) {
 				System.out.println ("Arg " + i + " [" + aArgs [i] + "]");		
 			}
-			arg1 = aArgs [0];
+//			arg1 = aArgs [0];
 		} else {
 			System.out.println ("No Arguments");
-			arg1 = "";
+//			arg1 = "";
 		}
 	}
 	

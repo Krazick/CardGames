@@ -187,6 +187,7 @@ public class Action {
 	}
 	
 	public String getBriefActionReport () {
+		// TODO: -- This point is generating a Null-Pointer Exception on 'actor' when Start Game
 		return REPORT_PREFIX + actor.getName () + 
 				" performed " + name + " Chain to Previous [" + chainToPrevious + "]";
 	}
