@@ -88,15 +88,15 @@ class ActionTesting {
 						action.getSimpleActionReport ());
 	}
 	
-	@Test
-	@DisplayName ("Testing Action Reports with Mocked Effects")
-	void testActionWithMockedEffects () {
-//		Effect mEffect;
-		
-//		mPlayer = Mockito.mock (Player.class);
-//		Mockito.when (mPlayer.getName ()).thenReturn (mPlayerName);
-//		mEffect = Mockito.mock (Effect.class);
-//		Mockito.when(mEffect.getEffectReport(aGameManager))
-//		action.addEffect (mEffect);
-	}
+//	@Test
+//	@DisplayName ("Testing Action Reports with Mocked Effects")
+//	void testActionWithMockedEffects () {
+////		Effect mEffect;
+//		
+////		mPlayer = Mockito.mock (Player.class);
+////		Mockito.when (mPlayer.getName ()).thenReturn (mPlayerName);
+////		mEffect = Mockito.mock (Effect.class);
+////		Mockito.when(mEffect.getEffectReport(aGameManager))
+////		action.addEffect (mEffect);
+//	}
 }
