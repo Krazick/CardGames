@@ -8,12 +8,22 @@ import cards.utilities.ElementName;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.event.*;
 
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class PlayerInputFrame extends XMLFrame implements ActionListener, FocusListener {
 	public static final String NO_NAME = "";

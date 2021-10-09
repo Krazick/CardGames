@@ -21,9 +21,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.*;
+import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import org.w3c.dom.NodeList;
 
@@ -115,7 +121,6 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 		tPlayerName = gameManager.getClientUserName ();
 		gameManager.clearOtherPlayers (tPlayerName);
 		tNetworkGameJClient = new JGameClient (CHAT_TITLE + " (" + tPlayerName + ")", gameManager);
-//		gameManager.setNetworkJGameClient (tNetworkGameJClient);
 		gameManager.setNotifyNetwork (true);
 		tNetworkGameJClient.addLocalPlayer (tPlayerName, false);
 		removeGamePanelButtons ();

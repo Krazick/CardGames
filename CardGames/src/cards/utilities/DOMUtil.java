@@ -1,5 +1,10 @@
 package cards.utilities;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
+
 //
 //  DOMUtil.java
 //  Game_18XX
@@ -7,8 +12,6 @@ package cards.utilities;
 //  Created by Mark Smith on 9/15/07.
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
-
-import org.w3c.dom.*;
 
 public class DOMUtil {
 	public static Element getFirstElement (Element element, String name) {

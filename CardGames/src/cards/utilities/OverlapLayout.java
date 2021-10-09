@@ -1,6 +1,12 @@
 package cards.utilities;
 
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.LayoutManager2;
+import java.awt.Point;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -59,7 +65,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	private boolean includeInvisible = true;
 
 	//  Reserve extra space so a component can "popup"
-	private Insets popupInsets = new Insets(0, 0, 0, 0);
+	private Insets popupInsets = new Insets (0, 0, 0, 0);
 
 	//  Track original order in which the components where added
 	private List<Component> components = new ArrayList<Component>();

@@ -8,7 +8,7 @@ package cards.utilities;
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
-import java.io.*;
+import java.io.IOException;
 
 public interface LoadableXMLI extends ParsingRoutineI {
 	/* Returns the name of the Loadable Object for Error Messages */

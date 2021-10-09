@@ -17,9 +17,11 @@ import cards.utilities.XMLDocument;
 import cards.utilities.XMLElement;
 import cards.utilities.XMLNode;
 
-import java.io.*;
+import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+
+//import javax.swing.*;
 
 public class XMLFrame extends JFrame {
 	public static enum Visibility { ON, OFF, CONFIG_VALUE };
