@@ -6,11 +6,15 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.net.ConnectException;
+
 import java.awt.Adjustable;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
+import java.net.ConnectException;
+
+import javax.swing.border.LineBorder;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -36,9 +40,6 @@ import cards.utilities.AttributeName;
 import cards.utilities.ElementName;
 import cards.utilities.XMLDocument;
 import cards.utilities.XMLElement;
-
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class JGameClient extends XMLFrame {
 	private static final long serialVersionUID = 1L;
@@ -175,7 +176,7 @@ public class JGameClient extends XMLFrame {
 			}
 		});
 		
-		sendMessageButton.addKeyListener (new KeyAdapter() {
+		sendMessageButton.addKeyListener (new KeyAdapter () {
 			@Override
 			public void keyReleased (KeyEvent e) {
 				if (e.getKeyCode () == KeyEvent.VK_ENTER) {
@@ -185,7 +186,7 @@ public class JGameClient extends XMLFrame {
 			}
 		});
 		
-		refreshPlayersButton.addActionListener (new ActionListener() {
+		refreshPlayersButton.addActionListener (new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 				String tAction = e.getActionCommand ();
 				
@@ -202,7 +203,7 @@ public class JGameClient extends XMLFrame {
 			}
 		});
 		
-		awayFromKeyboardAFKButton.addActionListener(new ActionListener() {
+		awayFromKeyboardAFKButton.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				String tAction = e.getActionCommand ();
 				
@@ -214,7 +215,7 @@ public class JGameClient extends XMLFrame {
 			}
 		});
 		
-		startReadyButton.addActionListener (new ActionListener() {
+		startReadyButton.addActionListener (new ActionListener () {
 			public void actionPerformed (ActionEvent aException) {
 				String tAction = aException.getActionCommand ();
 				
