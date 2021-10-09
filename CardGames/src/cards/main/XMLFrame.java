@@ -1,10 +1,5 @@
 package cards.main;
 
-import cards.config.Config;
-import cards.config.FrameInfo;
-import cards.config.GameFrameConfig;
-import cards.utilities.LoadableXMLI;
-
 //
 //  XMLFrames.java
 //  Game_18XX
@@ -13,6 +8,11 @@ import cards.utilities.LoadableXMLI;
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
+import cards.config.Config;
+import cards.config.FrameInfo;
+import cards.config.GameFrameConfig;
+
+import cards.utilities.LoadableXMLI;
 import cards.utilities.XMLDocument;
 import cards.utilities.XMLElement;
 import cards.utilities.XMLNode;
@@ -20,8 +20,6 @@ import cards.utilities.XMLNode;
 import java.io.IOException;
 
 import javax.swing.JFrame;
-
-//import javax.swing.*;
 
 public class XMLFrame extends JFrame {
 	public static enum Visibility { ON, OFF, CONFIG_VALUE };
