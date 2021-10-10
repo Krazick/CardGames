@@ -929,6 +929,8 @@ public class JGameClient extends XMLFrame {
 		tGameIDRequest = GameSupportHandler.GAME_SUPPORT_PREFIX + " <GS><LoadGameSetup gameID=\"" + aGameID + "\" " + ""
 				+ "actionNumber=\"" + aLastActionNumber + "\" gameName=\"" + aGameName + "\"></GS>";
 		tResponse = gameSupportHandler.requestGameSupport (tGameIDRequest);
+		System.out.println ("Request sent is [" + tGameIDRequest + "]");
+		System.out.println ("Response is [" + tResponse + "]");
 //		logger.info ("Request sent is [" + tGameIDRequest + "]");
 //		logger.info ("Response is [" + tResponse + "]");
 	}
