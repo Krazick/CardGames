@@ -105,6 +105,11 @@ public class ChatServerHandler extends ServerHandler {
 		println (aGameActivity);
 	}
 	
+	@Override
+	public void sendGameSupport (String aGameSupport) {
+		println (aGameSupport);
+	}
+
 	public void sendNewUser () {
 		println ("name " + name);
 	}
@@ -125,13 +130,31 @@ public class ChatServerHandler extends ServerHandler {
 		println ("AFK");
 	}
 
-	public void sendUserReady () {
-		println ("Ready");
+	public String buildGameSupportXML (String aGameID, String tXMLChild) {
+		String tGameSupportXML;
+		String tGameIDChunk = "";
+		
+		if (! aGameID.equals ("")) {
+			tGameIDChunk =  " gameID=\"" + aGameID + "\"";
+		}
+		tGameSupportXML = "Game Support <GS" + tGameIDChunk + ">" + tXMLChild + "</GS>";
+		
+		return tGameSupportXML;
+	}
+
+	public void sendUserReady (String aGameID) {
+		String tGameSupportXML;
+		
+		tGameSupportXML = buildGameSupportXML (aGameID, "<Ready>");
+		println (tGameSupportXML);
 		jClient.appendToChat ("I am ready to play the Game", true);
 	}
 
-	public void sendUserStart () {
-		println ("Start");
+	public void sendUserStart (String aGameID) {
+		String tGameSupportXML;
+
+		tGameSupportXML = buildGameSupportXML (aGameID, "<Start>");
+		println (tGameSupportXML);
 		jClient.appendToChat ("I started the Game", true);
 	}
 	

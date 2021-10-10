@@ -50,6 +50,7 @@ public class GamePanel implements ActionListener {
 		
 		tGameButton = new JRadioButton (aGameName);
 		tGameButton.setActionCommand (aGameName);
+		tGameButton.addActionListener (this);
 		gameButtons.add (tGameButton);
 		gameButtonGroup.add (tGameButton);
 		gamePanel.add (tGameButton);

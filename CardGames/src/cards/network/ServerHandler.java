@@ -151,4 +151,7 @@ public abstract class ServerHandler implements Runnable {
 		println ("stop");
 		closeAll ();
 	}
+	
+	protected abstract void sendGameSupport (String aRequest);
+
 }

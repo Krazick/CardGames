@@ -38,7 +38,7 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 	final ElementName EN_NETWORK = new ElementName ("Network");
 	static final int NO_GAME_SELECTED = -1;
 	static final String NO_GAME_NAME = "<NO-GAME>";
-	static final String CHAT_TITLE = "GE18XX Chat Client";
+	static final String CHAT_TITLE = "Cards Chat Client";
 	static final GameInfo [] NO_GAMES = null;
 	static final GameInfo NO_GAME = null;
 	private static final String NO_DESCRIPTION = "<html><body><h3>Game Description</h3><p>NO GAME SELECTED</p></body></html>";

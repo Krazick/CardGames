@@ -23,4 +23,8 @@ public interface NetworkGameSupport {
 	public void addNewFrame (XMLFrame jGameClient);
 	public void setNotifyNetwork (boolean aNotifyNetwork);
 	public void enableAllGameButtons (boolean aEnable);
+	public String getGameID ();
+	public void resetGameID (String tGameID);
+	public String getClientUserName ();
+
 }

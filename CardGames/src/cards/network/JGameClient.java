@@ -56,6 +56,7 @@ public class JGameClient extends XMLFrame {
 	private final String WAITING_FOR_ALL = "Waiting for ALL players to be Ready";
 
 	private static ChatServerHandler serverHandler;
+	private GameSupportHandler gameSupportHandler;
 	
 	// Static Strings used by Client Handler - Should replace with XML Utilities handling
 	public static final String GAME_ACTIVITY_TAG = "GA";
@@ -121,6 +122,7 @@ public class JGameClient extends XMLFrame {
 		setupActions ();
 		setServerIP (aServerIP);
 		setServerPort (aServerPort);
+		gameSupportHandler = new GameSupportHandler (this);
 		if (gameManager != null) {
 			gameManager.addNewFrame (this);
 			setVisible (false);
@@ -464,7 +466,16 @@ public class JGameClient extends XMLFrame {
 	}
 	
 	private void handleStartGame () {
-		serverHandler.sendUserStart ();
+		String tGameID;
+		
+		tGameID = gameManager.getGameID ();
+		serverHandler.sendUserStart (tGameID);
+		startsGame ();
+//		updateButtonGameStarted (startReadyButton);
+//		updateButtonGameStarted (showSavedGames);
+		
+		
+//		serverHandler.sendUserStart ();
 		startsGame ();
 		gameManager.setNotifyNetwork (true); 
 		gameManager.initiateNetworkGame ();
@@ -483,7 +494,6 @@ public class JGameClient extends XMLFrame {
 	
 	public void removeGamePanel () {
 		gameActivityPanel.remove (gamePanel);
-//		gameActivityPanel.remove (gameInfoPanel);
 		revalidate ();
 	}
 	
@@ -494,7 +504,6 @@ public class JGameClient extends XMLFrame {
 	}
 
 	public void addGameInfoPanel (JPanel aGameInfoPanel) {
-//		gameInfoPanel = aGameInfoPanel;
 		gameActivityPanel.add (aGameInfoPanel, BorderLayout.EAST);
 		revalidate ();
 	}
@@ -582,7 +591,10 @@ public class JGameClient extends XMLFrame {
 	}
 	
 	public void sendPlayerReady () {
-		serverHandler.sendUserReady ();
+		String tGameID;
+		
+		tGameID = gameManager.getGameID ();
+		serverHandler.sendUserReady (tGameID);
 		sendPlayerOrder ();
 	}
 	
@@ -803,7 +815,8 @@ public class JGameClient extends XMLFrame {
 	}
 
 	private void updateGameButtons () {
-		if (networkPlayers.getPlayerCount () >= 4) {
+		// TODO Get min and max players to enable this button based on Game Info
+		if (networkPlayers.getPlayerCount () >= 2) {
 			gameManager.enableAllGameButtons (true);
 			updateReadyButton ("SELECT GAME", true, WAITING_FOR_GAME);
 		} else {
@@ -893,4 +906,37 @@ public class JGameClient extends XMLFrame {
 	public int getServerPort () {
 		return serverPort;
 	}
+	
+	public ServerHandler getServerHandler() {
+		return serverHandler;
+	}
+
+	public void retrieveGameID () {
+		String tGameIDRequest;
+		String tGameID;
+		String tResponse;
+		
+		tGameIDRequest = GameSupportHandler.GAME_SUPPORT_PREFIX + " <GS><GameIDRequest></GS>";
+		tResponse = gameSupportHandler.requestGameSupport (tGameIDRequest);
+		tGameID = gameSupportHandler.getFromResponseGameID (tResponse);
+		gameManager.resetGameID (tGameID);
+	}
+	
+	public void setGameIDonServer (String aGameID, int aLastActionNumber, String aGameName) {
+		String tGameIDRequest;
+		String tResponse;
+
+		tGameIDRequest = GameSupportHandler.GAME_SUPPORT_PREFIX + " <GS><LoadGameSetup gameID=\"" + aGameID + "\" " + ""
+				+ "actionNumber=\"" + aLastActionNumber + "\" gameName=\"" + aGameName + "\"></GS>";
+		tResponse = gameSupportHandler.requestGameSupport (tGameIDRequest);
+//		logger.info ("Request sent is [" + tGameIDRequest + "]");
+//		logger.info ("Response is [" + tResponse + "]");
+	}
+
+//	2021-10-10 14:24:37.066 INFO RAW Input from Jeff [Game Support <GS><GameIDRequest></GS>]
+//	2021-10-10 14:24:37.066 INFO ----- Client Jeff Last Action Number 100
+//	2021-10-10 14:24:37.066 INFO Generated Response is [<GSResponse gameID="2021-10-10-1424">]
+//	2021-10-10 14:24:37.067 INFO Sending to Jeff over Port 63647 the following [<GSResponse gameID="2021-10-10-1424">]
+//	2021-10-10 14:24:37.067 INFO Reading for Jeff from SocketPort 63647 Thread ID 24
+
 }

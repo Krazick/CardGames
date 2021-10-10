@@ -52,6 +52,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private int scoreLimit;
 	private boolean overLimitWon;
 	CardImages cardImages;
+	String gameID;
 //	private String arg1;
 	
 	public static void main (String [] aArgs) {
@@ -68,7 +69,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		
 		tTitle = "Cards Game Startup";
 		setTitle (tTitle);
-		
+		setGameID ("2021-10-10-1010");
 //		createActions ();
 //		addMenus ();
 		
@@ -543,6 +544,20 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	
 	public void showFrame () {
 		this.setVisible (true);
+	}
+	
+	public String getGameID () {
+		return gameID;
+	}
+	
+	public void resetGameID (String aGameID) {
+		if (gameID.equals ("")) {
+			setGameID (aGameID);
+		}
+	}
+	
+	private void setGameID (String aGameID) {
+		gameID = aGameID;
 	}
 
 	@Override
