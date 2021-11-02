@@ -110,6 +110,7 @@ public class Player implements ActorI {
 		return hand;
 	}
 	
+	@Override
 	public String getName () {
 		return name;
 	}

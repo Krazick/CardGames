@@ -209,11 +209,13 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 * @param name the name of the component
 	 * @param comp the component to be added
 	 */
+	@Override
 	public void addLayoutComponent(String name, Component comp) {}
 
 	/*
 	 *	Keep track of any specified constraint for the component.
 	 */
+	@Override
 	public void addLayoutComponent(Component component, Object constraint)
 	{
 		//  Support simple Boolean constraint for painting a Component in
@@ -271,6 +273,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 *
 	 * @param comp the component to be removed
 	 */
+	@Override
 	public void removeLayoutComponent(Component component)
 	{
 		components.remove( component );
@@ -284,6 +287,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 *  @return	 the minimum dimensions needed to lay out the
 	 *			 subcomponents of the specified container
 	 */
+	@Override
 	public Dimension minimumLayoutSize(Container parent)
 	{
 		synchronized (parent.getTreeLock())
@@ -299,6 +303,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 *  @return  the preferred dimensions to lay out the
 	 *	         subcomponents of the specified container
 	 */
+	@Override
 	public Dimension preferredLayoutSize(Container parent)
 	{
 		synchronized (parent.getTreeLock())
@@ -372,6 +377,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 *
 	 * @param	  target   the container in which to do the layout
 	 */
+	@Override
 	public void layoutContainer(Container parent)
 	{
 	synchronized (parent.getTreeLock())
@@ -466,6 +472,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	/**
 	 * There is no maximum.
 	 */
+	@Override
 	public Dimension maximumLayoutSize(Container target)
 	{
 		return new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -474,6 +481,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	/**
 	 * Returns the alignment along the x axis.  Use center alignment.
 	 */
+	@Override
 	public float getLayoutAlignmentX(Container parent)
 	{
 		return 0.5f;
@@ -482,6 +490,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	/**
 	 * Returns the alignment along the y axis.  Use center alignment.
 	 */
+	@Override
 	public float getLayoutAlignmentY(Container parent)
 	{
 		return 0.5f;
@@ -491,6 +500,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 * Invalidates the layout, indicating that if the layout manager
 	 * has cached information it should be discarded.
 	 */
+	@Override
 	public void invalidateLayout(Container target)
 	{
 		// remove constraints here?
@@ -500,6 +510,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable
 	 * Returns the string representation of this column layout's values.
 	 * @return	 a string representation of this grid layout
 	 */
+	@Override
 	public String toString()
 	{
 		return getClass().getName()

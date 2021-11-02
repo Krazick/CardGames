@@ -54,6 +54,7 @@ public class GameOverFrame extends XMLFrame {
 		}
 		tNewGameButton = new JButton ("New Game");
 		tNewGameButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				aGameManager.startNewGame ();
 			}
@@ -61,6 +62,7 @@ public class GameOverFrame extends XMLFrame {
 		
 		tQuitButton = new JButton ("Quit");
 		tQuitButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				// Tell Other Players to Quit
 				aGameManager.endGame ();

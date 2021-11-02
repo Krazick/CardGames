@@ -52,6 +52,7 @@ public class Card {
 			return order;
 		}
 		
+		@Override
 		public String toString () {
 			return name;
 		}
@@ -91,6 +92,7 @@ public class Card {
 			return name;
 		}
 		
+		@Override
 		public String toString () {
 			return name;
 		}

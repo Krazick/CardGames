@@ -81,6 +81,7 @@ public class CardImage {
 		return image;
 	}
 	
+	@Override
 	public String toString () {
 		return "Card Image " + getName ();
 	}

@@ -19,10 +19,12 @@ public class ChatServerHandler extends ServerHandler {
 		sendNewUser ();
 	}
 	
+	@Override
 	public void handleServerMessage (String tMessage) {
 		jClient.handleServerMessage (tMessage);
 	}
 	
+	@Override
 	public void handleServerCommands (String aCommand) {
 		String tMessage = aCommand.substring (1, aCommand.length () - 1);
 		String tName, tShortened;

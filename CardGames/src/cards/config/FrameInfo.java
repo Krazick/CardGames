@@ -60,6 +60,7 @@ public class FrameInfo {
 		name = aFrameInfoNode.getThisAttribute (AN_NAME);
 	}
 
+	@Override
 	public String toString () {
 		String tFrameInfo;
 		

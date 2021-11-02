@@ -188,6 +188,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		});
 	
 		newGameButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				newGame ();
 			}
@@ -203,6 +204,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		});
 				
 		quitButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				System.exit (0);
 			}
@@ -405,6 +407,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public void addNewFrame (XMLFrame jGameClient) {
 	}
 
+	@Override
 	public String getClientUserName () {
 		return clientUserName.getText ();
 	}
@@ -473,6 +476,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		System.out.println ("Clear Other Players with " + tPlayerName + " sent");
 	}
 
+	@Override
 	public void setNotifyNetwork (boolean aNotifyNetwork) {
 		notifyNetwork = aNotifyNetwork;
 	}
@@ -546,10 +550,12 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		this.setVisible (true);
 	}
 	
+	@Override
 	public String getGameID () {
 		return gameID;
 	}
 	
+	@Override
 	public void resetGameID (String aGameID) {
 		if (gameID.equals ("")) {
 			setGameID (aGameID);

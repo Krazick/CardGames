@@ -33,6 +33,7 @@ public class Trick extends CardSet {
 		return tTrickInfo;
 	}
 	
+	@Override
 	public void removeAll () {
 		super.removeAll ();
 		whoPlayed.removeAll (whoPlayed);

@@ -154,6 +154,7 @@ public class JGameClient extends XMLFrame {
 	
 	private void setupActions () {
 		connectButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent e) {
 				String tAction = e.getActionCommand ();
 				setupServerInfo ();
@@ -173,6 +174,7 @@ public class JGameClient extends XMLFrame {
 		});
 		
 		sendMessageButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent e) {
 				sendMessage (e);
 			}
@@ -189,6 +191,7 @@ public class JGameClient extends XMLFrame {
 		});
 		
 		refreshPlayersButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent e) {
 				String tAction = e.getActionCommand ();
 				
@@ -200,12 +203,14 @@ public class JGameClient extends XMLFrame {
 		});
 
 		message.addActionListener (new ActionListener() {
+			@Override
 			public void actionPerformed (ActionEvent e) {
 				sendMessage (e);
 			}
 		});
 		
 		awayFromKeyboardAFKButton.addActionListener(new ActionListener () {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				String tAction = e.getActionCommand ();
 				
@@ -218,6 +223,7 @@ public class JGameClient extends XMLFrame {
 		});
 		
 		startReadyButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent aException) {
 				String tAction = aException.getActionCommand ();
 				
@@ -234,6 +240,7 @@ public class JGameClient extends XMLFrame {
 		});
 
 		disconnectButton.addActionListener (new ActionListener () {
+			@Override
 			public void actionPerformed (ActionEvent e) {
 				String tAction = e.getActionCommand ();
 				
@@ -793,6 +800,7 @@ public class JGameClient extends XMLFrame {
 		return networkPlayers.playerIsAFK (getName());
 	}
 		
+	@Override
 	public String getName () {
 		return getPlayerName ();
 	}

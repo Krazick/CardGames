@@ -81,6 +81,7 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 		selectedGameIndex = aSelectedGameIndex;
 	}
 	
+	@Override
 	public void actionPerformed (ActionEvent e) {
 		String tActionName;
 		int tGameIndex;
@@ -254,10 +255,12 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 		return tGameName;
 	}
 	
+	@Override
 	public String getTypeName () {
 		return "Game Set";
 	}
 	
+	@Override
 	public void itemStateChanged (ItemEvent aItemEvent) {
 		Object tSource = aItemEvent.getItemSelectable ();
 		int tIndex;
@@ -277,6 +280,7 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 		}
 	}
 	
+	@Override
 	public void loadXML (XMLDocument aXMLDocument) throws IOException {
 		XMLNode tXMLGameSetRoot;
 		

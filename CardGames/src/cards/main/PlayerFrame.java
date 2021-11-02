@@ -201,18 +201,21 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	
 	private void setupActionListeners () {
 		pushCardsDown.addActionListener (new ActionListener() {
+			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				pushAllCardsDown ();
 			}
 		});
 		
 		passCards.addActionListener (new ActionListener() {
+			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				passCards ();
 			}
 		});
 		
 		playCard.addActionListener (new ActionListener() {
+			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				playCard ();
 			}
@@ -621,6 +624,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	    aCardComponent.getParent ().validate ();
 	}
 	
+	@Override
 	public void mousePressed (MouseEvent aMouseEvent) {
 	    Component cardComponent = aMouseEvent.getComponent ();
 	    
