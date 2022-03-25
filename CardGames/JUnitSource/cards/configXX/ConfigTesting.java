@@ -1,11 +1,11 @@
-package cards.config;
+package cards.configXX;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import cards.mainXX.GameManager;
 
-import cards.main.GameManager;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName ("Config Class Testing")
 class ConfigTesting {

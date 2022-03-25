@@ -1,4 +1,4 @@
-package cards.network;
+package cards.networkXX;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

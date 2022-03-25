@@ -1,4 +1,4 @@
-package cards.main;
+package cards.mainXX;
 
 class CardsFullTestSuite {
 

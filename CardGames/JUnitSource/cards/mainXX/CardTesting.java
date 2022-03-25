@@ -1,15 +1,15 @@
-package cards.main;
+package cards.mainXX;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import cards.mainXX.Card.Ranks;
+import cards.mainXX.Card.Suits;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import cards.main.Card.Ranks;
-import cards.main.Card.Suits;
 
 @DisplayName ("Card Class Testing")
 class CardTesting {

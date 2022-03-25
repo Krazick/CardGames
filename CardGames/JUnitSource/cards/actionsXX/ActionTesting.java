@@ -1,4 +1,4 @@
-package cards.actions;
+package cards.actionsXX;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.mockito.Mockito;
 
-//import cards.effects.Effect;
-import cards.main.Player;
+import cards.mainXX.Player;
 
 @DisplayName ("Action Class Testing")
 class ActionTesting {
