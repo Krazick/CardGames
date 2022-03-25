@@ -95,6 +95,8 @@ public class JGameClient extends XMLFrame {
 //	private JPanel gameInfoPanel;
 	private JList<NetworkPlayer> playerList;
 	
+	private HeartbeatThread heartbeatThread;
+	private Thread hbeatThread;
 	private Thread serverThread = null;
 	private SimpleAttributeSet normal = new SimpleAttributeSet ();
 	private SimpleAttributeSet iSaid = new SimpleAttributeSet ();
@@ -307,6 +309,13 @@ public class JGameClient extends XMLFrame {
 		message.requestFocusInWindow ();
 	}
 	
+	public void startHeartbeat () {
+		heartbeatThread = new HeartbeatThread (this);
+		hbeatThread = new Thread (heartbeatThread);
+		heartbeatThread.setContinueRunning (true);
+		hbeatThread.start ();
+	}
+
 	private void setupJFrame () {
 
 		setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
@@ -539,7 +548,7 @@ public class JGameClient extends XMLFrame {
 		boolean tSuccess = false;
 		
 		try {
-			serverHandler = new ChatServerHandler (serverIP, serverPort);
+			serverHandler = new ChatServerHandler (serverIP, serverPort, gameManager);
 			if (serverHandler != null) {
 				if (serverHandler.isConnected ()) {
 					serverThread = new Thread (serverHandler);
@@ -932,8 +941,16 @@ public class JGameClient extends XMLFrame {
 		return tGSResponse;
 	}
 
+	public void handleGSResponse (String aGSResponse) {
+		gameSupportHandler.handleGSResponse (aGSResponse);
+	}
+
 	public ServerHandler getServerHandler() {
 		return serverHandler;
+	}
+
+	public String getGameID () {
+		return gameManager.getGameID ();
 	}
 
 	public void retrieveGameID () {
