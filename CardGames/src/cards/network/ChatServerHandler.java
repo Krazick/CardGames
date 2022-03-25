@@ -7,11 +7,11 @@ import cards.main.GameManager;
 
 public class ChatServerHandler extends ServerHandler {
 	protected JGameClient jClient;
-
+	
 	public ChatServerHandler (String aHost, int aPort, NetworkGameSupport aGameManager) throws ConnectException, SocketTimeoutException {
 		super (aHost, aPort, aGameManager);
 	}
-
+	
 	public void initializeChat (JGameClient aJClient) {
 		jClient = aJClient;
 		
@@ -64,14 +64,14 @@ public class ChatServerHandler extends ServerHandler {
 			} else if (tShortened.endsWith (" Starts the Game")) {
 				jClient.startsGame ();
 			} else {
-				System.err.println ("Received Command [" + aCommand + "]");
+				System.err.println ("Received Command that wasn't Matched [" + aCommand + "]");
 			}
 			if (tAddToChat) {
 				appendToChat (tShortened);
 			}
 		}
 	}
-
+	
 	private void handlePlayerReady (String aShortened) {
 		String tName;
 		
@@ -99,7 +99,7 @@ public class ChatServerHandler extends ServerHandler {
 		
 		return tMessage;
 	}
-
+	
 	private String extractName (String aShortened) {
 		String tName;
 		
@@ -124,19 +124,19 @@ public class ChatServerHandler extends ServerHandler {
 		
 		return true;
 	}
-
+	
 	public void sendNewUser () {
 		println ("name " + name);
 	}
-
+	
 	public void sendGEVersion (String aVersion) {
 		println ("GEVersion " + aVersion);
 	}
-
+	
 	public void requestUserNameList () {
 		println ("who");
 	}
-
+	
 	public void sendMessage (String aMessage) {
 		println ("say " + aMessage);
 	}
@@ -148,7 +148,7 @@ public class ChatServerHandler extends ServerHandler {
 	public void sendUserIsAFK () {
 		println ("AFK");
 	}
-
+	
 	@Override
 	public String buildGameSupportXML (String aGameID, String tXMLChild) {
 		String tGameSupportXML;
@@ -171,7 +171,7 @@ public class ChatServerHandler extends ServerHandler {
 		
 		return tIsValidGameID;
 	}
-
+	
 	public void sendUserReady (String aGameID) {
 		String tGameSupportXML;
 		
@@ -179,7 +179,7 @@ public class ChatServerHandler extends ServerHandler {
 		println (tGameSupportXML);
 		jClient.appendToChat ("I am ready to play the Game", true);
 	}
-
+	
 	public void sendUserStart (String aGameID) {
 		String tGameSupportXML;
 
