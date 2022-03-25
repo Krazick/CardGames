@@ -56,7 +56,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	private boolean overLimitWon;
 	CardImages cardImages;
 	String gameID;
-//	private String arg1;
 	
 	public static void main (String [] aArgs) {
 		new GameManager (aArgs);
