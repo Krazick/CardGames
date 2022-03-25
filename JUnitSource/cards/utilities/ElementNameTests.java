@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cards.utilitiesXX;
+package cards.utilities;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

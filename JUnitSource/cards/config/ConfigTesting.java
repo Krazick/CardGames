@@ -1,9 +1,9 @@
-package cards.configXX;
+package cards.config;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import cards.mainXX.GameManager;
+import cards.main.GameManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
