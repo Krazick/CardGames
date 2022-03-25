@@ -26,5 +26,6 @@ public interface NetworkGameSupport {
 	public String getGameID ();
 	public void resetGameID (String tGameID);
 	public String getClientUserName ();
+	public String getXMLBaseDirectory ();
 
 }
