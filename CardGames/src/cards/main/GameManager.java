@@ -33,6 +33,8 @@ import cards.utilities.XMLNode;
 public class GameManager extends JFrame implements NetworkGameSupport {
 	private static final long serialVersionUID = 1L;
 	public static final String NO_GAME_NAME = "NO-NAME";
+	public static final String EMPTY_GAME_ID = "";
+	public final static String NO_GAME_ID = "NOID";
 	private final String ENTER_USER_NAME = "Must Enter User Name";
 	private final String NO_TOOL_TIP = "";
 //	private final int SCORE_LIMIT = 10;
