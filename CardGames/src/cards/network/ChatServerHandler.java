@@ -1,12 +1,15 @@
 package cards.network;
 
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+
+import cards.main.GameManager;
 
 public class ChatServerHandler extends ServerHandler {
 	protected JGameClient jClient;
 
-	public ChatServerHandler (String aHost, int aPort) throws ConnectException {
-		super (aHost, aPort);
+	public ChatServerHandler (String aHost, int aPort, NetworkGameSupport aGameManager) throws ConnectException, SocketTimeoutException {
+		super (aHost, aPort, aGameManager);
 	}
 
 	public void initializeChat (JGameClient aJClient) {
@@ -28,10 +31,15 @@ public class ChatServerHandler extends ServerHandler {
 	public void handleServerCommands (String aCommand) {
 		String tMessage = aCommand.substring (1, aCommand.length () - 1);
 		String tName, tShortened;
+		boolean tAddToChat;
 		
 		if (tMessage.startsWith ("Server: ")) {
 			tShortened = tMessage.substring (8);
-			if (tShortened.startsWith ("Sorry we are full")) {
+			tAddToChat = true;
+			if (tShortened.startsWith("<GSResponse")) {
+				jClient.handleGSResponse (tShortened);
+				tAddToChat = false;
+			} else if (tShortened.startsWith ("Sorry we are full")) {
 
 			} else if (tShortened.startsWith ("rejected")) {
 				closeAll ();
@@ -45,19 +53,22 @@ public class ChatServerHandler extends ServerHandler {
 				jClient.resetPlayerFromAFK (tName);				
 			} else if (tShortened.endsWith (" has joined")) {
 				tShortened = handleJoined (tShortened);
+			} else if (tShortened.endsWith (" has reconnected")) {
+				tShortened = handleJoined (tShortened);
 			} else if (tShortened.endsWith (" has left") ||
 						tShortened.endsWith (" has aborted")) {
 				tName = extractName (tShortened);
 				jClient.removePlayer (tName);
-			} else if (tShortened.endsWith ("is Ready to play the Game")) {
+			} else if (tShortened.endsWith (" is Ready to play the Game")) {
 				handlePlayerReady (tShortened);
 			} else if (tShortened.endsWith (" Starts the Game")) {
 				jClient.startsGame ();
 			} else {
 				System.err.println ("Received Command [" + aCommand + "]");
-
 			}
-			appendToChat (tShortened);
+			if (tAddToChat) {
+				appendToChat (tShortened);
+			}
 		}
 	}
 
@@ -108,12 +119,18 @@ public class ChatServerHandler extends ServerHandler {
 	}
 	
 	@Override
-	public void sendGameSupport (String aGameSupport) {
+	public boolean sendGameSupport (String aGameSupport) {
 		println (aGameSupport);
+		
+		return true;
 	}
 
 	public void sendNewUser () {
 		println ("name " + name);
+	}
+
+	public void sendGEVersion (String aVersion) {
+		println ("GEVersion " + aVersion);
 	}
 
 	public void requestUserNameList () {
@@ -132,16 +149,27 @@ public class ChatServerHandler extends ServerHandler {
 		println ("AFK");
 	}
 
+	@Override
 	public String buildGameSupportXML (String aGameID, String tXMLChild) {
 		String tGameSupportXML;
 		String tGameIDChunk = "";
 		
-		if (! aGameID.equals ("")) {
+		if (isValidGameID (aGameID)) {
 			tGameIDChunk =  " gameID=\"" + aGameID + "\"";
 		}
 		tGameSupportXML = "Game Support <GS" + tGameIDChunk + ">" + tXMLChild + "</GS>";
 		
 		return tGameSupportXML;
+	}
+	
+	public boolean isValidGameID (String aGameID) {
+		boolean tIsValidGameID = false;
+		
+		if (! (aGameID.equals (GameManager.NO_GAME_ID) || aGameID.equals (GameManager.EMPTY_GAME_ID))) {
+			tIsValidGameID = true;
+		}
+		
+		return tIsValidGameID;
 	}
 
 	public void sendUserReady (String aGameID) {
@@ -158,6 +186,25 @@ public class ChatServerHandler extends ServerHandler {
 		tGameSupportXML = buildGameSupportXML (aGameID, "<Start>");
 		println (tGameSupportXML);
 		jClient.appendToChat ("I started the Game", true);
+	}
+	
+	@Override
+	protected void handleChatReconnect () {
+		String tGameSupportXML;
+		String tGameID;
+		String tUserName;
+		
+		tGameID = jClient.getGameID ();
+		tUserName = jClient.getPlayerName ();
+		System.out.println ("Ready to attempt Server Connect");
+		tGameSupportXML = buildGameSupportXML (tGameID, "<Reconnect name=\"" + tUserName + "\">");
+		println (tGameSupportXML);
+		startHeartbeat ();
+	}
+	
+	@Override
+	protected void startHeartbeat () {
+		jClient.startHeartbeat ();
 	}
 	
 	// -- End of Sending Commands to the Server
