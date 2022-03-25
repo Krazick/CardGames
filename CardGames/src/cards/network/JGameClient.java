@@ -472,6 +472,10 @@ public class JGameClient extends XMLFrame {
 		pack ();
 	}
 	
+	public NetworkGameSupport getGameManager () {
+		return gameManager;
+	}
+	
 	private void handleStartGame () {
 		String tGameID;
 		
@@ -915,6 +919,19 @@ public class JGameClient extends XMLFrame {
 		return serverPort;
 	}
 	
+	// Need to make a Request for Game Support, then block until we get a response
+	// Send the response back
+	
+	public String requestGameSupport (String aGameID, String aRequestGameSupport) {
+		String tGSResponse;
+		String tFullGSRequest;
+		
+		tFullGSRequest = serverHandler.buildGameSupportXML (aGameID, aRequestGameSupport);
+		tGSResponse = gameSupportHandler.requestGameSupport (tFullGSRequest);
+		
+		return tGSResponse;
+	}
+
 	public ServerHandler getServerHandler() {
 		return serverHandler;
 	}
