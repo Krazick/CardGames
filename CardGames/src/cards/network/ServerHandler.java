@@ -16,7 +16,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class ServerHandler implements Runnable {
-    private final static int DefaultTimeout = 2000;
+	public final static ServerHandler NO_SERVER_HANDLER = null;
+    private final static int DefaultTimeout = 12000;
+    private final static int DefaultSleep = 60000;
 	private Socket socket;
 	private BufferedReader in;
 	private PrintWriter out;
@@ -42,7 +44,7 @@ public abstract class ServerHandler implements Runnable {
 		logger.info ("Logger setup in Server Handler");
 	}
 
-	public ServerHandler (String aHost, int aPort, NetworkGameSupport aGameManager) throws ConnectException {
+	public ServerHandler (String aHost, int aPort, NetworkGameSupport aGameManager) throws ConnectException, SocketTimeoutException {
 		boolean tContinueRunning = false;
 		
 		gameManager = aGameManager;
@@ -55,9 +57,11 @@ public abstract class ServerHandler implements Runnable {
 		} catch (UnknownHostException tException) {
 			log ("Unkown Host Exception thrown when creating Socket to Server", tException);
 		} catch (ConnectException tException) {
+			log ("Connection Exception thrown when creating Socket to Server", tException);
 			throw tException;
 		} catch (SocketTimeoutException tException) {
-			log ("Connect SocketTimeoutException thrown when trying to Connect to Server", tException);
+			log ("Socket Timeout Exception when establing Connection to Server", tException);
+			throw tException;
 		} catch (IOException tException) {
 			log ("IOException thrown when creating Socket to Server", tException);
 		}
@@ -102,7 +106,9 @@ public abstract class ServerHandler implements Runnable {
 	
 	private void setupBufferedReader () {
 		try {
+	        logger.info ("Attempting to setup Buffered Reader");
 			in = new BufferedReader (new InputStreamReader (socket.getInputStream ()));
+			logger.info ("Successful Buffered Reader");
 		} catch (IOException tException) {
 			log ("IOException thrown when seting up Buffered Reader", tException);
 		}		
@@ -110,7 +116,9 @@ public abstract class ServerHandler implements Runnable {
 	
 	private void setupPrintWriter () {
 		try {
+	        logger.info ("Attempting to setup Print Writer");
 			out = new PrintWriter (socket.getOutputStream (), true);
+			logger.info ("Successful Print Writer");
 		} catch (IOException tException) {
 			log ("IOException thrown when seting up PrintWriter", tException);
 		}		
@@ -119,31 +127,50 @@ public abstract class ServerHandler implements Runnable {
 	@Override
 	public void run () {
 		String tString;
-
-		if (in != null) {
-			try {
-				while (continueRunning) {
-					tString = in.readLine ();
-//					System.out.println ("RAW Line: | " + tString + " |");
-					if (tString == null) {
-						setContinueRunning (false);
-					} else if (tString.startsWith ("[") && tString.endsWith ("]")) {
-						handleServerCommands (tString);
-					} else {
-						handleServerMessage (tString);
+		int tRetryCount;
+		
+		tRetryCount = 3;
+		while (tRetryCount > 0) {
+			if (in != null) {
+				try {
+					while (continueRunning) {
+						tString = in.readLine ();
+						if (tString == null) {
+							setContinueRunning (false);
+						} else if (tString.startsWith ("[") && tString.endsWith ("]")) {
+							handleServerCommands (tString);
+						} else {
+							handleServerMessage (tString);
+						}
 					}
+				} catch (SocketTimeoutException tException1) {
+					log ("Socket Timeout Exception when reading from Server. Retry Count " + 
+							tRetryCount, tException1);
+				} catch (IOException tException2) {
+					log ("IOException thrown when Reading from Server. Retry Count " + 
+							tRetryCount, tException2);
+				}		
+			}
+			try {
+				Thread.sleep (DefaultSleep);
+			} catch (InterruptedException tException3) {
+				log ("Exception thrown when Sleeping after SocketTimeout/IO Exception) ", tException3);
+			}
+			tRetryCount--;
+			if (tRetryCount == 2) {
+				if (tryReConnect ()) {
+					tRetryCount = 3;
+					setContinueRunning (true);
+//					startHeartbeat ();
 				}
-			} catch (IOException tException) {
-				log ("Exception thrown when Reading from Server", tException);
-			} finally {
-				closeAll ();
-			}		
+			}
 		}
+		closeAll ();
 	}
 	
 	protected abstract void startHeartbeat ();
 	
-	protected boolean tryReConnect () {
+	private boolean tryReConnect () {
 		boolean tContinue;
 		
 		try {
@@ -188,7 +215,8 @@ public abstract class ServerHandler implements Runnable {
     private void log (String aMessage, Exception aException) {
 		System.err.println (aMessage);
 		aException.printStackTrace ();
-    }
+		logger.error (aMessage, aException);
+   }
 
 	public void closeAll () {
 		continueRunning = false;
