@@ -8,8 +8,12 @@ import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public abstract class ServerHandler implements Runnable {
     private final static int DefaultTimeout = 2000;
@@ -18,20 +22,35 @@ public abstract class ServerHandler implements Runnable {
 	private PrintWriter out;
 	private boolean continueRunning;
 	protected String name;
+	private String host;
+	private int port;
+	private Logger logger;
+	private NetworkGameSupport gameManager;
 	
-	public ServerHandler (Socket aServerSocket) {
+	public ServerHandler (Socket aServerSocket, NetworkGameSupport aGameManager) {
 		setValues (aServerSocket);
+		gameManager = aGameManager;
+		setupLogger ();
 	}
 	
-	public ServerHandler (String aHost, int aPort) throws ConnectException {
+	private void setupLogger () {
+		String tXMLBaseDir;
+		
+		tXMLBaseDir = gameManager.getXMLBaseDirectory ();
+		System.setProperty ("log4j.configurationFile", tXMLBaseDir + "log4j2.xml");
+		logger = LogManager.getLogger (ServerHandler.class);
+		logger.info ("Logger setup in Server Handler");
+	}
+
+	public ServerHandler (String aHost, int aPort, NetworkGameSupport aGameManager) throws ConnectException {
 		boolean tContinueRunning = false;
 		
+		gameManager = aGameManager;
+		setupLogger ();
 		try {
-            Socket tSocket = new Socket ();
-            // Connect to socket by host, port, and with specified timeout.
-            tSocket.connect (new InetSocketAddress (InetAddress.getByName (aHost), aPort), DefaultTimeout);
-            tSocket.setKeepAlive (true);
-			setValues (tSocket);
+			setHost (aHost);
+			setPort (aPort);
+            establishSocketConnection ();
 			tContinueRunning = true;
 		} catch (UnknownHostException tException) {
 			log ("Unkown Host Exception thrown when creating Socket to Server", tException);
@@ -46,8 +65,29 @@ public abstract class ServerHandler implements Runnable {
 		setContinueRunning (tContinueRunning);
 	}
 
+	private void establishSocketConnection ()
+			throws UnknownHostException, IOException, SocketException {
+		InetAddress tIPAddress;
+		
+        Socket tSocket = new Socket ();
+        tIPAddress = InetAddress.getByName (host);
+        logger.info ("Attempting Socket Connection to Host " + host + " using IP " + tIPAddress + " Port " + port);
+		tSocket.connect (new InetSocketAddress (tIPAddress, port), DefaultTimeout);
+        logger.info ("Socket Connection Established");
+		tSocket.setKeepAlive (true);
+		setValues (tSocket);
+	}
+
 	protected void setContinueRunning (boolean aContinueRunning) {
 		continueRunning = aContinueRunning;
+	}
+
+	private void setHost (String aHost) {
+		host = aHost;
+	}
+	
+	private void setPort (int aPort) {
+		port = aPort;
 	}
 
 	private void setValues (Socket aServerSocket) {
@@ -99,6 +139,29 @@ public abstract class ServerHandler implements Runnable {
 				closeAll ();
 			}		
 		}
+	}
+	
+	protected abstract void startHeartbeat ();
+	
+	protected boolean tryReConnect () {
+		boolean tContinue;
+		
+		try {
+			Thread.sleep (10000);
+			logger.warn ("Attempting once to Reconnect to the Server");
+			socket = null;
+			System.gc ();
+			establishSocketConnection ();
+			logger.warn ("Success on creating a new Socket to the Server");
+			handleChatReconnect ();
+			tContinue = true;	
+		} catch (Exception tException) {
+			String message = "ReConnect not successful " + tException.getMessage ();
+			log (message, tException);
+			tContinue = false;	
+		}
+		
+		return tContinue;
 	}
 
 	public boolean isConnected () {
@@ -152,6 +215,9 @@ public abstract class ServerHandler implements Runnable {
 		closeAll ();
 	}
 	
-	protected abstract void sendGameSupport (String aRequest);
+	protected abstract void handleChatReconnect ();
 
+	protected abstract boolean sendGameSupport (String aRequest);
+
+	protected abstract String buildGameSupportXML (String tGameID, String string);
 }
