@@ -9,11 +9,8 @@ public interface NetworkGameSupport {
 	public void addNetworkPlayer (String aPlayerName);
 	public void removeNetworkPlayer (String aPlayerName);
 	public void removeAllNetworkPlayers ();
-	
 	public void handleGameActivity (String aGameActivity);
-	
 	public JGameClient getNetworkJGameClient ();
-	
 	public int getSelectedGameIndex ();
 	public void setSelectedGameIndex (int aGameIndex);
 	public String getPlayersInOrder ();
@@ -27,5 +24,4 @@ public interface NetworkGameSupport {
 	public void resetGameID (String tGameID);
 	public String getClientUserName ();
 	public String getXMLBaseDirectory ();
-
 }

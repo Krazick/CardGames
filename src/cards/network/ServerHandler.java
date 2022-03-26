@@ -161,7 +161,6 @@ public abstract class ServerHandler implements Runnable {
 				if (tryReConnect ()) {
 					tRetryCount = 3;
 					setContinueRunning (true);
-//					startHeartbeat ();
 				}
 			}
 		}
