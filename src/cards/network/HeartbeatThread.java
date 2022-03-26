@@ -15,27 +15,24 @@ public class HeartbeatThread implements Runnable {
 	Thread thread;
 	boolean continueRunning = false;
 	JGameClient jGameClient;
-	NetworkGameSupport gameManager;
    	LocalTime startTime;
    	LocalTime responseTime;
    	DateTimeFormatter hmssFormat = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
    	long totalResponseTime;
    	String heartbeatRequest = "<Heartbeat>";
 	boolean sendHeartbeat = true;
+	String baseDirectory;
 	
 	public HeartbeatThread (JGameClient aJGameClient) {
 		setContinueRunning (false);
 		jGameClient = aJGameClient;
-		gameManager = jGameClient.getGameManager ();
 		setupLogger ();
 		totalResponseTime = 0;
 	}
 	
 	private void setupLogger () {
-		String tXMLBaseDir;
-		
-		tXMLBaseDir = gameManager.getXMLBaseDirectory ();
-		System.setProperty ("log4j.configurationFile", tXMLBaseDir + "log4j2.xml");
+		baseDirectory = jGameClient.getXMLBaseDirectory ();
+		System.setProperty ("log4j.configurationFile", baseDirectory + "log4j2.xml");
 		logger = LogManager.getLogger ("com.cards.heartbeat");
 	}
 	
@@ -107,7 +104,7 @@ public class HeartbeatThread implements Runnable {
 		String tGameID;
 		
 		if (sendHeartbeat) {
-			tGameID = gameManager.getGameID ();
+			tGameID = jGameClient.getGameID ();
 	        captureStartTime ();
 			jGameClient.requestGameSupport (tGameID, heartbeatRequest);
 	        captureResponseTime ();

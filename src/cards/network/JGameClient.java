@@ -488,14 +488,8 @@ public class JGameClient extends XMLFrame {
 	private void handleStartGame () {
 		String tGameID;
 		
-		tGameID = gameManager.getGameID ();
+		tGameID = getGameID ();
 		serverHandler.sendUserStart (tGameID);
-		startsGame ();
-//		updateButtonGameStarted (startReadyButton);
-//		updateButtonGameStarted (showSavedGames);
-		
-		
-//		serverHandler.sendUserStart ();
 		startsGame ();
 		gameManager.setNotifyNetwork (true); 
 		gameManager.initiateNetworkGame ();
@@ -613,7 +607,7 @@ public class JGameClient extends XMLFrame {
 	public void sendPlayerReady () {
 		String tGameID;
 		
-		tGameID = gameManager.getGameID ();
+		tGameID = getGameID ();
 		serverHandler.sendUserReady (tGameID);
 		sendPlayerOrder ();
 	}
@@ -949,6 +943,10 @@ public class JGameClient extends XMLFrame {
 		return serverHandler;
 	}
 
+	public String getXMLBaseDirectory () {
+		return gameManager.getXMLBaseDirectory ();
+	}
+	
 	public String getGameID () {
 		return gameManager.getGameID ();
 	}
