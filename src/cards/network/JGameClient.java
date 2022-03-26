@@ -47,6 +47,8 @@ public class JGameClient extends XMLFrame {
 	private static final String DEFAULT_REMOTE_SERVER_IP = "192.168.1.21";
 	private static final String DEFAULT_LOCAL_SERVER_IP = "192.168.1.21";
 	private static final String CONNECT_ACTION = "CONNECT";
+	public  static final String EMPTY_GAME_ID = "";
+	public  static final String NO_GAME_ID = "NOID";
 	private final String ALREADY_CONNECTED = "You are already connected";
 	private final String NO_TOOL_TIP = "";
 	private final String NOT_CONNECTED = "You are not connected yet";
@@ -542,7 +544,7 @@ public class JGameClient extends XMLFrame {
 		boolean tSuccess = false;
 		
 		try {
-			serverHandler = new ChatServerHandler (serverIP, serverPort, gameManager);
+			serverHandler = new ChatServerHandler (serverIP, serverPort, this);
 			if (serverHandler != null) {
 				if (serverHandler.isConnected ()) {
 					serverThread = new Thread (serverHandler);

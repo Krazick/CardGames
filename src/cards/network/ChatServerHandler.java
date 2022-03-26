@@ -3,13 +3,13 @@ package cards.network;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
-import cards.main.GameManager;
+//import cards.main.GameManager;
 
 public class ChatServerHandler extends ServerHandler {
 	protected JGameClient jClient;
 	
-	public ChatServerHandler (String aHost, int aPort, NetworkGameSupport aGameManager) throws ConnectException, SocketTimeoutException {
-		super (aHost, aPort, aGameManager);
+	public ChatServerHandler (String aHost, int aPort, JGameClient aJGameClient) throws ConnectException, SocketTimeoutException {
+		super (aHost, aPort, aJGameClient);
 	}
 	
 	public void initializeChat (JGameClient aJClient) {
@@ -165,7 +165,7 @@ public class ChatServerHandler extends ServerHandler {
 	public boolean isValidGameID (String aGameID) {
 		boolean tIsValidGameID = false;
 		
-		if (! (aGameID.equals (GameManager.NO_GAME_ID) || aGameID.equals (GameManager.EMPTY_GAME_ID))) {
+		if (! (aGameID.equals (JGameClient.NO_GAME_ID) || aGameID.equals (JGameClient.EMPTY_GAME_ID))) {
 			tIsValidGameID = true;
 		}
 		

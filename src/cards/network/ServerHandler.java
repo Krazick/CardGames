@@ -27,27 +27,27 @@ public abstract class ServerHandler implements Runnable {
 	private String host;
 	private int port;
 	private Logger logger;
-	private NetworkGameSupport gameManager;
+	private JGameClient jGameClient;
 	
-	public ServerHandler (Socket aServerSocket, NetworkGameSupport aGameManager) {
+	public ServerHandler (Socket aServerSocket, JGameClient aJGameClient) {
 		setValues (aServerSocket);
-		gameManager = aGameManager;
+		jGameClient = aJGameClient;
 		setupLogger ();
 	}
 	
 	private void setupLogger () {
 		String tXMLBaseDir;
 		
-		tXMLBaseDir = gameManager.getXMLBaseDirectory ();
+		tXMLBaseDir = jGameClient.getXMLBaseDirectory ();
 		System.setProperty ("log4j.configurationFile", tXMLBaseDir + "log4j2.xml");
 		logger = LogManager.getLogger (ServerHandler.class);
 		logger.info ("Logger setup in Server Handler");
 	}
 
-	public ServerHandler (String aHost, int aPort, NetworkGameSupport aGameManager) throws ConnectException, SocketTimeoutException {
+	public ServerHandler (String aHost, int aPort, JGameClient aJGameClient) throws ConnectException, SocketTimeoutException {
 		boolean tContinueRunning = false;
 		
-		gameManager = aGameManager;
+		jGameClient = aJGameClient;
 		setupLogger ();
 		try {
 			setHost (aHost);
