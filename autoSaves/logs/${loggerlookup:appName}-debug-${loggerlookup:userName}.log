@@ -40,3 +40,10 @@
 2022-08-25 10:53:10.448 INFO Successful Buffered Reader
 2022-08-25 10:53:10.449 INFO Attempting to setup Print Writer
 2022-08-25 10:53:10.450 INFO Successful Print Writer
+2022-10-19 16:58:24.067 INFO Logger setup in Server Handler
+2022-10-19 16:58:24.089 INFO Attempting Socket Connection to Host 192.168.1.21 using IP /192.168.1.21 Port 52000
+2022-10-19 16:58:24.104 INFO Socket Connection Established
+2022-10-19 16:58:24.105 INFO Attempting to setup Buffered Reader
+2022-10-19 16:58:24.106 INFO Successful Buffered Reader
+2022-10-19 16:58:24.106 INFO Attempting to setup Print Writer
+2022-10-19 16:58:24.108 INFO Successful Print Writer
