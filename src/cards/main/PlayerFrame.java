@@ -646,9 +646,29 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		tSelectedCount = getSelectedCount ();
 	    if (player.isNotHoldHand ()) {
 		    if (player.hasNotPassed ()) {
-		    	playCard.setToolTipText ("Must pass " + player.getPassCount () + " Cards first");
+		    		disablePlayCardButton ();
+		    		playCard.setToolTipText ("Must pass " + player.getPassCount () + " Cards first");
 		    } else if (tSelectedCount == tPlayCount) {
-		    	if (player.readyToPlay ()) {
+			    	if (player.readyToPlay ()) {
+			    		if (player.validCardToPlay (getSelectedCard ())) {
+			    			enablePlayCardButton ();
+			    		} else {
+			    			disablePlayCardButton ();
+			    			playCard.setToolTipText ("Selected Card does not match Suit Led");
+			    		}
+			    	} else {
+			    		disablePlayCardButton ();
+			    		playCard.setToolTipText ("Not your turn to play a Card");
+			    	}
+		    } else {
+		    		disablePlayCardButton ();
+		    		playCard.setToolTipText ("No Card selected to play");
+		    }
+	    } else if (tSelectedCount == tPlayCount) {
+	    		if (player.playedCard ()) {
+	    			disablePlayCardButton ();
+	    			playCard.setToolTipText ("Already Played a Card for this Trick");    			
+	    		} else if (player.readyToPlay ()) {
 		    		if (player.validCardToPlay (getSelectedCard ())) {
 		    			enablePlayCardButton ();
 		    		} else {
@@ -656,24 +676,12 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		    			playCard.setToolTipText ("Selected Card does not match Suit Led");
 		    		}
 		    	} else {
+		    		disablePlayCardButton ();
 		    		playCard.setToolTipText ("Not your turn to play a Card");
 		    	}
-		    } else {
-		    	playCard.setToolTipText ("No Card selected to play");
-		    }
-	    } else if (tSelectedCount == tPlayCount) {
-	    	if (player.readyToPlay ()) {
-	    		if (player.validCardToPlay (getSelectedCard ())) {
-	    			enablePlayCardButton ();
-	    		} else {
-	    			disablePlayCardButton ();
-	    			playCard.setToolTipText ("Selected Card does not match Suit Led");
-	    		}
-	    	} else {
-	    		playCard.setToolTipText ("Not your turn to play a Card");
-	    	}
 	    } else {
-	    	playCard.setToolTipText ("No Card selected to play");
+	    		disablePlayCardButton ();
+	    		playCard.setToolTipText ("No Card selected to play");
 	    }
 
 	}
@@ -703,8 +711,8 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	    disablePassCardsButton ();
 	    disablePlayCardButton ();
 	    updatePushDownButton ();
-    	updatePlayCardButton ();
-    	updatePassCardsButton ();
+	    updatePlayCardButton ();
+	    updatePassCardsButton ();
 	}
 
 	@Override

@@ -72,8 +72,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		tTitle = "Cards Game Startup";
 		setTitle (tTitle);
 		setGameID ("2021-10-10-1010");
-//		createActions ();
-//		addMenus ();
 		
 		setSize (375, 250);
 		
@@ -91,10 +89,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 			for (int i = 0; i < aArgs.length; i++) {
 				System.out.println ("Arg " + i + " [" + aArgs [i] + "]");		
 			}
-//			arg1 = aArgs [0];
 		} else {
 			System.out.println ("No Arguments");
-//			arg1 = "";
 		}
 	}
 	
@@ -103,10 +99,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 	
 	public void setFrameContents () {
-		String tVersionLabel = "Version 0.2 Alpha";
-		
+		String tVersionLabel = "Version 0.2.1 Alpha";
 		JLabel tGameEngineTitle = new JLabel ("Cards Game Manager");
-//		tGameEngineTitle.setText (resbundle.getString ("message"));
+
 		tGameEngineTitle.setFont (new Font ("Lucida Grande", Font.BOLD, 24));
 		tGameEngineTitle.setHorizontalAlignment (SwingConstants.CENTER);
 		
@@ -175,7 +170,6 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 	
 	public void enableGameStartItems () {
-//		enableNewMenuItem ();
 		newGameButton.setEnabled (true);
 		newGameButton.setToolTipText (NO_TOOL_TIP);
 		clientUserName.setEnabled (true);
@@ -226,13 +220,11 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		System.out.println ("Start a new Game");
 		players.removeAllScores ();
 		gameFrame.startNewGame ();
-		// Tell other Players to reset
 	}
 	
 	public void endGame () {
 		System.out.println ("End the Game - Tell all Players this Player is Quitting");
 		removeNetworkPlayer (getClientUserName ());
-		// Tell other Players this Player Quit
 		System.exit (NORMAL);
 	}
 	
@@ -580,5 +572,9 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	@Override
 	public void enableAllGameButtons (boolean aEnable) {
 		gamePanel.enableAllGameButtons (aEnable);
+	}
+
+	public void setPlayersNoCardsPlayed () {
+		players.setPlayersNoCardsPlayed ();
 	}
 }

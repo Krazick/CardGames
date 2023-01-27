@@ -122,6 +122,7 @@ public class TableTop extends JPanel implements MouseListener {
 	}
 	
 	public void startNewTrick () {
+		gameManager.setPlayersNoCardsPlayed ();
 		cardsOnTable = new Trick ();
 		setCardLed (Card.NO_CARD);
 	}
@@ -131,8 +132,9 @@ public class TableTop extends JPanel implements MouseListener {
 	}
 	
 	public boolean allPlayersPlayed () {
-		boolean tAllPlayersPlayed = false;
+		boolean tAllPlayersPlayed;
 		
+		tAllPlayersPlayed = false;
 		if (cardsOnTable.getCount () == gameManager.getPlayers ().getPlayerCount ()) {
 			tAllPlayersPlayed = true;
 		}
@@ -162,7 +164,7 @@ public class TableTop extends JPanel implements MouseListener {
 		if (allPlayersPlayed ()) {
 			resolveTrick ();
 		} else {
-			moveToNextPlayer(aPlayer);
+			moveToNextPlayer (aPlayer);
 		}
 		gameFrame.revalidateRepaint ();
 	}

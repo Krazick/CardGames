@@ -380,8 +380,9 @@ public class Players {
 	}
 
 	public boolean anyPlayerOverLimit (int aScoreLimit) {
-		boolean tAnyPlayerOverLimit = false;
+		boolean tAnyPlayerOverLimit;
 		
+		tAnyPlayerOverLimit = false;
 		for (Player tPlayer : players) {
 			if (tPlayer.getScore () > aScoreLimit) {
 				tAnyPlayerOverLimit = true;
@@ -392,10 +393,14 @@ public class Players {
 	}
 
 	public void removeAllScores() {
-		// TODO Auto-generated method stub
 		for (Player tPlayer : players) {
 			tPlayer.setScore (0);
 		}
+	}
 
+	public void setPlayersNoCardsPlayed () {
+		for (Player tPlayer : players) {
+			tPlayer.setPlayedCard (false);
+		}
 	}
 }

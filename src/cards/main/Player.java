@@ -21,6 +21,7 @@ public class Player implements ActorI {
 	boolean received;
 	boolean willLead;
 	boolean readyToPlay;
+	boolean playedCard;
 	GameFrame gameFrame;
 	ActionStates actionState;
 	
@@ -36,6 +37,7 @@ public class Player implements ActorI {
 		setMyIndex (aMyIndex);
 		setWillLead (false);
 		setReadyToPlay (false);
+		setPlayedCard (false);
 		resetActionState (ActorI.ActionStates.NoAction);
 	}
 
@@ -43,6 +45,7 @@ public class Player implements ActorI {
 		readyToPlay = aReadyToPlay;
 		if (readyToPlay) {
 			resetActionState (ActorI.ActionStates.ReadyToPlay);
+			updateButtons ();
 		}
 	}
 	
@@ -56,6 +59,14 @@ public class Player implements ActorI {
 		if (willLead) {
 			resetActionState (ActorI.ActionStates.WillLead);
 		}
+	}
+	
+	public void setPlayedCard (boolean aPlayedCard) {
+		playedCard = aPlayedCard;
+	}
+	
+	public boolean playedCard () {
+		return playedCard;
 	}
 	
 	public boolean willLead () {
