@@ -4,10 +4,10 @@ import cards.actions.ActorI;
 import cards.main.Card;
 import cards.main.GameManager;
 import cards.main.Player;
-import cards.utilities.AttributeName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.AttributeName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class PlayCardEffect extends Effect {
 	public final static String NAME = "Play Card";

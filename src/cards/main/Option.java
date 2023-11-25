@@ -2,11 +2,11 @@ package cards.main;
 
 import org.w3c.dom.NodeList;
 
-import cards.utilities.AttributeName;
-import cards.utilities.ElementName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.AttributeName;
+import geUtilities.ElementName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class Option {
 	static final String NO_TITLE = "<NO TITLE>";
@@ -23,10 +23,13 @@ public class Option {
 	}
 	
 	public Option (XMLNode aCellNode) {
-		String tTitle, tChildName;
+		String tTitle;
+		String tChildName;
 		XMLNode tChildNode;
 		NodeList tChildren;
-		int tIndex, tChildrenCount, tEffectIndex;
+		int tIndex;
+		int tChildrenCount;
+		int tEffectIndex;
 		
 		tTitle = aCellNode.getThisAttribute (AN_TITLE);
 		setValue (tTitle);
@@ -61,7 +64,9 @@ public class Option {
 	}
 	
 	public XMLElement getOptionElement (XMLDocument aXMLDocument) {
-		XMLElement tXMLElement, tOptionEffectElements, tOptionEffectElement;
+		XMLElement tXMLElement;
+		XMLElement tOptionEffectElements;
+		XMLElement tOptionEffectElement;
 		
 		tXMLElement = aXMLDocument.createElement (EN_OPTION);
 		tXMLElement.setAttribute (AN_TITLE, title);

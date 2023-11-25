@@ -3,11 +3,11 @@ package cards.effects;
 import cards.main.GameManager;
 import cards.main.Player;
 import cards.actions.ActorI;
-import cards.utilities.AttributeName;
-import cards.utilities.ElementName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.AttributeName;
+import geUtilities.ElementName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class Effect {
 	public final static String NO_NAME = ">>NO EFFECT NAME<<";

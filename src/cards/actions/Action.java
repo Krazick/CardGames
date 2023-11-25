@@ -2,12 +2,15 @@ package cards.actions;
 
 import cards.main.GameManager;
 import cards.effects.Effect;
-import cards.utilities.AttributeName;
-import cards.utilities.ElementName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+
+import geUtilities.AttributeName;
+import geUtilities.ElementName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
+
 import org.w3c.dom.NodeList;
+
 import java.lang.reflect.Constructor;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +50,8 @@ public class Action {
 	}
 	
 	public Action (XMLNode aActionNode, GameManager aGameManager) {
-		String tActionName, tActorName;
+		String tActionName;
+		String tActorName;
 		ActorI tActor;
 		Boolean tChainToPrevious;
 		

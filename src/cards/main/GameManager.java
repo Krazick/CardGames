@@ -27,8 +27,9 @@ import cards.actions.StartNewGameAction;
 import cards.config.GameFrameConfig;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLNode;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class GameManager extends JFrame implements NetworkGameSupport {
 	private static final long serialVersionUID = 1L;
@@ -294,14 +295,18 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		XMLNode tXMLGameActivityNode;
 		XMLNode tActionNode;
 		NodeList tActionChildren;
-		int tActionNodeCount, tActionIndex;
+		int tActionNodeCount;
+		int tActionIndex;
 		String tANodeName;
 		int tGameIndex;
-		String tGameOptions, tBroadcast, tPlayerOrder;
+		String tGameOptions;
+		String tBroadcast;
+		String tPlayerOrder;
 
 		tXMLGameActivity = new XMLDocument ();
 		tXMLGameActivity = tXMLGameActivity.ParseXMLString (aGameActivity);
-		tXMLGameActivityNode = tXMLGameActivity.getDocumentElement ();
+		tXMLGameActivityNode = tXMLGameActivity.getDocumentNodeFromElement ();
+
 		tANodeName = tXMLGameActivityNode.getNodeName ();
 		if (JGameClient.EN_GAME_ACTIVITY.equals (tANodeName)) {
 			tActionChildren = tXMLGameActivityNode.getChildNodes ();
@@ -340,8 +345,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		return aBaseDirectory;
 	}
 
-	private void handleNetworkAction (XMLNode tXMLGameActivityNode) {
-		actionManager.handleNetworkAction (tXMLGameActivityNode);
+	private void handleNetworkAction (XMLNode tXMLGameActivityElement) {
+		actionManager.handleNetworkAction (tXMLGameActivityElement);
 	}
 
 	private void handleResetPlayerOrder (String tPlayerOrder, String tBroadcast) {

@@ -12,10 +12,10 @@ import cards.config.Config;
 import cards.config.FrameInfo;
 import cards.config.GameFrameConfig;
 
-import cards.utilities.LoadableXMLI;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.LoadableXMLI;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 import java.io.IOException;
 
@@ -55,7 +55,8 @@ public class XMLFrame extends JFrame {
 				aLoadableObject.loadXML (tXMLDocument);
 				tXMLFileWasLoaded = true;
 			} catch (Exception tException) {
-				System.err.println ("Oops, mucked up the XML " + aLoadableObject.getTypeName () + " File Access [" + aXMLFileName + "].");
+				System.err.println ("Oops, mucked up the XML " + aLoadableObject.getTypeName () + " File Access [" + 
+								aXMLFileName + "].");
 				System.err.println ("Exception Message [" + tException.getMessage () + "].");
 				tException.printStackTrace (System.err);
 				tXMLFileWasLoaded = false;
@@ -114,10 +115,12 @@ public class XMLFrame extends JFrame {
 	}
 	
 	public XMLElement getXMLFrameElement (XMLDocument aXMLDocument) {
-		XMLElement tXMLFrameElement = XMLElement.NO_XML_ELEMENT;
+		XMLElement tXMLFrameElement;
 		FrameInfo tFrameInfo;
-		GameFrameConfig tGameFrameConfig = new GameFrameConfig ("template");
+		GameFrameConfig tGameFrameConfig;
 		
+		tXMLFrameElement = XMLElement.NO_XML_ELEMENT;
+		tGameFrameConfig = new GameFrameConfig ("template");
 		tXMLFrameElement = tGameFrameConfig.createXMLFrameElement (aXMLDocument);
 		tFrameInfo = new FrameInfo (this);
 		tFrameInfo.appendXMLFrameAttributes (tXMLFrameElement);

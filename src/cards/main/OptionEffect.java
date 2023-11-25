@@ -1,10 +1,10 @@
 package cards.main;
 
-import cards.utilities.AttributeName;
-import cards.utilities.ElementName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.AttributeName;
+import geUtilities.ElementName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class OptionEffect {
 	static final String NO_NAME = "<NO NAME>";

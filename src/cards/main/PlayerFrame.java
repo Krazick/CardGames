@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cards.actions.PassCardsAction;
-import cards.utilities.OverlapLayout;
+import geUtilities.OverlapLayout;
 
 public class PlayerFrame extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
@@ -587,7 +587,7 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	    Boolean constraint = layout.getConstraints (aCardComponent);
 		
 	    if (constraint == null || constraint == OverlapLayout.POP_DOWN) {
-	    	tCardDown = true;
+	    		tCardDown = true;
 	    }
 	    
 	    return tCardDown;

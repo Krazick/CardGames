@@ -1,9 +1,9 @@
 package cards.config;
 
 import cards.main.XMLFrame;
-import cards.utilities.AttributeName;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.AttributeName;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class FrameInfo {
 	public static final AttributeName AN_NAME = new AttributeName ("name");

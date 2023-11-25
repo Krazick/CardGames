@@ -9,12 +9,13 @@ package cards.main;
 //
 
 import cards.network.JGameClient;
-import cards.utilities.LoadableXMLI;
-import cards.utilities.ElementName;
-import cards.utilities.ParsingRoutineI;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLNode;
-import cards.utilities.XMLNodeList;
+import geUtilities.LoadableXMLI;
+import geUtilities.ElementName;
+import geUtilities.ParsingRoutineI;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
+import geUtilities.XMLNodeList;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -282,18 +283,21 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 	
 	@Override
 	public void loadXML (XMLDocument aXMLDocument) throws IOException {
-		XMLNode tXMLGameSetRoot;
+//		XMLNode tXMLGameSetRoot;
+		XMLElement tXMLGameSetRoot;
 		
 		tXMLGameSetRoot = aXMLDocument.getDocumentElement ();
 		ParseGameConfig (tXMLGameSetRoot);
 	}
 	
-	public void ParseGameConfig (XMLNode aCellNode) {
+	public void ParseGameConfig (XMLElement aCellNode) {
 		XMLNodeList tXMLNodeList;
 		NodeList tChildren;
 		XMLNode tChildNode;
 		String tChildName;
-		int tChildrenCount, tIndex;
+		int tChildrenCount;
+		int tIndex;
+		int tGameCount;
 		
 		tChildren = aCellNode.getChildNodes ();
 		tChildrenCount = tChildren.getLength ();
@@ -301,7 +305,6 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 			tChildNode = new XMLNode (tChildren.item (tIndex));
 			tChildName = tChildNode.getNodeName ();
 			if (EN_GAMES.equals (tChildName)) {
-				int tGameCount;
 				tXMLNodeList = new XMLNodeList (gameInfoParsingRoutine);
 				
 				tGameCount = tXMLNodeList.getChildCount (tChildNode, GameInfo.EN_GAME_INFO);

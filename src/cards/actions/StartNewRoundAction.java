@@ -2,10 +2,10 @@ package cards.actions;
 
 import cards.main.GameManager;
 import cards.main.Player;
-import cards.utilities.XMLNode;
 import cards.effects.Effect;
 import cards.effects.NewShuffleSeedEffect;
 import cards.effects.StartNewRoundEffect;
+import geUtilities.XMLNode;
 
 public class StartNewRoundAction extends Action {
 	public final static String NAME = "Start New Round";

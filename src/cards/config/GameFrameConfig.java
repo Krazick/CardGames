@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import org.w3c.dom.NodeList;
 
-import cards.utilities.AttributeName;
-import cards.utilities.ElementName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.AttributeName;
+import geUtilities.ElementName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class GameFrameConfig {
 	public static final AttributeName AN_GAME_NAME = new AttributeName ("gameName");

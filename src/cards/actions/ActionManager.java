@@ -2,9 +2,10 @@ package cards.actions;
 
 import cards.main.GameManager;
 import cards.network.JGameClient;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 import org.w3c.dom.NodeList;
 
@@ -209,7 +210,8 @@ public class ActionManager {
 		Action tAction;
 		XMLNode tActionNode;
 		NodeList tActionChildren;
-		int tActionNodeCount, tActionIndex;
+		int tActionNodeCount;
+		int tActionIndex;
 		String tANodeName;
 		
 		// When handling incoming Network Actions, we DO NOT want to notify other clients

@@ -4,7 +4,7 @@ import cards.effects.Effect;
 import cards.effects.PlayCardEffect;
 import cards.main.Card;
 import cards.main.GameManager;
-import cards.utilities.XMLNode;
+import geUtilities.XMLNode;
 
 public class PlayCardAction extends Action {
 	public final static String NAME = "Play Card";

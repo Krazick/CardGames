@@ -2,13 +2,13 @@ package cards.main;
 
 import org.w3c.dom.NodeList;
 
-import cards.utilities.AttributeName;
-import cards.utilities.ElementName;
-import cards.utilities.ParsingRoutineI;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
-import cards.utilities.XMLNodeList;
+import geUtilities.AttributeName;
+import geUtilities.ElementName;
+import geUtilities.ParsingRoutineI;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
+import geUtilities.XMLNodeList;
 //import cards.main.OptionEffect;
 //import cards.main.Option;
 

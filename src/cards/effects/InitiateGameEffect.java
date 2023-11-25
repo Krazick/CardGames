@@ -2,10 +2,10 @@ package cards.effects;
 
 import cards.actions.ActorI;
 import cards.main.GameManager;
-import cards.utilities.AttributeName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
-import cards.utilities.XMLNode;
+import geUtilities.AttributeName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
+import geUtilities.XMLNode;
 
 public class InitiateGameEffect extends Effect {
 	public final static String NAME = "Initiate Game";

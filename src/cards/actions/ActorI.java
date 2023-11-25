@@ -1,6 +1,6 @@
 package cards.actions;
 
-import cards.utilities.AttributeName;
+import geUtilities.AttributeName;
 
 public interface ActorI {
 	public final ActorI NO_ACTOR = null;

@@ -36,10 +36,14 @@ import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 
 import cards.main.XMLFrame;
-import cards.utilities.AttributeName;
-import cards.utilities.ElementName;
-import cards.utilities.XMLDocument;
-import cards.utilities.XMLElement;
+import geUtilities.AttributeName;
+//import cards.utilities.AttributeName;
+//import cards.utilities.ElementName;
+//import cards.utilities.XMLDocument;
+//import cards.utilities.XMLElement;
+import geUtilities.ElementName;
+import geUtilities.XMLDocument;
+import geUtilities.XMLElement;
 
 public class JGameClient extends XMLFrame {
 	private static final long serialVersionUID = 1L;

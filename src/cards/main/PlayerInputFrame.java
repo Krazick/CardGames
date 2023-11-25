@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import cards.network.JGameClient;
 import cards.network.NetworkPlayer;
-import cards.utilities.ElementName;
+import geUtilities.ElementName;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

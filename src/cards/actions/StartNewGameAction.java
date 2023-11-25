@@ -2,7 +2,7 @@ package cards.actions;
 
 import cards.effects.InitiateGameEffect;
 import cards.main.GameManager;
-import cards.utilities.XMLNode;
+import geUtilities.XMLNode;
 
 public class StartNewGameAction extends StartNewRoundAction {
 	public final static String NAME = "Start New Game";
