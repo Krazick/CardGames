@@ -28,7 +28,6 @@ import cards.config.GameFrameConfig;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
 import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
 import geUtilities.XMLNode;
 
 public class GameManager extends JFrame implements NetworkGameSupport {
