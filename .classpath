@@ -15,12 +15,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/classes" path="CardGames/JUnitSource">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="/Users/marksmith/eclipse-workspace/JARS/geUtilities.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
