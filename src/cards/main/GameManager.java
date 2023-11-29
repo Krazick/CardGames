@@ -303,7 +303,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		String tPlayerOrder;
 
 		tXMLGameActivity = new XMLDocument ();
-		tXMLGameActivity = tXMLGameActivity.ParseXMLString (aGameActivity);
+		tXMLGameActivity = tXMLGameActivity.parseXMLString (aGameActivity);
 		tXMLGameActivityNode = tXMLGameActivity.getDocumentNodeFromElement ();
 
 		tANodeName = tXMLGameActivityNode.getNodeName ();
