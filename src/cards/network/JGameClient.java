@@ -17,7 +17,6 @@ import java.net.ConnectException;
 import javax.swing.border.LineBorder;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -44,6 +43,7 @@ import geUtilities.AttributeName;
 import geUtilities.ElementName;
 import geUtilities.XMLDocument;
 import geUtilities.XMLElement;
+import swingDelays.KButton;
 
 public class JGameClient extends XMLFrame {
 	private static final long serialVersionUID = 1L;
@@ -85,12 +85,12 @@ public class JGameClient extends XMLFrame {
 	private JTextPane gameActivity;
 	private JTextField playerName;
 	private JTextField message;
-	private JButton connectButton;
-	private JButton sendMessageButton;
-	private JButton awayFromKeyboardAFKButton;
-	private JButton disconnectButton;
-	private JButton refreshPlayersButton;
-	private JButton startReadyButton;
+	private KButton connectButton;
+	private KButton sendMessageButton;
+	private KButton awayFromKeyboardAFKButton;
+	private KButton disconnectButton;
+	private KButton refreshPlayersButton;
+	private KButton startReadyButton;
 	private final ButtonGroup bgServerChoice = new ButtonGroup ();
 	private JRadioButton rbLocalServer;
 	private JRadioButton rbRemoteServer;
@@ -262,7 +262,7 @@ public class JGameClient extends XMLFrame {
 		});
 	}
 	
-	public void printButtonStatus (JButton aButton) {
+	public void printButtonStatus (KButton aButton) {
 		System.out.println (aButton.getActionCommand () + " Button is Enabled [" + aButton.isEnabled () + "]");		
 	}
 	
@@ -350,12 +350,12 @@ public class JGameClient extends XMLFrame {
 		bgServerChoice.add (rbRemoteServer);
 		
 		// Action Buttons
-		connectButton = new JButton (CONNECT_ACTION);
-		sendMessageButton = new JButton ("SEND");
-		awayFromKeyboardAFKButton = new JButton ("AFK");
-		refreshPlayersButton = new JButton ("REFRESH");
-		disconnectButton = new JButton("DISCONNECT");
-		startReadyButton = new JButton ("SELECT GAME");
+		connectButton = new KButton (CONNECT_ACTION);
+		sendMessageButton = new KButton ("SEND");
+		awayFromKeyboardAFKButton = new KButton ("AFK");
+		refreshPlayersButton = new KButton ("REFRESH");
+		disconnectButton = new KButton("DISCONNECT");
+		startReadyButton = new KButton ("SELECT GAME");
 
 		// Text Panes and Scroll Panes
 		chatText = new JTextPane ();

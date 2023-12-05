@@ -12,10 +12,10 @@ import java.awt.event.MouseListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import cards.actions.StartNewRoundAction;
+import swingDelays.KButton;
 
 public class TableTop extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class TableTop extends JPanel implements MouseListener {
 	CardImage blankCard;
 	ImageIcon blankIconImage;
 	Player nextPlayer;
-	JButton startNextRound;
+	KButton startNextRound;
 	JPanel leftBox, centerBox, rightBox;
 	CardImage westCard, northCard, eastCard, southCard;
 	
@@ -40,7 +40,7 @@ public class TableTop extends JPanel implements MouseListener {
 		setupTableTopContents();
 		
 		gameFrame = aGameFrame;
-		startNextRound = new JButton ("Start Next Round");
+		startNextRound = new KButton ("Start Next Round");
 		startNextRound.addActionListener (new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent aEvent) {

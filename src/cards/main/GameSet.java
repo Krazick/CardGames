@@ -16,6 +16,7 @@ import geUtilities.XMLDocument;
 import geUtilities.XMLElement;
 import geUtilities.XMLNode;
 import geUtilities.XMLNodeList;
+import swingDelays.KButton;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -26,7 +27,6 @@ import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,9 +55,9 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 	ButtonGroup gameButtons;
 	JRadioButton gameRadioButtons [];
 	JCheckBox gameOptions [];
-	JButton newGameButton;
-	JButton networkGameButton;
-	JButton loadGameButton;
+	KButton newGameButton;
+	KButton networkGameButton;
+	KButton loadGameButton;
 	Container listAndButtonBox;
 	JLabel gameInfoLabel;
 	JLabel gameDescriptionLabel;
@@ -158,14 +158,14 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 			listAndButtonBox = Box.createVerticalBox ();
 			listAndButtonBox.add (tGameList);
 			
-			networkGameButton = new JButton ();
+			networkGameButton = new KButton ();
 			setupButton (networkGameButton, NETWORK_GAME);
 			
-			newGameButton = new JButton ();
+			newGameButton = new KButton ();
 			setupButton (newGameButton, NEW_GAME);
 			setEnabledGameButtons (false, REASON_NO_NEW_GAME);
 			
-			loadGameButton = new JButton ();
+			loadGameButton = new KButton ();
 			setupButton (loadGameButton, LOAD_GAME);
 			
 			gamePanel.add (listAndButtonBox);
@@ -175,7 +175,7 @@ public class GameSet implements LoadableXMLI, ActionListener, ItemListener {
 		}
 	}
 
-	private void setupButton (JButton aButton, String aName) {
+	private void setupButton (KButton aButton, String aName) {
 		aButton.setText (aName);
 		aButton.setActionCommand (aName);
 		aButton.addActionListener (this);

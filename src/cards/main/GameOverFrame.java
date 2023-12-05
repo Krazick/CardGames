@@ -5,9 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import swingDelays.KButton;
 
 public class GameOverFrame extends XMLFrame {
 
@@ -19,8 +20,8 @@ public class GameOverFrame extends XMLFrame {
 		JLabel tGameNameLabel;
 		JLabel tPlayerOverLabel;
 		JLabel tAPlayerLabel;
-		JButton tQuitButton;
-		JButton tNewGameButton;
+		KButton tQuitButton;
+		KButton tNewGameButton;
 		JPanel tButtonsPanel;
 		Player tAPlayer;
 		String tPlayerOverString;
@@ -52,7 +53,7 @@ public class GameOverFrame extends XMLFrame {
 				add (Box.createVerticalStrut (30));
 			}
 		}
-		tNewGameButton = new JButton ("New Game");
+		tNewGameButton = new KButton ("New Game");
 		tNewGameButton.addActionListener (new ActionListener () {
 			@Override
 			public void actionPerformed (ActionEvent aEvent) {
@@ -60,7 +61,7 @@ public class GameOverFrame extends XMLFrame {
 			}
 		});
 		
-		tQuitButton = new JButton ("Quit");
+		tQuitButton = new KButton ("Quit");
 		tQuitButton.addActionListener (new ActionListener () {
 			@Override
 			public void actionPerformed (ActionEvent aEvent) {

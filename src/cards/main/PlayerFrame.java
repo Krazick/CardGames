@@ -14,12 +14,12 @@ import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cards.actions.PassCardsAction;
 import geUtilities.OverlapLayout;
+import swingDelays.KButton;
 
 public class PlayerFrame extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;
@@ -32,9 +32,9 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	JPanel centerPanel;
 	JPanel bottomPanel;
 	JPanel panel;
-	JButton pushCardsDown;
-	JButton passCards;
-	JButton playCard;
+	KButton pushCardsDown;
+	KButton passCards;
+	KButton playCard;
 	Container playArea;
 	JLabel nameLabel;
 	JLabel scoreLabel;
@@ -191,9 +191,9 @@ public class PlayerFrame extends JPanel implements MouseListener {
 		
 		buttonsPanel = new JPanel ();
 		buttonsPanel.setLayout (layout);
-		pushCardsDown = new JButton ("All Down");
-		passCards = new JButton ("Pass Cards");
-		playCard = new JButton ("Play Card");
+		pushCardsDown = new KButton ("All Down");
+		passCards = new KButton ("Pass Cards");
+		playCard = new KButton ("Play Card");
 		buttonsPanel.add (pushCardsDown, BorderLayout.SOUTH);
 		buttonsPanel.add (passCards, BorderLayout.SOUTH);
 		buttonsPanel.add (playCard, BorderLayout.SOUTH);

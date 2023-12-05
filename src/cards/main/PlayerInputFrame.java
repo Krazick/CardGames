@@ -5,6 +5,7 @@ import java.awt.event.FocusListener;
 import cards.network.JGameClient;
 import cards.network.NetworkPlayer;
 import geUtilities.ElementName;
+import swingDelays.KButton;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -40,7 +40,7 @@ public class PlayerInputFrame extends XMLFrame implements ActionListener, FocusL
 	GameManager gameManager;
 	JTextField [] tfPlayerNames;
 	JLabel labelPlayerCount;
-	JButton randomizeButton;
+	KButton randomizeButton;
 	int playerCount;
 	JPanel centerComponents;
 	JPanel westComponents;
@@ -80,7 +80,7 @@ public class PlayerInputFrame extends XMLFrame implements ActionListener, FocusL
 			tPlayersBox.add (tOnePlayerBox);
 			tPlayersBox.add (Box.createVerticalStrut (5));
 		}
-		randomizeButton = new JButton (RANDOMIZE_ORDER);
+		randomizeButton = new KButton (RANDOMIZE_ORDER);
 		randomizeButton.setActionCommand (RANDOMIZE_ORDER);
 		randomizeButton.addActionListener (this);
 		randomizeButton.setEnabled (false);

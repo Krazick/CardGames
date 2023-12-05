@@ -9,7 +9,6 @@ import java.io.File;
 import java.util.Random;
 
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +28,7 @@ import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
 import geUtilities.XMLDocument;
 import geUtilities.XMLNode;
+import swingDelays.KButton;
 
 public class GameManager extends JFrame implements NetworkGameSupport {
 	private static final long serialVersionUID = 1L;
@@ -46,8 +46,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public ActionManager actionManager;
 	private JTextField clientUserName;
 	private JGameClient jGameClient;
-	private JButton newGameButton;
-	private JButton quitButton;
+	private KButton newGameButton;
+	private KButton quitButton;
 	private GamePanel gamePanel;
 	private boolean notifyNetwork;
 	private Long shuffleSeed;
@@ -116,8 +116,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		clientUserName.setColumns (10);
 		clientUserName.setEnabled (true);
 		
-		newGameButton = new JButton ("New Game");
-		quitButton = new JButton("Quit");
+		newGameButton = new KButton ("New Game");
+		quitButton = new KButton("Quit");
 		
 		GroupLayout groupLayout = new GroupLayout (getContentPane ());
 		groupLayout.setHorizontalGroup(
