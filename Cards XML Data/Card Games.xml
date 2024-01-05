@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Cards>
-<Network name="Mark's Server" localServerIP="192.168.1.9" remoteServerIP="173.79.188.165" serverPort="18300"/>
+<Network name="Mark's Server" localServerIP="192.168.1.21" remoteServerIP="72.83.66.50" 
+			serverPort="18300"/>
 <Games>
 	<GameInfo id="1" name="Hearts" minPlayers="2" maxPlayers="8">
 		<Options>
