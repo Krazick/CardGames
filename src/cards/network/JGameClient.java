@@ -43,7 +43,7 @@ import geUtilities.AttributeName;
 import geUtilities.ElementName;
 import geUtilities.XMLDocument;
 import geUtilities.XMLElement;
-import swingDelays.KButton;
+import swingTweaks.KButton;
 
 public class JGameClient extends XMLFrame {
 	private static final long serialVersionUID = 1L;

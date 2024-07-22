@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 import cards.actions.PassCardsAction;
 import geUtilities.OverlapLayout;
-import swingDelays.KButton;
+import swingTweaks.KButton;
 
 public class PlayerFrame extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 1L;

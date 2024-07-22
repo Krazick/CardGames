@@ -16,7 +16,7 @@ import geUtilities.XMLDocument;
 import geUtilities.XMLElement;
 import geUtilities.XMLNode;
 import geUtilities.XMLNodeList;
-import swingDelays.KButton;
+import swingTweaks.KButton;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;

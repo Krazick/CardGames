@@ -8,7 +8,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import swingDelays.KButton;
+import swingTweaks.KButton;
 
 public class GameOverFrame extends XMLFrame {
 

@@ -5,7 +5,7 @@ import java.awt.event.FocusListener;
 import cards.network.JGameClient;
 import cards.network.NetworkPlayer;
 import geUtilities.ElementName;
-import swingDelays.KButton;
+import swingTweaks.KButton;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

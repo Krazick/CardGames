@@ -28,7 +28,7 @@ import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
 import geUtilities.XMLDocument;
 import geUtilities.XMLNode;
-import swingDelays.KButton;
+import swingTweaks.KButton;
 
 public class GameManager extends JFrame implements NetworkGameSupport {
 	private static final long serialVersionUID = 1L;
