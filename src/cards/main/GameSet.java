@@ -10,12 +10,12 @@ package cards.main;
 
 import cards.network.JGameClient;
 import geUtilities.LoadableXMLI;
-import geUtilities.ElementName;
 import geUtilities.ParsingRoutineI;
-import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
-import geUtilities.XMLNode;
-import geUtilities.XMLNodeList;
+import geUtilities.xml.ElementName;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLElement;
+import geUtilities.xml.XMLNode;
+import geUtilities.xml.XMLNodeList;
 import swingTweaks.KButton;
 
 import java.awt.Container;

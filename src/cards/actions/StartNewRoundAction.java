@@ -5,7 +5,7 @@ import cards.main.Player;
 import cards.effects.Effect;
 import cards.effects.NewShuffleSeedEffect;
 import cards.effects.StartNewRoundEffect;
-import geUtilities.XMLNode;
+import geUtilities.xml.XMLNode;
 
 public class StartNewRoundAction extends Action {
 	public final static String NAME = "Start New Round";

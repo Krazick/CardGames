@@ -4,10 +4,10 @@ import cards.actions.ActorI;
 import cards.main.Card;
 import cards.main.GameManager;
 import cards.main.Player;
-import geUtilities.AttributeName;
-import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
-import geUtilities.XMLNode;
+import geUtilities.xml.AttributeName;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLElement;
+import geUtilities.xml.XMLNode;
 
 public class PassTheCardEffect extends ToActorEffect {
 	public final static String NAME = "Pass the Card";

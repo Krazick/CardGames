@@ -3,11 +3,11 @@ package cards.actions;
 import cards.main.GameManager;
 import cards.effects.Effect;
 
-import geUtilities.AttributeName;
-import geUtilities.ElementName;
-import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
-import geUtilities.XMLNode;
+import geUtilities.xml.AttributeName;
+import geUtilities.xml.ElementName;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLElement;
+import geUtilities.xml.XMLNode;
 
 import org.w3c.dom.NodeList;
 

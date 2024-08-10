@@ -5,7 +5,7 @@ import cards.effects.PassTheCardEffect;
 import cards.effects.PassedCardsEffect;
 import cards.main.Card;
 import cards.main.GameManager;
-import geUtilities.XMLNode;
+import geUtilities.xml.XMLNode;
 
 public class PassCardsAction extends Action {
 	public final static String NAME = "Pass Cards";

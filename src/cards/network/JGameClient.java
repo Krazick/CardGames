@@ -35,14 +35,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 
 import cards.main.XMLFrame;
-import geUtilities.AttributeName;
-//import cards.utilities.AttributeName;
-//import cards.utilities.ElementName;
-//import cards.utilities.XMLDocument;
-//import cards.utilities.XMLElement;
-import geUtilities.ElementName;
-import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
+import geUtilities.xml.AttributeName;
+import geUtilities.xml.ElementName;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLElement;
 import swingTweaks.KButton;
 
 public class JGameClient extends XMLFrame {

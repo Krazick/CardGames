@@ -13,9 +13,9 @@ import cards.config.FrameInfo;
 import cards.config.GameFrameConfig;
 
 import geUtilities.LoadableXMLI;
-import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
-import geUtilities.XMLNode;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLElement;
+import geUtilities.xml.XMLNode;
 
 import java.io.IOException;
 

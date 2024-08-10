@@ -2,10 +2,10 @@ package cards.effects;
 
 import cards.actions.ActorI;
 import cards.main.GameManager;
-import geUtilities.XMLNode;
-import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
-import geUtilities.AttributeName;
+import geUtilities.xml.XMLNode;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLElement;
+import geUtilities.xml.AttributeName;
 
 public class NewShuffleSeedEffect extends Effect {
 	public final static String NAME = "New Shuffle Seed";

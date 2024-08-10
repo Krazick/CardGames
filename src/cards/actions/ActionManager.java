@@ -3,9 +3,9 @@ package cards.actions;
 import cards.main.GameManager;
 import cards.network.JGameClient;
 
-import geUtilities.XMLDocument;
-import geUtilities.XMLElement;
-import geUtilities.XMLNode;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLElement;
+import geUtilities.xml.XMLNode;
 
 import org.w3c.dom.NodeList;
 

@@ -26,8 +26,8 @@ import cards.actions.StartNewGameAction;
 import cards.config.GameFrameConfig;
 import cards.network.JGameClient;
 import cards.network.NetworkGameSupport;
-import geUtilities.XMLDocument;
-import geUtilities.XMLNode;
+import geUtilities.xml.XMLDocument;
+import geUtilities.xml.XMLNode;
 import swingTweaks.KButton;
 
 public class GameManager extends JFrame implements NetworkGameSupport {
