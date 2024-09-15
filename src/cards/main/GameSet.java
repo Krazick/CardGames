@@ -9,7 +9,7 @@ package cards.main;
 //
 
 import cards.network.JGameClient;
-import geUtilities.LoadableXMLI;
+import geUtilities.xml.LoadableXMLI;
 import geUtilities.ParsingRoutineI;
 import geUtilities.xml.ElementName;
 import geUtilities.xml.XMLDocument;

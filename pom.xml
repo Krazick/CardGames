@@ -58,5 +58,10 @@
   		<artifactId>commons-text</artifactId>
   		<version>1.9</version>
   	</dependency>
+  	<dependency>
+  		<groupId>GameEngineUtilities</groupId>
+  		<artifactId>GameEngineUtilities</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>
