@@ -10,7 +10,7 @@ import geUtilities.xml.XMLElement;
 import geUtilities.xml.XMLNode;
 
 public class PassTheCardEffect extends ToActorEffect {
-	public final static String NAME = "Pass the Card";
+	public static final String NAME = "Pass the Card";
 	final static AttributeName AN_CARD_NAME = new AttributeName ("cardName");
 	Card card;
 

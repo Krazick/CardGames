@@ -8,7 +8,7 @@ import geUtilities.xml.XMLElement;
 import geUtilities.xml.XMLNode;
 
 public class InitiateGameEffect extends Effect {
-	public final static String NAME = "Initiate Game";
+	public static final String NAME = "Initiate Game";
 	final static AttributeName AN_INITIATE_GAME = new AttributeName ("initiateGame");
 	boolean initiateGame;
 	

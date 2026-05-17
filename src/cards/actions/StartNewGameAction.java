@@ -5,7 +5,7 @@ import cards.main.GameManager;
 import geUtilities.xml.XMLNode;
 
 public class StartNewGameAction extends StartNewRoundAction {
-	public final static String NAME = "Start New Game";
+	public static final String NAME = "Start New Game";
 	
 	public StartNewGameAction () {
 		this (NAME);

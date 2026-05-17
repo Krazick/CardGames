@@ -8,7 +8,7 @@ import cards.main.GameManager;
 import geUtilities.xml.XMLNode;
 
 public class PassCardsAction extends Action {
-	public final static String NAME = "Pass Cards";
+	public static final String NAME = "Pass Cards";
 
 	public PassCardsAction () {
 		this (NAME);

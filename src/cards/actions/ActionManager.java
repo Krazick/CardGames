@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActionManager {
-	public final static Action NO_ACTION = null;
+	public static final Action NO_ACTION = null;
 	List<Action> actions;
 	ActionReportFrame actionReportFrame;
 	GameManager gameManager;

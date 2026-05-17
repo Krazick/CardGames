@@ -8,7 +8,7 @@ import cards.effects.StartNewRoundEffect;
 import geUtilities.xml.XMLNode;
 
 public class StartNewRoundAction extends Action {
-	public final static String NAME = "Start New Round";
+	public static final String NAME = "Start New Round";
 	
 	public StartNewRoundAction () {
 		this (NAME);

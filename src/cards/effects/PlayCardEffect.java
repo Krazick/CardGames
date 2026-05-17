@@ -10,7 +10,7 @@ import geUtilities.xml.XMLElement;
 import geUtilities.xml.XMLNode;
 
 public class PlayCardEffect extends Effect {
-	public final static String NAME = "Play Card";
+	public static final String NAME = "Play Card";
 	final static AttributeName AN_CARD_NAME = new AttributeName ("cardName");
 	Card card;
 	

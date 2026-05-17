@@ -8,7 +8,7 @@ import geUtilities.xml.XMLElement;
 import geUtilities.xml.XMLNode;
 
 public class StartNewRoundEffect extends Effect {
-	public final static String NAME = "Start New Round";
+	public static final String NAME = "Start New Round";
 
 	public StartNewRoundEffect () {
 		this (NAME);

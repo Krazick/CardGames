@@ -7,7 +7,7 @@ import cards.main.GameManager;
 import geUtilities.xml.XMLNode;
 
 public class PlayCardAction extends Action {
-	public final static String NAME = "Play Card";
+	public static final String NAME = "Play Card";
 
 	public PlayCardAction () {
 		this (NAME);

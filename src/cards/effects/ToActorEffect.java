@@ -9,7 +9,7 @@ import geUtilities.xml.XMLElement;
 import geUtilities.xml.XMLNode;
 
 public class ToActorEffect extends Effect {
-	public final static String NAME = "To Actor";
+	public static final String NAME = "To Actor";
 	ActorI toActor;
 	
 	public ToActorEffect () {

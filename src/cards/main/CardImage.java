@@ -10,9 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class CardImage {
-	public final static CardImage NO_CARD_IMAGE = null;
-	public final static String BLANK_CARD = "cardblank";
-	public final static String CARD_BACK = "cardback";
+	public static final CardImage NO_CARD_IMAGE = null;
+	public static final String BLANK_CARD = "cardblank";
+	public static final String CARD_BACK = "cardback";
 	ImageIcon image;
 	String name;
 	JLabel cardLabel;

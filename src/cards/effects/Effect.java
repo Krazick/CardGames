@@ -10,12 +10,12 @@ import geUtilities.xml.XMLElement;
 import geUtilities.xml.XMLNode;
 
 public class Effect {
-	public final static String NO_NAME = ">>NO EFFECT NAME<<";
-	public final static ActorI NO_ACTOR = null;
+	public static final String NO_NAME = ">>NO EFFECT NAME<<";
+	public static final ActorI NO_ACTOR = null;
 	public static final ElementName EN_EFFECTS = new ElementName ("Effects");
 	public static final ElementName EN_EFFECT = new ElementName ("Effect");
-	public final static String REPORT_PREFIX = "--" + EN_EFFECT + ": ";
-	public final static AttributeName AN_CLASS = new AttributeName ("class");
+	public static final String REPORT_PREFIX = "--" + EN_EFFECT + ": ";
+	public static final AttributeName AN_CLASS = new AttributeName ("class");
 	static final AttributeName AN_NAME = new AttributeName ("name");
 
 	String name;

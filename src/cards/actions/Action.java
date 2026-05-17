@@ -16,12 +16,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Action {
-	public final static String NO_NAME = ">> NO ACTION NAME <<";
-	public final static ActorI NO_ACTOR = null;
-	public final static String REPORT_PREFIX = "-";
-	public final static ElementName EN_ACTIONS = new ElementName ("Actions");
-	public final static ElementName EN_ACTION = new ElementName ("Action");
-	public final static AttributeName AN_CLASS = new AttributeName ("class");
+	public static final String NO_NAME = ">> NO ACTION NAME <<";
+	public static final ActorI NO_ACTOR = null;
+	public static final String REPORT_PREFIX = "-";
+	public static final ElementName EN_ACTIONS = new ElementName ("Actions");
+	public static final ElementName EN_ACTION = new ElementName ("Action");
+	public static final AttributeName AN_CLASS = new AttributeName ("class");
 	static final AttributeName AN_NAME = new AttributeName ("name");
 	static final AttributeName AN_CHAIN_PREVIOUS = new AttributeName ("chainPrevious");
 	String name;

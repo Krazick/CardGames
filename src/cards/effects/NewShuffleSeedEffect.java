@@ -8,7 +8,7 @@ import geUtilities.xml.XMLElement;
 import geUtilities.xml.AttributeName;
 
 public class NewShuffleSeedEffect extends Effect {
-	public final static String NAME = "New Shuffle Seed";
+	public static final String NAME = "New Shuffle Seed";
 	final static AttributeName AN_NEW_SHUFFLE_SEED = new AttributeName ("aNewShuffleSeed");
 	Long newShuffleSeed;
 	

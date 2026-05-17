@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class ServerHandler implements Runnable {
-	public final static ServerHandler NO_SERVER_HANDLER = null;
+	public static final ServerHandler NO_SERVER_HANDLER = null;
     private final static int DefaultTimeout = 12000;
     private final static int DefaultSleep = 60000;
 	private Socket socket;

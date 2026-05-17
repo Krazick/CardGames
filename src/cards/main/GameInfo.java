@@ -15,7 +15,7 @@ public class GameInfo {
 	final AttributeName AN_MAX_PLAYERS = new AttributeName ("maxPlayers");
 	final AttributeName AN_ID = new AttributeName ("id");
 	final AttributeName AN_NAME = new AttributeName ("name");
-	public final static ElementName EN_GAME_INFO = new ElementName ("GameInfo");
+	public static final ElementName EN_GAME_INFO = new ElementName ("GameInfo");
 	static final int NO_GAME_ID = 0;
 	static final String NO_NAME = "<NONE>";
 	static final int NO_MIN_PLAYERS = 0;
