@@ -450,7 +450,8 @@ public class PlayerFrame extends JPanel implements MouseListener {
 	}
 	
 	public void showAllCardsInFrame () {
-		int tCardIndex, tCardCount;
+		int tCardIndex;
+		int tCardCount;
 		Hand tPlayerHand;
 		boolean tWasFaceDown;
 		

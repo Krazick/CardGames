@@ -11,14 +11,6 @@ public class InitiateGameEffect extends Effect {
 	public static final String NAME = "Initiate Game";
 	final static AttributeName AN_INITIATE_GAME = new AttributeName ("initiateGame");
 	boolean initiateGame;
-	
-	public InitiateGameEffect () {
-		this (NAME);
-	}
-
-	public InitiateGameEffect (String aName) {
-		this (aName, ActorI.NO_ACTOR);
-	}
 
 	public InitiateGameEffect (String aName, ActorI aActor) {
 		this (aName, aActor, false);

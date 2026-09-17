@@ -392,6 +392,7 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		tStartNewGameAction = new StartNewGameAction (tClientActor);
 		tStartNewGameAction.addNewShuffleSeedEffect (tClientActor, shuffleSeed);
 		tStartNewGameAction.addInitiateGameEffect (tClientActor, true);
+		tStartNewGameAction.addShowHandsEffect (tClientActor);
 		
 		actionManager.addAction (tStartNewGameAction);
 		actionManager.actionReport ();
@@ -431,6 +432,10 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		return tPlayer;
 	}
 
+	public void showHands () {
+		gameFrame.showHands ();
+	}
+	
 	public void updateAllScores () {
 		players.updateAllScores ();
 	}

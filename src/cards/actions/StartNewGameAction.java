@@ -1,19 +1,12 @@
 package cards.actions;
 
 import cards.effects.InitiateGameEffect;
+import cards.effects.ShowHandsEffect;
 import cards.main.GameManager;
 import geUtilities.xml.XMLNode;
 
 public class StartNewGameAction extends StartNewRoundAction {
 	public static final String NAME = "Start New Game";
-	
-	public StartNewGameAction () {
-		this (NAME);
-	}
-
-	public StartNewGameAction (String aName) {
-		this (aName, NO_ACTOR);
-	}
 
 	public StartNewGameAction (ActorI aActor) {
 		this (NAME, aActor);
@@ -33,5 +26,12 @@ public class StartNewGameAction extends StartNewRoundAction {
 
 		tInitiateGameEffect = new InitiateGameEffect (aPlayer, aInitiateGame);
 		addEffect (tInitiateGameEffect);
+	}
+	
+	public void addShowHandsEffect (ActorI aPlayer) {
+		ShowHandsEffect tShowHandsEffect;
+		
+		tShowHandsEffect = new ShowHandsEffect (aPlayer);
+		addEffect (tShowHandsEffect);
 	}
 }

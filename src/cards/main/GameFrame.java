@@ -16,7 +16,7 @@ public class GameFrame extends XMLFrame {
 	int currentPlayer;
 	int passIncrement;
 	int frameWidth = 550;
-	int frameHeight = 775;
+	int frameHeight = 650;
 	
 	public GameFrame (String aFrameName, GameManager aGameManager) {
 		super (aFrameName);
@@ -152,6 +152,10 @@ public class GameFrame extends XMLFrame {
 			tBorderLayout = cycleBorderLayout (tBorderLayout);
 		}
 		setSize (frameWidth, frameHeight);
+	}
+	
+	public void showFrame () {
+		setVisible (true);
 	}
 	
 	public void showHands () {

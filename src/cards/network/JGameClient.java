@@ -44,8 +44,8 @@ import swingTweaks.KButton;
 public class JGameClient extends XMLFrame {
 	private static final long serialVersionUID = 1L;
 	private static final int DEFAULT_SERVER_PORT = 52000;
-	private static final String DEFAULT_REMOTE_SERVER_IP = "72.83.66.50";
-	private static final String DEFAULT_LOCAL_SERVER_IP = "72.83.66.50";
+	private static final String DEFAULT_REMOTE_SERVER_IP = "96.231.46.49";
+	private static final String DEFAULT_LOCAL_SERVER_IP = "96.231.46.49";
 	private static final String CONNECT_ACTION = "CONNECT";
 	public  static final String EMPTY_GAME_ID = "";
 	public  static final String NO_GAME_ID = "NOID";
