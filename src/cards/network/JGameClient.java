@@ -35,6 +35,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.SwingConstants;
 
 import cards.main.XMLFrame;
+import geUtilities.GUI;
 import geUtilities.xml.AttributeName;
 import geUtilities.xml.ElementName;
 import geUtilities.xml.XMLDocument;
@@ -666,10 +667,12 @@ public class JGameClient extends XMLFrame {
 	public String constructGameActivityXML (ElementName aElementName, 
 			AttributeName aAttributeName1, String aAttributeValue1,
 			AttributeName aAttributeName2, String aAttributeValue2) {
-		String tGameActivity = "";
-		XMLDocument tXMLDocument = new XMLDocument ();
-		XMLElement tXMLGameActivity, tXMLElement;
+		String tGameActivity = GUI.EMPTY_STRING;
+		XMLDocument tXMLDocument;
+		XMLElement tXMLGameActivity;
+		XMLElement tXMLElement;
 		
+		tXMLDocument = new XMLDocument ();
 		tXMLGameActivity = tXMLDocument.createElement (EN_GAME_ACTIVITY);
 		tXMLElement = tXMLDocument.createElement (aElementName);
 		tXMLElement.setAttribute (aAttributeName1, aAttributeValue1);
@@ -677,8 +680,8 @@ public class JGameClient extends XMLFrame {
 		tXMLGameActivity.appendChild (tXMLElement);
 		tXMLDocument.appendChild (tXMLGameActivity);
 		
-		tGameActivity = tXMLDocument.toString ();
-		tGameActivity = tGameActivity.replace ("\n", "");
+		tGameActivity = tXMLDocument.toXMLString ();
+		tGameActivity = tGameActivity.replace ("\n", GUI.EMPTY_STRING);
 		
 		return tGameActivity;
 	}
@@ -689,8 +692,10 @@ public class JGameClient extends XMLFrame {
 	}
 	
 	private void sendMessage (String aAction) {
+		String tMessage;
+		
 		if ("SEND".equals (aAction)) {
-			String tMessage = message.getText ();
+			tMessage = message.getText ();
 			
 			// De-activate AFK, if it has been set
 			backFromAFK ();
@@ -705,13 +710,15 @@ public class JGameClient extends XMLFrame {
 					appendToChat ("I said: " + tMessage, iSaid);
 				}
 			}
-			message.setText ("");
+			message.setText (GUI.EMPTY_STRING);
 		}
 	}
 	
 	public void appendToGameActivity (String aGameActivity) {
+		Document doc;
+		
 		try {
-			Document doc = gameActivity.getDocument ();
+			doc = gameActivity.getDocument ();
 			doc.insertString (doc.getLength (), "\n" + aGameActivity, normal);
 			scroll (spGameActivity, ScrollDirection.DOWN);
 		} catch (BadLocationException exc) {
@@ -728,7 +735,8 @@ public class JGameClient extends XMLFrame {
 	}
 	
 	public void handleServerMessage (String tMessage) {
-		String tPatternStart, tPatternEnd;
+		String tPatternStart;
+		String tPatternEnd;
 		
 		tPatternStart = GAME_ACTIVITY_PREFIX + " <" + GAME_ACTIVITY_TAG + ">";
 		tPatternEnd = "</" + GAME_ACTIVITY_TAG + ">";

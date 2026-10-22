@@ -46,13 +46,13 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	public ActionManager actionManager;
 	private JTextField clientUserName;
 	private JGameClient jGameClient;
-	private KButton newGameButton;
+	private KButton okButton;
 	private KButton quitButton;
 	private GamePanel gamePanel;
-	private boolean notifyNetwork;
 	private Long shuffleSeed;
 	private Random randomGenerator;
 	private int scoreLimit;
+	private boolean notifyNetwork;
 	private boolean overLimitWon;
 	CardImages cardImages;
 	String gameID;
@@ -65,15 +65,14 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		String tTitle;
 		Long tSeed;
 
-		
 		printArgs (aArgs);
 		cardImages = new CardImages ();
 		
-		tTitle = "Cards Game Startup";
+		tTitle = "Card Games Startup";
 		setTitle (tTitle);
 		setGameID ("2021-10-10-1010");
 		
-		setSize (375, 250);
+		setSize (375, 260);
 		
 		setFrameContents ();
 		setupFrameActions ();
@@ -99,79 +98,95 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 	}
 	
 	public void setFrameContents () {
-		String tVersionLabel = "Version 0.2.1 Alpha";
-		JLabel tGameEngineTitle = new JLabel ("Cards Game Manager");
-
+		String tVersionLabel;
+		String tJavaVersionText;
+		JLabel tGameEngineTitle;
+		JLabel tGameEngineVersion;
+		JLabel tJavaVersion;
+		JLabel tClientLabel;
+	
+		tVersionLabel = "Version 0.2.2 Alpha";
+		tGameEngineTitle = new JLabel ("Card Games Engine");
 		tGameEngineTitle.setFont (new Font ("Lucida Grande", Font.BOLD, 24));
 		tGameEngineTitle.setHorizontalAlignment (SwingConstants.CENTER);
 		
-		JLabel tGameEngineVersion = new JLabel ("Version: X.X");
-		tGameEngineVersion.setText (tVersionLabel);
+		tJavaVersionText = "Java Version " + System.getProperty ("java.version");
+		tJavaVersion = new JLabel (tJavaVersionText);
+		tJavaVersion.setHorizontalAlignment (SwingConstants.CENTER);
+		tJavaVersion.setFont (new Font ("Lucida Grande", Font.PLAIN, 15));
+		tClientLabel = new JLabel ("Client User Name:");
+
+		tGameEngineVersion = new JLabel (tVersionLabel);
 		tGameEngineVersion.setHorizontalAlignment (SwingConstants.CENTER);
 		tGameEngineVersion.setFont (new Font ("Lucida Grande", Font.PLAIN, 20));
-		
-		JLabel tClientLabel = new JLabel ("User Name:");
-		
+
 		clientUserName = new JTextField ();
 		clientUserName.setColumns (10);
 		clientUserName.setEnabled (true);
 		
-		newGameButton = new KButton ("New Game");
-		quitButton = new KButton("Quit");
+		okButton = new KButton ("OK");
+		quitButton = new KButton ("Quit");
 		
 		GroupLayout groupLayout = new GroupLayout (getContentPane ());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(114)
-							.addComponent(tGameEngineVersion))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(55)
-							.addComponent(tGameEngineTitle))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(57)
-							.addComponent(tClientLabel)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(clientUserName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(21)
-							.addComponent(newGameButton)
-							.addGap(140)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(quitButton)))
-					.addContainerGap(11, Short.MAX_VALUE))
+		groupLayout.setHorizontalGroup (
+			groupLayout.createParallelGroup (Alignment.LEADING)
+				.addGroup (groupLayout.createSequentialGroup ()
+					.addGroup (groupLayout.createParallelGroup (Alignment.LEADING)
+						.addGroup (groupLayout.createSequentialGroup ()
+							.addGap (55)
+							.addComponent (tGameEngineTitle))
+						.addGroup (groupLayout.createSequentialGroup ()
+							.addGap (55)
+							.addComponent (tJavaVersion))
+						.addGroup (groupLayout.createSequentialGroup ()
+							.addGap (55)
+							.addComponent (tGameEngineVersion))
+						.addGroup (groupLayout.createSequentialGroup ()
+							.addGap (57)
+							.addComponent (tClientLabel)
+							.addPreferredGap (ComponentPlacement.UNRELATED)
+							.addComponent (clientUserName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup (groupLayout.createSequentialGroup ()
+							.addGap (21)
+							.addComponent (okButton)
+							.addGap (140)
+							.addPreferredGap (ComponentPlacement.UNRELATED)
+							.addComponent (quitButton)
+							.addGap ((55))))
+					
+					.addContainerGap (11, Short.MAX_VALUE))
 		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(34)
-					.addComponent(tGameEngineTitle)
-					.addGap(18)
-					.addComponent(tGameEngineVersion)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tClientLabel)
-						.addComponent(clientUserName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(newGameButton)
-						.addComponent(quitButton))
-					.addContainerGap(12, Short.MAX_VALUE))
+		groupLayout.setVerticalGroup (
+			groupLayout.createParallelGroup (Alignment.LEADING)
+				.addGroup (groupLayout.createSequentialGroup ()
+					.addGap (16)
+					.addComponent (tGameEngineTitle)
+					.addGap (18)
+					.addComponent (tJavaVersion)
+					.addGap (18)
+					.addComponent (tGameEngineVersion)
+					.addGap (18)
+					.addGroup (groupLayout.createParallelGroup (Alignment.BASELINE)
+						.addComponent (tClientLabel)
+						.addComponent (clientUserName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap (ComponentPlacement.UNRELATED)
+					.addGroup( groupLayout.createParallelGroup (Alignment.BASELINE)
+						.addComponent (okButton)
+						.addComponent (quitButton))
+					.addContainerGap (12, Short.MAX_VALUE))
 		);
-		disableGameButtons ();
+		disableOKButton ();
 		getContentPane ().setLayout (groupLayout);
 	}
 	
-	private void disableGameButtons () {
-		newGameButton.setEnabled (false);
-		newGameButton.setToolTipText (ENTER_USER_NAME);
+	private void disableOKButton () {
+		okButton.setEnabled (false);
+		okButton.setToolTipText (ENTER_USER_NAME);
 	}
 	
 	public void enableGameStartItems () {
-		newGameButton.setEnabled (true);
-		newGameButton.setToolTipText (NO_TOOL_TIP);
+		okButton.setEnabled (true);
+		okButton.setToolTipText (NO_TOOL_TIP);
 		clientUserName.setEnabled (true);
 	}
 
@@ -183,14 +198,14 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 			}
 		});
 	
-		newGameButton.addActionListener (new ActionListener () {
+		okButton.addActionListener (new ActionListener () {
 			@Override
 			public void actionPerformed (ActionEvent aEvent) {
 				newGame ();
 			}
 		});
 		
-		newGameButton.addKeyListener (new KeyAdapter () {
+		okButton.addKeyListener (new KeyAdapter () {
 			@Override
 			public void keyReleased (KeyEvent e) {
 				if (e.getKeyCode () == KeyEvent.VK_ENTER){
@@ -296,8 +311,8 @@ public class GameManager extends JFrame implements NetworkGameSupport {
 		NodeList tActionChildren;
 		int tActionNodeCount;
 		int tActionIndex;
-		String tANodeName;
 		int tGameIndex;
+		String tANodeName;
 		String tGameOptions;
 		String tBroadcast;
 		String tPlayerOrder;
